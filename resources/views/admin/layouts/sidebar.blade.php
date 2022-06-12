@@ -13,7 +13,7 @@
           <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Account</a>
+          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -59,6 +59,18 @@
               </li>
 
             </ul>
+          </li>
+
+          <li class="nav-item menu-open">
+            <form action="{{ route('auth.logout.post') }}" method="post">
+              @csrf
+              <button type="submit" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>
+                  @lang('Log out')
+                </p>
+              </button>
+            </form>
           </li>
         </ul>
       </nav>

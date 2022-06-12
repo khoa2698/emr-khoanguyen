@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\emr\AccountController;
 use App\Http\Controllers\emr\DashboardController;
 use App\Http\Controllers\emr\PermissionController;
@@ -19,8 +21,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/lang/{lang}', [LangController::class, 'changeLang'])->name('lang');
 
+# Web
 
-Route::prefix('/emr')->group(function(){
+
+# Auth
+Route::get('/login', [AuthController::class, 'index'])->name('auth.login.get');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout.post');
+
+# Reset password
+Route::get('/forgot-password', [ResetPasswordController::class, 'showForgetPasswordForm'])->name('auth.forgot.get');
+Route::post('/forgot-password', [ResetPasswordController::class, 'submitForgetPasswordForm'])->name('auth.forgot.post');
+Route::get('/recovery-password/{token}', [ResetPasswordController::class, 'showRecoveryPasswordForm'])->name('auth.recovery.get');
+Route::post('/recovery-password', [ResetPasswordController::class, 'submitRecoveryPasswordForm'])->name('auth.recovery.post');
+
+# Admin
+Route::prefix('/emr')->middleware('auth')->group(function(){
+
     Route::get('/', [DashboardController::class, 'index'])->name('emr.dashboard');
     # Route Account
     Route::prefix('/account')->controller(AccountController::class)->group(function(){

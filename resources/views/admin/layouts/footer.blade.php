@@ -38,6 +38,7 @@
 
 <!-- Validation form submit -->
 <script src="/assets/js/validation.js"></script>
+
 <script src="/assets/admin/js/main.js"></script>
 <script>
   @yield('script')
