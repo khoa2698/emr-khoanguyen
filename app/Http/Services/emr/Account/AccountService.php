@@ -12,7 +12,7 @@ class AccountService
 {
     public function getAll()
     {
-        return User::orderByDesc('id')->paginate(10);
+        return User::orderByDesc('id')->paginate(10)->withQueryString();
     }
     
     public function getAllRole()

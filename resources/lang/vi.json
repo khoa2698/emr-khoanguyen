@@ -43,6 +43,8 @@
     "Manage Medical Records": "Quản lý hồ sơ bệnh án",
     "Hospital Fee Payment Management": "Quản lý thanh toán viện phí",
     "Appointment Management": "Quản lý lịch hẹn",
+    "New Appointment": "Cuộc hẹn mới",
+    "Pending Appointment": "Cuộc hẹn đang xử lý",
     "Add patient": "Thêm bệnh nhân",
     "Edit patient": "Sửa bệnh nhân",
     "Delete patient": "Xóa bệnh nhân",
@@ -51,5 +53,7 @@
     "You have typed an invalid email address": "Địa chỉ email không hợp lệ",
     "Log out": "Đăng xuất",
     "You forgot your password? Type your email was subscribed.": "Bạn đã quên mật khẩu? Hãy nhập email bạn đã đăng ký để lấy mật khẩu.",
-    "You are only one step a way from your new password, recover your password now.": "Đổi mật khẩu mới cho tài khoản."
+    "You are only one step a way from your new password, recover your password now.": "Đổi mật khẩu mới cho tài khoản.",
+    "Phone Number": "Số điện thoại",
+    "Status": "Trạng thái"
 }

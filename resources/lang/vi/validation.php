@@ -83,7 +83,7 @@ return [
     ],
     'mac_address' => 'The :attribute must be a valid MAC address.',
     'max' => [
-        'numeric' => 'The :attribute must not be greater than :max.',
+        'numeric' => ':attribute tối đa :max ký tự.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
         'string' => 'The :attribute must not be greater than :max characters.',
         'array' => 'The :attribute must not have more than :max items.',
@@ -160,7 +160,9 @@ return [
 
     'attributes' => [
         'password' => 'Mật khẩu',
-        'email' => "Địa chỉ email"
+        'email' => "Địa chỉ email",
+        'name' => 'Tên',
+        'phone' => 'Số điện thoại'
     ],
 
 ];

@@ -1,5 +1,30 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
+/**-------- Submit ajax appointment form  ----------*/
+// $("#form-1").on('submit', function(e) {
 
+//     e.preventDefault(); 
+
+//     var form = $(this);
+//     var actionUrl = form.attr('action');
+//     console.log(form.serialize());
+    
+//     $.ajax({
+//         type: "POST",
+//         url: actionUrl,
+//         data: form.serialize(),
+//         success: function(data)
+//         {
+//           alert(data);
+//         }
+//     });
+    
+// });
+// var form_submit = document.querySelector('#form-1 .form-submit').classList.add('hidden');
 function Validator(options) {
 
     // Hàm tìm thẻ div cha chứa class 'form-group' của thẻ input
@@ -135,22 +160,11 @@ Validator.isPhoneNumber = (selector, message) => {
         }
     } 
 }
-// Validator.minLength = (selector, min, message) => {
-//     return {
-//         selector: selector,
-//         test: (value) => {
-//             return value.length >= min ? undefined : message || `You have to enter at least ${min} characters!`
-//         }
-//     } 
-// }
-
-/* Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character: */
-Validator.validatePassword = (selector, message) => {
+Validator.minLength = (selector, min, message) => {
     return {
         selector: selector,
         test: (value) => {
-            let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,50}$/;
-            return regex.test(value) ? undefined : message || "You have typed an invalid password!"
+            return value.length >= min ? undefined : message || `You have to enter at least ${min} characters!`
         }
     } 
 }

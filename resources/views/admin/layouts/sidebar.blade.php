@@ -62,6 +62,33 @@
           </li>
 
           <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
+              {{-- <i class="nav-icon fas fa-bars"></i> --}}
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                @lang('Appointment Management')
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('appointment.showPatientAccepted') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>@lang('New Appointment')</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('appointment.showPatientPending') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>@lang('Pending Appointment')</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item menu-open">
             <form action="{{ route('auth.logout.post') }}" method="post">
               @csrf
               <button type="submit" class="nav-link">
