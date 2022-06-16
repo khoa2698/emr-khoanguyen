@@ -15,6 +15,37 @@
   <link rel="icon" href="/web-dentalcare/images/dentalcare-favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/web-dentalcare/css/main.css">
   <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+  <style>
+    .loading-ring {
+        display: flex;
+        justify-content: center;
+    }
+    .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        }
+        .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #1dbfaf;
+        border-color: #1dbfaf transparent #1dbfaf transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+        }
+
+  </style>
 </head>
 
 <body id="body">
@@ -914,8 +945,13 @@
                 của bạn vui lòng điền vào khung bên dưới.</label>
               <textarea name="more_info" id="form-field-message" cols="100%" rows="5" placeholder="Nội dung" class="form-control"></textarea>
             </div>
-            <p class="text-success hidden">Kiểm tra email để xác nhận đặt lịch thành công.</p>
-            <p class="text-danger hidden">Có lỗi thử lại sau.</p>
+
+            {{-- loading submit --}}
+            <div class="loading loading-ring hidden">
+              <div class="lds-dual-ring">Đang xử lý</div>
+            </div>
+            {{-- end loading submit --}}
+
             <button class="form-submit">ĐẶT LỊCH</button>
           </form>
         </div>
