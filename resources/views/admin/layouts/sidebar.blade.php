@@ -34,7 +34,28 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
+              {{-- <i class="nav-icon fas fa-bars"></i> --}}
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Quản lý hành chính
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('patient.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách bệnh nhân</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="nav-item">
             <a href="#" class="nav-link">
               {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
               {{-- <i class="nav-icon fas fa-bars"></i> --}}
@@ -61,10 +82,8 @@
             </ul>
           </li>
 
-          <li class="nav-item menu-open">
+          <li class="nav-item">
             <a href="#" class="nav-link">
-              {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
-              {{-- <i class="nav-icon fas fa-bars"></i> --}}
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 @lang('Appointment Management')

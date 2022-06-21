@@ -5,6 +5,8 @@ Bạn đã đặt một cuộc hẹn vào <b>{{ $appointment->time }}, {{ date('
 Vui lòng bấm link bên dưới để xác nhận đặt lịch.
 <br> <br>
 <a href="{{ route('appointmentPatient.verified.get', $appointment->token) }}">Bấm để xác nhận lịch hẹn</a>
+<br>
+<i>Link có thời hạn 5 phút</i>
 {{-- <form action="{{ route('appointmentPatient.verified.post', $appointment->token) }}" method="POST">
     @csrf
     @method('PUT')

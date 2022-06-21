@@ -16,6 +16,37 @@
   <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
 
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .loading-ring {
+        display: flex;
+        justify-content: center;
+    }
+    .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #1dbfaf;
+        border-color: #1dbfaf transparent #1dbfaf transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+</style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -70,7 +101,12 @@
             </div>
             <!-- /.col -->
             <div class="col-6">
-                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+              {{-- loading submit --}}
+              <div class="loading loading-ring hidden">
+                <div class="lds-dual-ring">Đang xử lý</div>
+              </div>
+              {{-- end loading submit --}}
+                <button type="submit" class="btn btn-primary btn-block btn-submit-form">Đăng nhập</button>
             </div>
             <!-- /.col -->
           </div>

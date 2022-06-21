@@ -85,21 +85,21 @@ return [
     'max' => [
         'numeric' => ':attribute tối đa :max ký tự.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'string' => 'The :attribute must not be greater than :max characters.',
+        'string' => ':attribute vượt quá :max ký tự.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => ':attribute phải ít nhất :min chữ số.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
+        'string' => ':attribute phải ít nhất :min ký tự.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => ':attribute phải là số.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
@@ -162,7 +162,12 @@ return [
         'password' => 'Mật khẩu',
         'email' => "Địa chỉ email",
         'name' => 'Tên',
-        'phone' => 'Số điện thoại'
+        'phone' => 'Số điện thoại',
+        'identity_number' => 'Số CCCD',
+        'dob' => 'Ngày tháng năm sinh',
+        'city_id' => 'Thành phố / tỉnh',
+        'district_id' => 'Quận / Huyện',
+        'ward_id' => 'Phường / Xã'
     ],
 
 ];

@@ -95,6 +95,7 @@
 @endsection
 
 @section('script')
+<script>
     Validator({
         form: "#form-1",
         formGroupSelector: ".form-group",
@@ -115,4 +116,6 @@
         //Initialize Select2 Elements
         $('.select2').select2()
     });    
+
+</script>
 @endsection

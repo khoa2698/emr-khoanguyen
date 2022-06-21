@@ -27,6 +27,9 @@
 .form-control:focus {
     box-shadow: none;
 }
+.hidden {
+    display: none !important;
+}
 /* #form-1 {
     & .mandatory {
         color: #f33a58;

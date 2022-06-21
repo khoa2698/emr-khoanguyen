@@ -172,20 +172,24 @@
             </div>
             <div class="row">
                 <div class="col-lg-8">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if(Session::has('success'))
-                        <h3 class="text-success">Đặt lịch thành công.</h3>
-                    @endif
-                    @if (Session::has('error'))
-                        <h3 class="text-danger">{{ Session::get('error') }}</h3>
+                    @if (empty($timeout))
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if(Session::has('success'))
+                            <h3 class="text-success">Đặt lịch thành công.</h3>
+                        @endif
+                        @if (Session::has('error'))
+                            <h3 class="text-danger">{{ Session::get('error') }}</h3>
+                        @endif
+                    @else
+                        <h3 class="text-danger">{{ $timeout }}</h3>
                     @endif
                     
                 </div>

@@ -124,14 +124,6 @@ if (btn_toggle) {
     })
 }
 
-var btn_submit_form = document.querySelector('#form-1 .form-submit')
-var loading = document.querySelector("#form-1 .loading")
-document.querySelector('#form-1').addEventListener('submit', ()=>{
-    console.log(1);
-    btn_submit_form.classList.add('hidden');
-    loading.classList.remove('hidden')
-    // loading.classList.add('loading-ring')
-})
 /** Set min input date */
 
 // let today = new Date();

@@ -33,8 +33,8 @@ class ResetPasswordController extends Controller
                     'token' => $token,
                     'created_at' => Carbon::now()
                 ]);
-
-                Mail::to($request->email)->send(new ResetPassword($token));
+                $name = User::where('email', $request->email)->first()->name;
+                Mail::to($request->email)->send(new ResetPassword($token, $name));
                 DB::commit();
                 return redirect()->back()->withSuccess('Một tin nhắn được gửi đến email của bạn');
             } catch (\Exception $err) {
@@ -46,34 +46,50 @@ class ResetPasswordController extends Controller
         }
     }
 
+    public function checkTimeOut($createdTokenTime)
+    {
+        if(time() - strtotime($createdTokenTime) <= 60*5) {
+            return true;
+        } 
+        return false;
+    }
+    
     public function showRecoveryPasswordForm($token)
     {
-        return view('auth.resetpasswordform', ['token' => $token]);
+        $createdToken = DB::table('password_resets')->where('token', $token)->first();
+        if(!empty($createdToken)) {
+            if($this->checkTimeOut($createdToken->created_at)){
+                return view('auth.resetpasswordform', ['token' => $token]);
+            } else {
+                return view('auth.resetpasswordform');
+            }
+        }
+        return abort(404);
     }
 
     public function submitRecoveryPasswordForm(ResetPasswordRequest $request)
     {
-        $updatePassword = DB::table('password_resets')
-            ->where([
+        $createdToken = DB::table('password_resets')->where([
                 'token' => $request->token
-            ])
-            ->first();
-        // dd($)
-        if (!$updatePassword) {
-            return back()->withInput()->with('error', 'Link đã hết hạn, thử lại quên mật khẩu');
+            ])->first();
+        
+        if(!empty($createdToken)) {
+            if($this->checkTimeOut($createdToken->created_at)){
+                try{
+                    DB::beginTransaction();
+                    $email = $createdToken->email;
+                    $user = User::where('email', $email)->update(['password' => Hash::make($request->password)]);
+                    DB::table('password_resets')->where(['email' => $request->email])->delete();
+                    DB::commit();
+                } catch(\Exception $err) {
+                    DB::rollBack();
+                    return redirect()->back()->withErrors($err->getMessage());
+                }
+                return redirect()->route('auth.login.get')->with('success', 'Mật khẩu đã được thay đổi! Đăng nhập ngay');
+            } else {
+                return view('auth.resetpasswordform');
+            }
         }
-
-        try{
-            DB::beginTransaction();
-            $email = $updatePassword->email;
-            $user = User::where('email', $email)->update(['password' => Hash::make($request->password)]);
-            DB::table('password_resets')->where(['email' => $request->email])->delete();
-            DB::commit();
-        } catch(\Exception $err) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($err->getMessage());
-        }
-
-        return redirect()->route('auth.login.get')->with('success', 'Mật khẩu đã được thay đổi! Đăng nhập ngay');
+        return abort(404);
     }
 }

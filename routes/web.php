@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\emr\AccountController;
 use App\Http\Controllers\emr\AppointmentController;
 use App\Http\Controllers\emr\DashboardController;
+use App\Http\Controllers\emr\PatientController;
 use App\Http\Controllers\emr\PermissionController;
 use App\Http\Controllers\LangController;
 use Illuminate\Http\Request;
@@ -52,6 +53,17 @@ Route::post('/recovery-password', [ResetPasswordController::class, 'submitRecove
 Route::prefix('/emr')->middleware('auth')->group(function(){
 
     Route::get('/', [DashboardController::class, 'index'])->name('emr.dashboard');
+    # Route patients
+    Route::prefix('/patient')->controller(PatientController::class)->group(function(){
+        Route::get('/', 'index')->name('patient.index');
+        Route::get('/add', 'create')->name('patient.create');
+        Route::post('/add', 'store')->name('patient.store');
+        Route::post('/edit/{id}', 'edit')->name('patient.edit');
+        Route::post('/loadDistrict', 'loadDistrict');
+        Route::post('/loadWard', 'loadWard');
+    });
+    
+
     # Route Account
     Route::prefix('/account')->controller(AccountController::class)->group(function(){
         Route::get('/', 'index')->name('account.index');

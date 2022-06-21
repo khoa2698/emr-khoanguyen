@@ -41,4 +41,32 @@ function removeRow(id, url, page)
             }
         },
     })
-}  
+}
+var base_url = window.location.origin;
+$('#city_id').on('change', function(){
+    let province_id = $('#city_id').val()
+    let ward = '<option value="">Chọn Phường / Xã</option>';
+    $.ajax({
+        type: 'POST',
+        data: {province_id},
+        url: base_url + '/emr/patient/loadDistrict',
+        success: function(result) {
+            $('#district_id').html(result)
+            $('#ward_id').html(ward)
+        }
+    })
+})
+
+$('#district_id').on('change', function(){
+    let district_id = $('#district_id').val()
+    if(district_id){
+        $.ajax({
+            type: 'POST',
+            data: {district_id},
+            url: base_url + '/emr/patient/loadWard',
+            success: function(result) {
+                $('#ward_id').html(result)
+            }
+        })
+    }
+})

@@ -243,11 +243,11 @@
                             
                             <div class="row">
                                 <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="phone-number" class="form-label">Điện thoại</label>
-                                    <input id="phone-number" name="phone" type="text" placeholder="Số điện thoại" class="form-control">
-                                    <span class="form-message"></span>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="phone-number" class="form-label">Điện thoại<span class="mandatory"> *</span></label>
+                                        <input id="phone-number" name="phone" type="text" placeholder="Số điện thoại" class="form-control">
+                                        <span class="form-message"></span>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                 <div class="form-group">

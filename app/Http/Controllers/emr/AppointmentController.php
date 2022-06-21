@@ -75,16 +75,32 @@ class AppointmentController extends Controller
         }
 
     }
-
+    public function checkTimeOut($createdTokenTime)
+    {
+        if(time() - strtotime($createdTokenTime) <= 60*5) {
+            return true;
+        } 
+        return false;
+    }
+    // Xử lý đặt lịch và hiển thị kết quả
     public function appointmentProcess($token)
     {
-        try{
-            $update = Appointment::where('token', $token)->update(['email_verified_at' => Carbon::now()]);
-            Session::flash('success', 'Đặt lịch thành công');
-        } catch(\Exception $err) {
-            Session::flash('error', $err->getMessage());
-        }   
-        return view('web.appointment.appointmentverified');
+        $appointment = Appointment::where('token', $token);
+        if(!empty($appointment->first())){
+            if($this->checkTimeOut($appointment->first()->created_at)){
+                try{
+                    $update = $appointment->update(['email_verified_at' => Carbon::now()]);
+                    Session::flash('success', 'Đặt lịch thành công');
+                } catch(\Exception $err) {
+                    Session::flash('error', $err->getMessage());
+                }   
+                return view('web.appointment.appointmentverified');
+            } else {
+                return view('web.appointment.appointmentverified', ['timeout' => 'Link hết hạn']);
+            }
+        } else {
+            return abort(404);
+        }
     }
 
     // public function emailVerified($token)

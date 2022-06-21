@@ -1,5 +1,4 @@
 
-
 function Validator(options) {
 
     // Hàm tìm thẻ div cha chứa class 'form-group' của thẻ input
@@ -68,8 +67,11 @@ function Validator(options) {
             });
 
             if (isFormValid) {
+                var btn_submit_form = document.querySelector('.btn-submit-form')
+                var loading = document.querySelector(".loading")
+                btn_submit_form.classList.add('hidden');
+                loading.classList.remove('hidden')
                 formElement.submit();
-                // console.log("đã submit");
             }
         }
 

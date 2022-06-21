@@ -93,6 +93,10 @@ function Validator(options) {
             });
 
             if (isFormValid) {
+                var btn_submit_form = document.querySelector('#form-1 .form-submit')
+                var loading = document.querySelector("#form-1 .loading")
+                btn_submit_form.classList.add('hidden');
+                loading.classList.remove('hidden')
                 formElement.submit();
                 // console.log("đã submit");
             }
