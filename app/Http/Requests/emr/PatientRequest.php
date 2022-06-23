@@ -3,6 +3,7 @@
 namespace App\Http\Requests\emr;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
 
 class PatientRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class PatientRequest extends FormRequest
     public function rules()
     {
         return [
+            'full_name' => ['required', 'max:255'],
             'email' => ['bail', 'required', "email", 'unique:patients,email,'. $this->id .',id'],
             'identity_number' => ['bail', 'required', 'min:12', 'max:12', 'unique:patients,identity_number,'. $this->id .',id'],
             'dob' => ['required'],
@@ -32,4 +34,11 @@ class PatientRequest extends FormRequest
             'ward_id' => ['required']
         ];
     }
+
+    // public function response(array $errors)
+    // {
+    //     if ($this->expectsJson()) {
+    //         return new JsonResponse($errors, 200);
+    //     }
+    // }
 }

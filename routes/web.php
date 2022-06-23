@@ -58,9 +58,11 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
         Route::get('/', 'index')->name('patient.index');
         Route::get('/add', 'create')->name('patient.create');
         Route::post('/add', 'store')->name('patient.store');
-        Route::post('/edit/{id}', 'edit')->name('patient.edit');
-        Route::post('/loadDistrict', 'loadDistrict');
-        Route::post('/loadWard', 'loadWard');
+        Route::get('/edit/{id}', 'edit')->name('patient.edit');
+        Route::post('/{id}', 'update')->name('patient.update');
+        Route::get('/loadDistrict', 'loadDistrict');
+        Route::get('/loadWard', 'loadWard');
+        Route::get('/loadPatientName', 'loadPatientName');
     });
     
 

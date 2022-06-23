@@ -7,17 +7,69 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-            <div class="col-sm-3">
-                <h1 class="m-0">Danh sách bệnh nhân</h1>
-            </div>
-            
-            <div>
-                <a href="{{ route('patient.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Thêm bệnh nhân mới
-                </a>
-            </div>
-
+                <div class="col-sm-3">
+                    <h1 class="m-0">Danh sách bệnh nhân</h1>
+                </div>
+                
+                <div>
+                    <a href="{{ route('patient.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Thêm bệnh nhân mới
+                    </a>
+                </div>
             </div><!-- /.row -->
+
+            <h4 class="text-center display-5">Tìm kiếm nâng cao</h4>
+            <form action="enhanced-results.html">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Loại kết quả:</label>
+                                    <select class="select2" multiple="multiple" data-placeholder="Bất kỳ" style="width: 100%;">
+                                        <option>Text only</option>
+                                        <option>Images</option>
+                                        <option>Video</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Thứ tự sắp xếp:</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>Tăng dần</option>
+                                        <option>Giảm dần</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Sắp xếp theo:</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>Title</option>
+                                        <option>Date</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-md">
+                                <input type="search" class="form-control form-control-md search_khoa_nguyen" name="full_name" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-md btn-default">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <ul class="result_search_khoa_nguyen">
+                                <li>1</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @csrf
+            </form>
 
             @include('admin.layouts.alert')
         </div><!-- /.container-fluid -->
@@ -31,17 +83,6 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh sách bệnh nhân</h3>
 
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0 loadAjax">
@@ -54,7 +95,7 @@
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
                             <th>@lang('Action')</th>
-                            <th>@lang('Updated at')</th>
+                            <th style="with:20px">@lang('Updated at')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,17 +107,197 @@
                                         <td>{{ $patient->full_name }}</td>
                                         <td>{{ $patient->phone_patient }}</td>
                                         <td>
-                                            {!! App\Helpers\Helper::getPatientAddress($patient->city_id, $patient->district_id, $patient->ward_id) !!}
+                                            {!! App\Helpers\Helper::getPatientAddress($patient->city_id, $patient->district_id, $patient->ward_id, $patient->home_address) !!}
                                         </td>
                                         <td>
                                             <div>
-                                                <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-outline-info btn-inline-block">
+                                                <button type="button" class="btn btn-sm btn-outline-info btn-inline-block mb-1" data-toggle="modal" data-target="#{{ 'ModalDetail-' . $patient->id }}">
+                                                    <i class="fas fa-eye"></i> @lang('Detail')
+                                                </button>
+                                                <!-- Modal Detail -->
+                                                <div class="modal fade" id="{{ 'ModalDetail-' . $patient->id }}">
+                                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                        <div class="modal-content">
+                                                        
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Thông tin bệnh nhân</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                    
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <span class="form-message"></span>
+                                                                            <label for="title">Ông/bà</label>
+                                                                            <input disabled type="text" class="form-control" value="{{ $patient->title }}" name="title" id="title" placeholder="@lang('Type full name')">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="fullname">@lang('Full Name')</label>
+                                                                            <input disabled type="text" class="form-control" value="{{ $patient->full_name }}" name="full_name" id="fullname" placeholder="@lang('Type full name')">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="email">@lang('Email Address')</label>
+                                                                            <input disabled type="email" class="form-control" name="email" value="{{ $patient->email }}" id="email" placeholder="@lang('Type email address')">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2">
+                                                                        <div class="form-group">
+                                                                            <label for="phone-number">Điện thoại</label>
+                                                                            <input disabled value="{{ $patient->phone_patient }}" id="phone-number" name="phone_patient" type="text" placeholder="Số điện thoại" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label for="identity_number">Căn cước công dân</label>
+                                                                            <input disabled value="{{ $patient->identity_number }}" id="identity_number" name="identity_number" type="text" placeholder="Số CCCD" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                        <!-- /.form-group -->
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="occupation">Nghề nghiệp</label>
+                                                                            <input disabled value="{{ $patient->occupation }}" id="occupation" name="occupation" type="text" placeholder="Nghề nghiệp" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                    <div class="col-md-2">
+                                                                        <!-- select -->
+                                                                        <div class="form-group">
+                                                                            <label for="sex">Giới tính</label>
+                                                                            <input disabled value="{{ $patient->sex }}" id="sex" name="sex" type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label for="dob">Ngày tháng năm sinh</label>
+                                                                            <input disabled value="{{ $patient->dob }}" id="dob" name="dob" type="date" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="nationality">Quốc tịch</label>
+                                                                            <input disabled value="{{ $patient->nationality }}" id="nationality" name="nationality" type="text" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="ethnic_id">Dân tộc</label>
+                                                                            <input disabled value="{!! App\Helpers\Helper::getEthnicName($patient->ethnic_id) !!}" id="ethnic_id" name="ethnic_id" type="text" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="religion">Tôn giáo</label>
+                                                                            <input disabled value="{{ $patient->religion }}" id="religion" name="religion" type="text" placeholder="Tôn giáo" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="form-group">
+                                                                            <label for="city_id">Địa chỉ</label>
+                                                                            <input disabled value="{!! App\Helpers\Helper::getPatientAddress($patient->city_id, $patient->district_id, $patient->ward_id, $patient->home_address) !!}" id="religion" name="religion" type="text" placeholder="Tôn giáo" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <!-- select -->
+                                                                        <div class="form-group">
+                                                                            <label for="marital_status">Tình trạng hôn nhân</label>
+                                                                            <input disabled value="{{ $patient->marital_status }}" id="marital_status" name="marital_status" type="text" placeholder="Tôn giáo" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <!-- select -->
+                                                                        <div class="form-group">
+                                                                            <label for="name_next_of_kin">Người thân</label>
+                                                                            <input disabled value="{{ $patient->name_next_of_kin }}" id="name_next_of_kin" name="name_next_of_kin" type="text" placeholder="Tên người thân" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <!-- select -->
+                                                                        <div class="form-group">
+                                                                            <label for="home_next_of_kin">Địa chỉ người thân</label>
+                                                                            <input disabled value="{{ $patient->home_next_of_kin }}" id="home_next_of_kin" name="home_next_of_kin" type="text" placeholder="Địa chỉ người thân" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-3">
+                                                                        <div class="form-group">
+                                                                            <label for="phone_next_of_kin">Điện thoại người thân</label>
+                                                                            <input disabled value="{{ $patient->phone_next_of_kin }}" id="phone_next_of_kin" name="phone_next_of_kin" type="text" placeholder="Số điện thoại" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <!-- select -->
+                                                                        <div class="form-group">
+                                                                            <label for="type_of_object">Loại đối tượng</label>
+                                                                            <input disabled value="{{ $patient->type_of_object }}" id="type_of_object" name="type_of_object" type="text" placeholder="Số điện thoại" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="form-group">
+                                                                            <label for="health_insurance_id">Số thẻ BHYT</label>
+                                                                            <input disabled value="{{ $patient->health_insurance_id }}" id="health_insurance_id" name="health_insurance_id" type="text" placeholder="Số thẻ BHYT" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="health_insurance_date">BHYT có giá trị đến ngày</label>
+                                                                            <input disabled value="{{ $patient->health_insurance_date }}" id="health_insurance_date" name="health_insurance_date" type="date" class="form-control">
+                                                                            <span class="form-message"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                {{-- <button onclick="alert('test')" type="button" class="btn btn-danger" data-dismiss="modal">
+                                                                    <i class="fas fa-check"></i> @lang('Agree')
+                                                                </button> --}}
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                                    <i class="fas fa-window-close"></i> @lang('Đóng')
+                                                                </button>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-outline-info btn-inline-block mb-1">
                                                     <i class="fas fa-tools"></i> @lang('Edit')
                                                 </a>
-                                                <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-outline-info btn-inline-block">
-                                                    <i class="fas fa-eye"></i> @lang('Detail')
-                                                </a>
-                                                <button type="button" class="btn btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $patient->id }}">
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $patient->id }}">
                                                     <i class="fas fa-trash"></i> @lang('Delete')
                                                 </button>
                                                 @php
@@ -141,3 +362,10 @@
     
 @endsection
 
+@section('script')
+    <script>
+        $(function () {
+            $('.select2').select2()
+        });
+    </script>
+@endsection

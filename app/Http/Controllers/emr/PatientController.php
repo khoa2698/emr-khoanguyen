@@ -31,7 +31,7 @@ class PatientController extends Controller
 
     public function loadDistrict(Request $request)
     {
-        $province_id = (int)$request->province_id;
+        $province_id = (int)$request->city_id;
         $districts = District::where('province_id', $province_id)->get();
         $results = '<option value="">Chọn Quận / Huyện</option>';
         if ($districts) {
@@ -52,6 +52,13 @@ class PatientController extends Controller
                 $results .= '<option value="'. $ward->id .'">'. $ward->name .'</option>';
             }
         }
+        return $results;
+    }
+    
+    public function loadPatientName(Request $request)
+    {
+        // dd($request->all());
+        $results = '<li>'. $request->full_name .'</li>';
         return $results;
     }
 
@@ -91,6 +98,52 @@ class PatientController extends Controller
     }
     public function edit($id)
     {
-        
+        $ethnics = DB::table('ethnics')->orderBy('id')->get();
+        $patient = Patient::findOrFail($id);
+        $province_id = $patient->city_id;
+        $district_id = $patient->district_id;
+        $provinces = Province::all();
+        $districts = District::where('province_id', $province_id)->get();
+        $wards = Ward::where('district_id', $district_id)->get();
+        return view('admin.patients.edit', compact('ethnics', 'provinces', 'districts', 'wards', 'patient'));
     }
+
+    public function update(PatientRequest $request, $id)
+    {
+        $params = [
+            'title' => $request->title,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'identity_number' => $request->identity_number,
+            'phone_patient' => $request->phone_patient,
+            'occupation' => $request->occupation,
+            'sex' => $request->sex,
+            'dob' => $request->dob,
+            'nationality' => $request->nationality,
+            'ethnic_id' => $request->ethnic_id,
+            'religion' => $request->religion,
+            'city_id' => $request->city_id,
+            'district_id' => $request->district_id,
+            'ward_id' => $request->ward_id,
+            'home_address' => $request->home_address,
+            'marital_status' => $request->marital_status,
+            'name_next_of_kin' => $request->name_next_of_kin,
+            'home_next_of_kin' => $request->home_next_of_kin,
+            'phone_next_of_kin' => $request->phone_next_of_kin,
+            'type_of_object' => $request->type_of_object,
+            'health_insurance_id' => $request->health_insurance_id,
+            'health_insurance_date' => $request->health_insurance_date,
+        ];
+        
+            if(!empty(Patient::where('id', $id)->first())){
+                try{
+                    Patient::where('id', $id)->update($params);
+                    return redirect()->route('patient.index')->withSuccess('Cập nhật bệnh nhân thành công');
+                } catch(\Exception $err){
+                    return redirect()->route('patient.edit')->withErrors($err->getMessage());
+                }
+                return redirect()->route('patient.index')->withErrors('Không tìm thấy bệnh nhân');
+            }
+    }
+
 }

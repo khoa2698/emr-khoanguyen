@@ -42,15 +42,20 @@ function removeRow(id, url, page)
         },
     })
 }
+
 var base_url = window.location.origin;
 $('#city_id').on('change', function(){
-    let province_id = $('#city_id').val()
+    let city_id = $('#city_id').val();
+    
     let ward = '<option value="">Chọn Phường / Xã</option>';
     $.ajax({
-        type: 'POST',
-        data: {province_id},
+        type: 'GET',
+        data: {
+            city_id,
+        },
         url: base_url + '/emr/patient/loadDistrict',
         success: function(result) {
+            console.log(result)
             $('#district_id').html(result)
             $('#ward_id').html(ward)
         }
@@ -61,7 +66,7 @@ $('#district_id').on('change', function(){
     let district_id = $('#district_id').val()
     if(district_id){
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {district_id},
             url: base_url + '/emr/patient/loadWard',
             success: function(result) {
@@ -69,4 +74,17 @@ $('#district_id').on('change', function(){
             }
         })
     }
+})
+
+$('.search_khoa_nguyen').on('keyup', function(){
+    let full_name = $('.search_khoa_nguyen').val()
+    console.log(full_name);
+    $.ajax({
+        type: 'GET',
+        data: {full_name},
+        url: base_url + '/emr/patient/loadPatientName',
+        success: function(result) {
+            $('.result_search_khoa_nguyen').html(result)
+        }
+    })
 })
