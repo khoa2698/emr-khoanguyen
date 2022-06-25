@@ -10,18 +10,26 @@ use Spatie\Permission\Models\Role;
 class PermissionController extends Controller
 {
     protected $permissionService;
+    public $menuActive = 'accountMenu';
+    public $childMenuActive = 'childPermissionMenu';
     public function __construct(PermissionService $permissionService)
     {
         $this->permissionService = $permissionService;
     }
     public function index()
     {
+        $menuActive = $this->menuActive;
+        $childMenuActive = $this->childMenuActive;
         return view('admin.permissions.list', [
             'roles' => $this->permissionService->getAllRole(),
+            'menuActive' => $menuActive,
+            'childMenuActive' => $childMenuActive,
         ]);
     }
     public function create()
     {
+        $menuActive = $this->menuActive;
+        $childMenuActive = '';
         return view('admin.permissions.add', [
             'patientPermissions' => $this->permissionService->getPatientPermission(),
             'historyPermissions' => $this->permissionService->getHistoryPermission(),
@@ -30,6 +38,8 @@ class PermissionController extends Controller
             'medicalRecordPermissions' => $this->permissionService->getMedRecordPermission(),
             'paymentPermissions' => $this->permissionService->getPayPermission(),
             'appointmentPermissions' => $this->permissionService->getAppointPermission(),
+            'menuActive' => $menuActive,
+            'childMenuActive' => $childMenuActive,
         ]);
     }
 
@@ -46,6 +56,8 @@ class PermissionController extends Controller
 
     public function edit($id)
     {  
+        $menuActive = $this->menuActive;
+        $childMenuActive = '';
         return view('admin.permissions.edit', [
             'patientPermissions' => $this->permissionService->getPatientPermission(),
             'generalExamPermissions' => $this->permissionService->getGeneralExamPermission(),
@@ -54,6 +66,8 @@ class PermissionController extends Controller
             'paymentPermissions' => $this->permissionService->getPayPermission(),
             'appointmentPermissions' => $this->permissionService->getAppointPermission(),
             'role' => $this->permissionService->getRoleFromID($id),
+            'menuActive' => $menuActive,
+            'childMenuActive' => $childMenuActive,
         ]);
     }
 

@@ -206,11 +206,14 @@
                 <!-- /.content -->
             </div>
             <!-- /.card-body -->
-
-
             @csrf
+            {{-- loading submit --}}
+            <div class="loading loading-ring hidden">
+                <div class="lds-dual-ring">Đang xử lý</div>
+            </div>
+            {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> @lang('Update')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>
@@ -221,6 +224,7 @@
 @endsection
 
 @section('script')
+<script>
     Validator({
         form: "#form-1",
         formGroupSelector: ".form-group",
@@ -230,4 +234,5 @@
         ],
     }
     );
+</script>
 @endsection

@@ -16,21 +16,31 @@ use Illuminate\Support\Facades\Session;
 
 class AppointmentController extends Controller
 {
+    public $menuActive = 'appointmentMenu';
+    public $childMenuActive = 'childNewAppointmentMenu';
     public function showPatientAccepted()
-    {
+    {   
+        $menuActive = $this->menuActive;
+        $childMenuActive = $this->childMenuActive;
         return view('admin.appointments.homeVerified', [
             'appointmentVerifieds' => Appointment::where('email_verified_at', '!=', null)->orderByDesc('updated_at')->paginate(10)->withQueryString(),
+            'menuActive' => $menuActive,
+            'childMenuActive' => $childMenuActive,
         ]);
     }
 
     public function showPatientPending()
     {
         // dd(count(Appointment::where('email_verified_at', '!=', null)->get()));
+        $menuActive = $this->menuActive;
+        $childMenuActive = 'childPendingAppointmentMenu';
         return view('admin.appointments.home', [
             'paginatePendings' => Appointment::where('email_verified_at', null)->orderByDesc('created_at')->paginate(10)->withQueryString(),
             'appointmentPendings' => Appointment::where('email_verified_at', null)->get(),
             'paginateVerifieds' => Appointment::where('email_verified_at', '!=', null)->orderByDesc('updated_at')->get(),
-            'appointmentVerifieds' => Appointment::where('email_verified_at', '!=', null)->get()
+            'appointmentVerifieds' => Appointment::where('email_verified_at', '!=', null)->get(),
+            'menuActive' => $menuActive,
+            'childMenuActive' => $childMenuActive,
         ]);
     }
 

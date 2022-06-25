@@ -83,8 +83,13 @@
             </div>
           <!-- /.card-body -->
             @csrf
+            {{-- loading submit --}}
+            <div class="loading loading-ring hidden">
+                <div class="lds-dual-ring">Đang xử lý</div>
+            </div>
+            {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
             </div>
         </form>
     </div>
@@ -105,7 +110,7 @@
         Validator.isRequired("#email", "@lang('Please fill out this field')"),
         Validator.isRequired("#password", "@lang('Please fill out this field')"),
         Validator.isRequired("#password_confirmation", "@lang('Please fill out this field')"),
-        Validator.isEmail("#email"),
+        Validator.isEmail("#email", 'Email không hợp lệ'),
         Validator.validatePassword("#password", '@lang('Minimum eight and maximum 50 characters, at least one uppercase letter, one lowercase letter, one number and one special character')'),
         Validator.isConfirmed("#password_confirmation", function() {
             return document.querySelector('#form-1 #password').value;

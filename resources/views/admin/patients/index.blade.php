@@ -62,14 +62,16 @@
                             <div class="input-group input-group-md">
                                 {{-- <input type="search" class="form-control form-control-md search_khoa_nguyen" name="full_name" placeholder="Nhập từ khóa tìm kiếm" value=""> --}}
                                 
+                                <a href="{{ route('patient.index') }}" class="btn btn-default">
+                                    <i class="fas fa-times-circle"></i> Hủy
+                                </a>
+
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-md btn-default">
+                                    <button type="submit" class="btn btn-md btn-default ml-1">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
-                                <a href="{{ route('patient.index') }}" class="btn btn-default ml-1">
-                                    <i class="fas fa-times-circle"></i> Hủy
-                                </a>
+                                
                             </div>
                         </div>
                     </div>

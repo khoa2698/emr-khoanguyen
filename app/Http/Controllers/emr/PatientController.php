@@ -15,26 +15,32 @@ use App\Helpers\Helper;
 
 class PatientController extends Controller
 {
+    public $menuActive = 'patientMenu';
+    public $childMenuActive = 'childPatientMenu';
     public function index(Request $request)
     {
         // dd($request->all());
+        $menuActive = $this->menuActive;
+        $childMenuActive = $this->childMenuActive;
         if(!empty($request->patient_id)){
             $all_patients = Patient::where('patient_id', $request->patient_id)->paginate(20)->withQueryString();
-            return view('admin.patients.index', compact('all_patients'));
+            return view('admin.patients.index', compact('all_patients', 'menuActive', 'childMenuActive'));
             
         }
         $all_patients = Patient::orderByDesc('id')->paginate(20)->withQueryString();
-        return view('admin.patients.index', compact('all_patients'));
+        return view('admin.patients.index', compact('all_patients', 'menuActive', 'childMenuActive'));
     }
 
     public function create()
     {
+        $menuActive = $this->menuActive;
+        $childMenuActive = '';
         $ethnics = DB::table('ethnics')->orderBy('id')->get();
         $provinces = Province::all();
         $province = Province::first();
         $districts = $province->districts;
         // $wards = Ward::all();
-        return view('admin.patients.create', compact('ethnics', 'provinces', 'districts'));
+        return view('admin.patients.create', compact('ethnics', 'provinces', 'districts', 'menuActive', 'childMenuActive'));
     }
 
     public function loadDistrict(Request $request)
@@ -113,6 +119,8 @@ class PatientController extends Controller
     }
     public function edit($id)
     {
+        $menuActive = $this->menuActive;
+        $childMenuActive = '';
         $ethnics = DB::table('ethnics')->orderBy('id')->get();
         $patient = Patient::findOrFail($id);
         $province_id = $patient->city_id;
@@ -120,7 +128,7 @@ class PatientController extends Controller
         $provinces = Province::all();
         $districts = District::where('province_id', $province_id)->get();
         $wards = Ward::where('district_id', $district_id)->get();
-        return view('admin.patients.edit', compact('ethnics', 'provinces', 'districts', 'wards', 'patient'));
+        return view('admin.patients.edit', compact('ethnics', 'provinces', 'districts', 'wards', 'patient', 'menuActive', 'childMenuActive'));
     }
 
     public function update(PatientRequest $request, $id)

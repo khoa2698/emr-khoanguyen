@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\emr\AccountController;
 use App\Http\Controllers\emr\AppointmentController;
 use App\Http\Controllers\emr\DashboardController;
+use App\Http\Controllers\emr\HospitalHistoryController;
 use App\Http\Controllers\emr\PatientController;
 use App\Http\Controllers\emr\PermissionController;
 use App\Http\Controllers\LangController;
@@ -64,6 +65,9 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
         Route::get('/loadWard', 'loadWard');
         Route::get('/loadPatientName', 'loadPatientName');
         Route::delete('/destroy', 'destroy');
+    });
+    Route::prefix('/hospital-history')->controller(HospitalHistoryController::class)->group(function(){
+        Route::get('/', 'index')->name('hospital-history.index');
     });
     
 

@@ -271,7 +271,7 @@
                     <div class="lds-dual-ring">Đang xử lý</div>
                 </div>
                 {{-- end loading submit --}}
-                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>
