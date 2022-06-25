@@ -48,8 +48,8 @@ class AccountService
     // Cập nhật tài khoản
     public function update($accountRequest, $id)
     {
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             User::where('id', $id)->update([
                 'name' => $accountRequest->name,
                 'email' => $accountRequest->email,

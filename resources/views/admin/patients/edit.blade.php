@@ -292,6 +292,7 @@
             Validator.isRequired("#email", "@lang('Please fill out this field')"),
             Validator.isEmail("#email"),
             Validator.isRequired("#phone-number", "Vui lòng nhập trường này!"),
+            Validator.maxLength("#phone-number",10, "Số điện thoại tối đa 10 số!"),
             Validator.isRequired("#identity_number", "@lang('Please fill out this field')"),
             Validator.isRequired("#dob", "@lang('Please fill out this field')"),
             Validator.isRequired("#city_id", "@lang('Please fill out this field')"),

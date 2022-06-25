@@ -10,11 +10,19 @@ use Illuminate\Support\Facades\DB;
 use HoangPhi\VietnamMap\Models\Province;
 use HoangPhi\VietnamMap\Models\District;
 use HoangPhi\VietnamMap\Models\Ward;
+use Buihuycuong\Vnfaker\VNFaker;
+use App\Helpers\Helper;
 
 class PatientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->all());
+        if(!empty($request->patient_id)){
+            $all_patients = Patient::where('patient_id', $request->patient_id)->paginate(20)->withQueryString();
+            return view('admin.patients.index', compact('all_patients'));
+            
+        }
         $all_patients = Patient::orderByDesc('id')->paginate(20)->withQueryString();
         return view('admin.patients.index', compact('all_patients'));
     }
@@ -57,9 +65,16 @@ class PatientController extends Controller
     
     public function loadPatientName(Request $request)
     {
-        // dd($request->all());
-        $results = '<li>'. $request->full_name .'</li>';
-        return $results;
+        $patients = Patient::where('full_name', 'like', '%'.$request->full_name.'%')->get();
+        // dd($patients);
+        if(count($patients) > 0) {
+            $results = '';
+            foreach($patients as $patient) {
+                $results .= '<option value="'. $patient->patient_id .'">'. $patient->patient_id . '-' . $patient->full_name .'-'. Helper::getPatientAddress($patient->city_id, $patient->district_id, $patient->ward_id, $patient->home_address) .'</option>';
+            }
+            return $results;
+        }
+        return '<option value="">Không tìm thấy kết quả</option>';
     }
 
     public function store(PatientRequest $request)
@@ -146,4 +161,20 @@ class PatientController extends Controller
             }
     }
 
+    public function destroy(Request $request)
+    {
+        $id = $request->id;
+        $account = Patient::where('id', $id)->first();
+        if($account) {
+            Patient::destroy($id);
+            return response()->json([
+                'error' => false,
+                'message' => 'Xóa Thành Công'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+        ]);
+    }
 }

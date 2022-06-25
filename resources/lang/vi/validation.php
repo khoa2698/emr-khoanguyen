@@ -163,6 +163,7 @@ return [
         'email' => "Địa chỉ email",
         'name' => 'Tên',
         'phone' => 'Số điện thoại',
+        'phone_patient' => 'Số điện thoại',
         'identity_number' => 'Số CCCD',
         'dob' => 'Ngày tháng năm sinh',
         'city_id' => 'Thành phố / tỉnh',

@@ -27,6 +27,7 @@ class PatientRequest extends FormRequest
         return [
             'full_name' => ['required', 'max:255'],
             'email' => ['bail', 'required', "email", 'unique:patients,email,'. $this->id .',id'],
+            'phone_patient' => ['bail', 'required', 'numeric'],
             'identity_number' => ['bail', 'required', 'min:12', 'max:12', 'unique:patients,identity_number,'. $this->id .',id'],
             'dob' => ['required'],
             'city_id' => ['required'],

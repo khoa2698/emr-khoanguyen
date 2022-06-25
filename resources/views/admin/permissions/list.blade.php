@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
+                <div class="card-body table-responsive p-0 loadAjax">
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
@@ -70,6 +70,13 @@
                                                 <button type="button" class="btn btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $role->id }}">
                                                     <i class="fas fa-trash"></i> @lang('Delete')
                                                 </button>
+                                                @php
+                                                    if(isset($_GET['page'])) {
+                                                        $page = $_GET['page'];
+                                                    } else {
+                                                        $page = 1;
+                                                    }
+                                                @endphp
                                                 <div class="modal fade" id="{{ 'myModal-' . $role->id }}">
                                                     <div class="modal-dialog">
                                                       <div class="modal-content">
@@ -84,7 +91,7 @@
                                                         
                                                         <!-- Modal body -->
                                                         <div class="modal-body" style="display:flex;">
-                                                            <button onclick="removeRow({{ $role->id }}, '/emr/permission/destroy')" type="button" class="btn btn-danger" data-dismiss="modal">
+                                                            <button onclick="removeRow({{ $role->id }}, '/emr/permission/destroy', {{ $page }}, '/emr/permission?page=')" type="button" class="btn btn-danger" data-dismiss="modal">
                                                                 <i class="fas fa-check"></i> @lang('Agree')
                                                             </button>
                                                             <button type="button" style="margin-left: 20px" class="btn btn-primary" data-dismiss="modal">

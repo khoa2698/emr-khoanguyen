@@ -159,7 +159,7 @@ Validator.isPhoneNumber = (selector, message) => {
     return {
         selector: selector,
         test: (value) => {
-            let regex = /[0]{1}[7-9]{1}[0-9]{1}[0-9]{2}[0-9]{2}[0-9]{3}/;
+            let regex = /[0]{1}[3,5,7-9]{1}[0-9]{1}[0-9]{2}[0-9]{2}[0-9]{3}/;
             return regex.test(value) ? undefined : message || "You have typed an invalid phone number!"
         }
     } 
@@ -169,6 +169,14 @@ Validator.minLength = (selector, min, message) => {
         selector: selector,
         test: (value) => {
             return value.length >= min ? undefined : message || `You have to enter at least ${min} characters!`
+        }
+    } 
+}
+Validator.maxLength = (selector, max, message) => {
+    return {
+        selector: selector,
+        test: (value) => {
+            return value.length <= max ? undefined : message || `Nhập tối đa ${max} ký tự!`
         }
     } 
 }

@@ -18,7 +18,7 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-function removeRow(id, url, page)
+function removeRow(id, url, page, urlLoadAjax)
 {
     $.ajax({
         type: 'DELETE',
@@ -27,10 +27,9 @@ function removeRow(id, url, page)
         url: url,
         success: function(result) {
             if(result.error == false) {
-                // urlLoadAjax = 
                 toastr.success('Xóa thành công')
                 $('#rowId_' + id).remove();
-                $('.loadAjax').load('/emr/account?page=' + page + ' .loadAjax');
+                $('.loadAjax').load(urlLoadAjax + page + ' .loadAjax');
                 // display = document.querySelector('#time');
                 // startTimer(2, display);
                 // setTimeout(function(){
@@ -85,6 +84,34 @@ $('.search_khoa_nguyen').on('keyup', function(){
         url: base_url + '/emr/patient/loadPatientName',
         success: function(result) {
             $('.result_search_khoa_nguyen').html(result)
+        }
+    })
+})
+// console.log($('.select_search'));
+// $(".select_search").on('change', function(){
+//     alert(this.value)
+//   });
+$('.select_search').on('change', function(){
+    let full_name = $('.select_search').val()
+    console.log(full_name);
+    // $.ajax({
+    //     type: 'GET',
+    //     data: {full_name},
+    //     url: base_url + '/emr/patient/loadPatientName',
+    //     success: function(result) {
+    //         $('.result_search_khoa_nguyen').html(result)
+    //     }
+    // })
+})
+$('#search_khoa_nguyen').on('keyup', function(){
+    let full_name =$('#search_khoa_nguyen').val()
+    // console.log(full_name);
+    $.ajax({
+        type: 'GET',
+        data: {full_name},
+        url: base_url + '/emr/patient/loadPatientName',
+        success: function(result) {
+            $('#fullname_patient').html(result)
         }
     })
 })

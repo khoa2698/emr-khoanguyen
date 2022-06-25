@@ -96,7 +96,7 @@
                                                         
                                                         <!-- Modal body -->
                                                         <div class="modal-body" style="display:flex;">
-                                                            <button onclick="removeRow({{ $account->id }}, '/emr/account/destroy', {{ $page }})" type="button" class="btn btn-danger" data-dismiss="modal">
+                                                            <button onclick="removeRow({{ $account->id }}, '/emr/account/destroy', {{ $page }}, '/emr/account?page=')" type="button" class="btn btn-danger" data-dismiss="modal">
                                                                 <i class="fas fa-check"></i> @lang('Agree')
                                                             </button>
                                                             <button type="button" style="margin-left: 20px" class="btn btn-primary" data-dismiss="modal">

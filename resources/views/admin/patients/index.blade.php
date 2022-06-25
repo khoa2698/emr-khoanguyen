@@ -19,18 +19,24 @@
             </div><!-- /.row -->
 
             <h4 class="text-center display-5">Tìm kiếm nâng cao</h4>
-            <form action="enhanced-results.html">
+            <form action="{{ route('patient.index') }}">
+                @php
+                    if(isset($_GET['patient_id'])){
+                        $patient_id_search = $_GET['patient_id'];
+                    } else {
+                        $patient_id_search = '';
+                    }
+                @endphp
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Loại kết quả:</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Bất kỳ" style="width: 100%;">
-                                        <option>Text only</option>
-                                        <option>Images</option>
-                                        <option>Video</option>
-                                    </select>
+                                    <label>Nhập tên bệnh nhân để tìm kiếm:</label>
+                                    <input value="{{$patient_id_search}}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                                    {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
+                                    <datalist id="fullname_patient">
+                                    </datalist>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -54,21 +60,20 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group input-group-md">
-                                <input type="search" class="form-control form-control-md search_khoa_nguyen" name="full_name" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                {{-- <input type="search" class="form-control form-control-md search_khoa_nguyen" name="full_name" placeholder="Nhập từ khóa tìm kiếm" value=""> --}}
                                 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-md btn-default">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
+                                <a href="{{ route('patient.index') }}" class="btn btn-default ml-1">
+                                    <i class="fas fa-times-circle"></i> Hủy
+                                </a>
                             </div>
-                            <ul class="result_search_khoa_nguyen">
-                                <li>1</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
-                @csrf
             </form>
 
             @include('admin.layouts.alert')
@@ -133,7 +138,7 @@
                                                                         <div class="form-group">
                                                                             <span class="form-message"></span>
                                                                             <label for="title">Ông/bà</label>
-                                                                            <input disabled type="text" class="form-control" value="{{ $patient->title }}" name="title" id="title" placeholder="@lang('Type full name')">
+                                                                            <input disabled type="text" class="form-control" value="{{ $patient->title }}" name="title" id="title" placeholder="Chức danh">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4">
@@ -297,7 +302,7 @@
                                                 <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-outline-info btn-inline-block mb-1">
                                                     <i class="fas fa-tools"></i> @lang('Edit')
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $patient->id }}">
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block mb-1" data-toggle="modal" data-target="#{{ 'myModal-' . $patient->id }}">
                                                     <i class="fas fa-trash"></i> @lang('Delete')
                                                 </button>
                                                 @php
@@ -321,7 +326,7 @@
                                                         
                                                         <!-- Modal body -->
                                                         <div class="modal-body" style="display:flex;">
-                                                            <button onclick="removeRow({{ $patient->id }}, '/emr/patient/destroy', {{ $page }})" type="button" class="btn btn-danger" data-dismiss="modal">
+                                                            <button onclick="removeRow({{ $patient->id }}, '/emr/patient/destroy', {{ $page }}, '/emr/patient?page=')" type="button" class="btn btn-danger" data-dismiss="modal">
                                                                 <i class="fas fa-check"></i> @lang('Agree')
                                                             </button>
                                                             <button type="button" style="margin-left: 20px" class="btn btn-primary" data-dismiss="modal">

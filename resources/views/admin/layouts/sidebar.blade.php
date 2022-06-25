@@ -35,6 +35,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
+               {{-- Quản lý hành chính --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
               {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
@@ -54,7 +55,8 @@
               </li>
             </ul>
           </li>
-          
+
+          {{-- Quản lý Account --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
               {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
@@ -82,6 +84,7 @@
             </ul>
           </li>
 
+          {{-- Quản lý Lịch Hẹn --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
@@ -107,6 +110,7 @@
             </ul>
           </li>
 
+          {{-- Đăng xuất --}}
           <li class="nav-item menu-open">
             <form action="{{ route('auth.logout.post') }}" method="post">
               @csrf

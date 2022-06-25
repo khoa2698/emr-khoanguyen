@@ -63,6 +63,7 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
         Route::get('/loadDistrict', 'loadDistrict');
         Route::get('/loadWard', 'loadWard');
         Route::get('/loadPatientName', 'loadPatientName');
+        Route::delete('/destroy', 'destroy');
     });
     
 
