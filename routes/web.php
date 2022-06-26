@@ -51,11 +51,11 @@ Route::get('/recovery-password/{token}', [ResetPasswordController::class, 'showR
 Route::post('/recovery-password', [ResetPasswordController::class, 'submitRecoveryPasswordForm'])->name('auth.recovery.post');
 
 # Admin
-Route::prefix('/emr')->middleware('auth')->group(function(){
+Route::prefix('/emr')->middleware(['auth'])->group(function(){
 
     Route::get('/', [DashboardController::class, 'index'])->name('emr.dashboard');
     # Route patients
-    Route::prefix('/patient')->controller(PatientController::class)->group(function(){
+    Route::prefix('/patient')->middleware(['role:Super Admin|Doctor|Nurse'])->controller(PatientController::class)->group(function(){
         Route::get('/', 'index')->name('patient.index');
         Route::get('/add', 'create')->name('patient.create');
         Route::post('/add', 'store')->name('patient.store');
@@ -66,13 +66,13 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
         Route::get('/loadPatientName', 'loadPatientName');
         Route::delete('/destroy', 'destroy');
     });
-    Route::prefix('/hospital-history')->controller(HospitalHistoryController::class)->group(function(){
+    Route::prefix('/hospital-history')->middleware(['role:Super Admin|Doctor|Nurse'])->controller(HospitalHistoryController::class)->group(function(){
         Route::get('/', 'index')->name('hospital-history.index');
     });
     
 
     # Route Account
-    Route::prefix('/account')->controller(AccountController::class)->group(function(){
+    Route::prefix('/account')->middleware(['role:Super Admin|Admin'])->controller(AccountController::class)->group(function(){
         Route::get('/', 'index')->name('account.index');
         Route::get('/add', 'create')->name('account.create');
         Route::post('/add', 'store')->name('account.store');
@@ -82,7 +82,7 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
     });
 
     # Route Permission
-    Route::prefix('/permission')->controller(PermissionController::class)->group(function(){
+    Route::prefix('/permission')->middleware(['role:Super Admin|Admin'])->controller(PermissionController::class)->group(function(){
         Route::get('/', 'index')->name('permission.index');
         Route::get('/add', 'create')->name('permission.create');
         Route::post('/add', 'store')->name('permission.store');
@@ -93,13 +93,14 @@ Route::prefix('/emr')->middleware('auth')->group(function(){
     });
 
     # Route Appointments
-    Route::prefix('/appointment')->controller(AppointmentController::class)->group(function(){
+    Route::prefix('/appointment')->middleware(['role:Super Admin|Doctor|Nurse|Receptionist'])->controller(AppointmentController::class)->group(function(){
         Route::get('/', 'showPatientAccepted')->name('appointment.showPatientAccepted');
         // Route::get('/{id}', 'show')->name('appointment.show');
         Route::get('/pending', 'showPatientPending')->name('appointment.showPatientPending');
         Route::post('/add', 'store')->name('appointment.store');
     });
 });
+
 # Route Appointments Patient side
 Route::prefix('/appointmentPatient')->group(function(){
     Route::get('/', [AppointmentController::class, 'index'])->name('appointmentPatient.index');

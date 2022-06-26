@@ -84,7 +84,7 @@
                   <li class="nav-item">
                     <a href="{{ route('patient.index') }}" class="nav-link">
                       <i class="nav-icon fas fa-heartbeat"></i>
-                      <p>Khám toàn thân</p>
+                      <p>Nhập sinh hiệu</p>
                     </a>
                   </li>
                 </ul>
