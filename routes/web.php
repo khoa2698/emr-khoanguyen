@@ -30,7 +30,7 @@ Route::get('/', function() {
     return view('web.home');
 });
     # Load ajax time List
-Route::post('/loadTimeList', function(Request $request){
+Route::get('/loadTimeList', function(Request $request){
     if(!empty($request->value)) {
         return true;
     } else {

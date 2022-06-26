@@ -26,13 +26,12 @@ $.ajaxSetup({
 
 /**------ Load ajax time list ---------*/
 var timeList = '<option value="">Thời gian</option><option value="08:00">08:00 Sáng</option><option value="08:30">08:30 Sáng</option><option value="09:00">09:00 Sáng</option><option value="09:30">09:30 Sáng</option><option value="10:00">10:00 Sáng</option><option value="10:30">10:30 Sáng</option><option value="11:00">11:00 Sáng</option><option value="13:00">13:00 Chiều</option><option value="14:00">14:00 Chiều</option><option value="15:00">15:00 Chiều</option><option value="15:30">15:30 Chiều</option><option value="16:00">16:00 Chiều</option><option value="16:30">16:30 Chiều</option><option value="17:00">17:00 Chiều</option><option value="17:30">17:30 Chiều</option><option value="18:00">18:00 Chiều</option>'
-$_LINK = 'http://emr.khoanguyen.vn/loadTimeList'
 
 $('.form-group #formDate').on('change', function() {
     var value = $('.form-group #formDate').val();
     $.ajax({
-        url: $_LINK,
-        type: 'POST',
+        url: '/loadTimeList',
+        type: 'GET',
         data: {
             value
         }, success: function(result) {
