@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Buihuycuong\Vnfaker\VNFaker;
 use Illuminate\Support\Str;
 
 class AccountSeeder extends Seeder
@@ -19,7 +20,7 @@ class AccountSeeder extends Seeder
         $emails = ['superadmin@emr.com', 'admin@emr.com', 'doctor@emr.com', 'nurse@emr.com', 'technician@emr.com', 'receptionist@emr.com'];
         foreach ($emails as $email) {
             User::create([
-                'name' => $this->faker->name(),
+                'name' => vnfaker()->fullname($word = 2),
                 'email' => $email,
                 'email_verified_at' => now(),
                 'password' => bcrypt('12345678'), // password
