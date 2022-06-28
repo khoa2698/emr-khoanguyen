@@ -1,0 +1,177 @@
+@extends('admin.layouts.master')
+
+@section('content')
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-3">
+                <h1 class="m-0">Nhập thông tin khám lâm sàng</h1>
+            </div>
+            <div class="col-sm-9">
+                <a href="{{ route('account.index') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-arrow-left"></i> @lang('Back')
+                </a>
+            </div>
+            </div><!-- /.row -->
+
+            @include('admin.layouts.alert')
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Nhập thông tin khám lâm sàng</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="{{ route('generalclinical.store') }}" method="POST" id="form-1">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
+                            <input autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <datalist id="fullname_patient">
+                            </datalist>
+                            <span class="form-message"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name_subclinical_service">Chỉ định dịch vụ cận lâm sàng</label>
+                            <select class="select2" name="name_subclinical_service[]" multiple="multiple" data-placeholder="Chọn dịch vụ" style="width: 100%;">
+                                <option value="1">Siêu âm</option>
+                                <option value="2">Xét nghiệm máu</option>
+                                <option value="3">X quang</option>
+                                <option value="4">Cộng hưởng từ</option>
+                                <option value="5">Nội soi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_tuanhoan">chẩn đoán hệ tuần hoàn</label>
+                            <textarea style="resize: none" name="diagnosis_tuanhoan" id="diagnosis_tuanhoan" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tuanhoan') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_hohap">chẩn đoán hệ hô hấp</label>
+                            <textarea style="resize: none" name="diagnosis_hohap" id="diagnosis_hohap" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_hohap') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_tieuhoa">chẩn đoán hệ tiêu hóa</label>
+                            <textarea style="resize: none" name="diagnosis_tieuhoa" id="diagnosis_tieuhoa" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tieuhoa') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_than_tietnieu_sinhduc">chẩn đoán hệ tiết niệu sinh duc</label>
+                            <textarea style="resize: none" name="diagnosis_than_tietnieu_sinhduc" id="diagnosis_than_tietnieu_sinhduc" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_than_tietnieu_sinhduc') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_thankinh">chẩn đoán hệ thần kinh</label>
+                            <textarea style="resize: none" name="diagnosis_thankinh" id="diagnosis_thankinh" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_thankinh') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_coxuongkhop">chẩn đoán hệ cơ xương khớp</label>
+                            <textarea style="resize: none" name="diagnosis_coxuongkhop" id="diagnosis_coxuongkhop" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_coxuongkhop') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_taimuihong">chẩn đoán tai mũi họng</label>
+                            <textarea style="resize: none" name="diagnosis_taimuihong" id="diagnosis_taimuihong" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_taimuihong') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_ranghammat">chẩn đoán răng hàm mặt</label>
+                            <textarea style="resize: none" name="diagnosis_ranghammat" id="diagnosis_ranghammat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_ranghammat') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_mat">chẩn đoán mắt</label>
+                            <textarea style="resize: none" name="diagnosis_mat" id="diagnosis_mat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_mat') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_noitiet_dinhduong_khac">chẩn đoán khác</label>
+                            <textarea style="resize: none" name="diagnosis_noitiet_dinhduong_khac" id="diagnosis_noitiet_dinhduong_khac" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_noitiet_dinhduong_khac') }}</textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="diagnosis_syndrome">Hội chứng</label>
+                            <textarea style="resize: none" name="diagnosis_syndrome" id="diagnosis_syndrome" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_syndrome') }}</textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <!-- /.card-body -->
+            @csrf
+            {{-- loading submit --}}
+            <div class="loading loading-ring hidden">
+                <div class="lds-dual-ring">Đang xử lý</div>
+            </div>
+            {{-- end loading submit --}}
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- /.content -->
+</div>
+    
+@endsection
+
+@section('script')
+<script>
+    Validator({
+        form: "#form-1",
+        formGroupSelector: ".form-group",
+        errorSelector: ".form-message",
+        rules: [
+            Validator.isRequired("#search_khoa_nguyen", "@lang('Please fill out this field')"),
+        ]
+    });
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+    });    
+
+</script>
+@endsection

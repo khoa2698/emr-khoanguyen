@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHospitalHistoriesTable extends Migration
+class Icd10 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateHospitalHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hospital_histories', function (Blueprint $table) {
+        Schema::create('icd10', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('code');
+            $table->string('name');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateHospitalHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hospital_histories');
+        Schema::dropIfExists('icd10');
     }
 }

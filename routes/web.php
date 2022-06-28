@@ -5,9 +5,14 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\emr\AccountController;
 use App\Http\Controllers\emr\AppointmentController;
 use App\Http\Controllers\emr\DashboardController;
+use App\Http\Controllers\emr\DiagnosisController;
+use App\Http\Controllers\emr\GeneralClinicalController;
 use App\Http\Controllers\emr\HospitalHistoryController;
+use App\Http\Controllers\emr\ImagingResultController;
+use App\Http\Controllers\emr\LabResultController;
 use App\Http\Controllers\emr\PatientController;
 use App\Http\Controllers\emr\PermissionController;
+use App\Http\Controllers\emr\VitalController;
 use App\Http\Controllers\LangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -67,7 +72,26 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
         Route::delete('/destroy', 'destroy');
     });
     Route::prefix('/hospital-history')->middleware(['role:Super Admin|Doctor|Nurse'])->controller(HospitalHistoryController::class)->group(function(){
-        Route::get('/', 'index')->name('hospital-history.index');
+        Route::get('/', 'create')->name('hospital-history.create');
+        Route::post('/', 'store')->name('hospital-history.store');
+    });
+    Route::prefix('/vital')->middleware(['role:Super Admin|Doctor'])->controller(VitalController::class)->group(function(){
+        Route::get('/', 'create')->name('vital.create');
+        Route::post('/', 'store')->name('vital.store');
+    });
+    Route::prefix('/generalclinical')->middleware(['role:Super Admin|Doctor'])->controller(GeneralClinicalController::class)->group(function(){
+        Route::get('/', 'create')->name('generalclinical.create');
+        Route::post('/', 'store')->name('generalclinical.store');
+    });
+    Route::prefix('/labresult')->middleware(['role:Super Admin|Technicians'])->controller(LabResultController::class)->group(function(){
+        Route::get('/', 'create')->name('labresult.create');
+    });
+    Route::prefix('/imagingresult')->middleware(['role:Super Admin|Technicians'])->controller(ImagingResultController::class)->group(function(){
+        Route::get('/', 'create')->name('imagingresult.create');
+    });
+    Route::prefix('/diagnosis')->middleware(['role:Super Admin|Doctor'])->controller(DiagnosisController::class)->group(function(){
+        Route::get('/', 'create')->name('diagnosis.create');
+        Route::post('/', 'store')->name('diagnosis.store');
     });
     
 

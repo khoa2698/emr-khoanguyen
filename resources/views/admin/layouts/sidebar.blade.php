@@ -59,7 +59,7 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('patient.index') }}" class="nav-link">
+                  <a href="{{ route('hospital-history.create') }}" class="nav-link{{ $childMenuActive == 'childHospitalHistoryMenu' ? ' active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>Quá trình khám bệnh</p>
                   </a>
@@ -71,7 +71,7 @@
           <!-- Khám bệnh và điều trị -->
           @hasanyrole('Super Admin|Doctor|Technicians')
             <li class="nav-item menu-open">
-              <a href="#" class="nav-link">
+              <a href="#" class="nav-link{{ $menuActive == 'treatmentMenu' ? ' active' : '' }}">
                 <i class="nav-icon fas fa-procedures"></i>
                 {{-- <i class="nav-icon fas fa-user-circle"></i> --}}
                 <p>
@@ -79,28 +79,29 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              @hasrole('Super Admin|Doctor')
+              @hasanyrole('Super Admin|Doctor')
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('patient.index') }}" class="nav-link">
+                    <a href="{{ route('vital.create') }}" class="nav-link{{ $childMenuActive == 'childVitalMenu' ? ' active' : '' }}">
                       <i class="nav-icon fas fa-heartbeat"></i>
                       <p>Nhập sinh hiệu</p>
                     </a>
                   </li>
                 </ul>
               
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('patient.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-stethoscope"></i>
-                    <p>Khám lâm sàng tổng quát</p>
-                  </a>
-                </li>
-              </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('generalclinical.create') }}" class="nav-link{{ $childMenuActive == 'childClinicalMenu' ? ' active' : '' }}">
+                      <i class="nav-icon fas fa-stethoscope"></i>
+                      <p>Khám lâm sàng tổng quát</p>
+                    </a>
+                  </li>
+                </ul>
               @endhasanyrole
+              @hasanyrole('Super Admin|Technicians')
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('patient.index') }}" class="nav-link">
+                  <a href="{{ route('labresult.create') }}" class="nav-link{{ $childMenuActive == 'childLabResultMenu' ? ' active' : '' }}">
                     <i class="nav-icon fas fa-vial"></i>
                     <p>Nhập kết quả xét nghiệm</p>
                   </a>
@@ -108,16 +109,17 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('patient.index') }}" class="nav-link">
+                  <a href="{{ route('imagingresult.create') }}" class="nav-link{{ $childMenuActive == 'childImagingMenu' ? ' active' : '' }}">
                     <i class="nav-icon fas fa-photo-video"></i>
                     <p>Nhập kết quả CĐHA</p>
                   </a>
                 </li>
               </ul>
+              @endhasanyrole
               @hasanyrole('Super Admin|Doctor')
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('patient.index') }}" class="nav-link">
+                    <a href="{{ route('diagnosis.create') }}" class="nav-link{{ $childMenuActive == 'childDiagnosisMenu' ? ' active' : '' }}">
                       <i class="nav-icon fas fa-diagnoses"></i>
                       <p>Chẩn đoán</p>
                     </a>
@@ -125,7 +127,7 @@
                 </ul>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('patient.index') }}" class="nav-link">
+                    <a href="{{ route('patient.create') }}" class="nav-link">
                       <i class="nav-icon fas fa-book"></i>
                       <p>Tổng kết bệnh án</p>
                     </a>
@@ -176,19 +178,22 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+                @hasanyrole('Super Admin|Doctor')
                 <li class="nav-item">
                   <a href="{{ route('appointment.showPatientAccepted') }}" class="nav-link{{ $childMenuActive == 'childNewAppointmentMenu' ? ' active' : '' }}">
                     <i class="nav-icon fas fa-calendar-check"></i>
                     <p>@lang('New Appointment')</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="{{ route('appointment.showPatientPending') }}" class="nav-link{{ $childMenuActive == 'childPendingAppointmentMenu' ? ' active' : '' }}">
-                    <i class="nav-icon fas fa-exchange-alt"></i>
-                    <p>@lang('Pending Appointment')</p>
-                  </a>
-                </li>
-
+                @endhasanyrole
+                @hasanyrole('Super Admin|Nurse|Receptionist')
+                  <li class="nav-item">
+                    <a href="{{ route('appointment.showPatientPending') }}" class="nav-link{{ $childMenuActive == 'childPendingAppointmentMenu' ? ' active' : '' }}">
+                      <i class="nav-icon fas fa-exchange-alt"></i>
+                      <p>@lang('Pending Appointment')</p>
+                    </a>
+                  </li>
+                @endhasanyrole
               </ul>
             </li>
           @endhasanyrole
