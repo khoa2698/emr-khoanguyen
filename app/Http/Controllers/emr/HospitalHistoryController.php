@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
+use App\Models\HospitalHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -12,14 +13,6 @@ class HospitalHistoryController extends Controller
     public $childMenuActive = 'childHospitalHistoryMenu';
     public function create()
     {
-        // Session::flush();
-        // $patient_id = Session::get('patient_id');
-        // if(is_null($patient_id)) {
-        //     Session::put('patient_id',1);
-        // } else {
-        //     Session::forget('patient_id');
-        // }
-        // dd($patient_id);
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
         return view('admin.hospitalhistory.create', compact('menuActive', 'childMenuActive'));
@@ -27,6 +20,23 @@ class HospitalHistoryController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        $validated = $request->validate([
+            'patient_id' => ['bail','required', 'exists:patients,patient_id'],
+            'date_attented' => ['required'],
+            'date_admitted' => ['required'],
+            'admit_dept' => ['required'],
+            'reason' => ['required'],
+        ]);
+        if($validated) {
+
+            try {
+                HospitalHistory::create($request->except('_token'));
+                Session::flash('success', 'Thêm lịch sử khám thành công, tiếp tục thủ tục');
+            } catch (\Exception $err) {
+                Session::flash('error', $err->getMessage());
+            }
+            return redirect()->route('vital.create');
+            // dd($request->all());
+        }
     }
 }

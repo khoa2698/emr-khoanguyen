@@ -12,6 +12,9 @@ use HoangPhi\VietnamMap\Models\District;
 use HoangPhi\VietnamMap\Models\Ward;
 use Buihuycuong\Vnfaker\VNFaker;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Session;
+
+use function PHPUnit\Framework\isNull;
 
 class PatientController extends Controller
 {
@@ -19,7 +22,7 @@ class PatientController extends Controller
     public $childMenuActive = 'childPatientMenu';
     public function index(Request $request)
     {
-        // dd($request->all());
+        // dd($request->session->get('patient_id'));
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
         if(!empty($request->patient_id)){
@@ -117,6 +120,20 @@ class PatientController extends Controller
         }
         return redirect()->route('patient.index')->withErrors('Có lỗi, thử lại sau.');
     }
+    public function selectpatient(Request $request)
+    {
+        $selectedpatient = Patient::where('patient_id', $request->selected_patient)->first();
+        // dd($selectedpatient);
+        if(!empty($selectedpatient)) {
+            $request->session()->put('patient_id', $request->selected_patient);
+            return redirect()->route('patient.index');
+        }
+        if(isNull($selectedpatient)){
+            Session::forget('patient_id');
+            return redirect()->route('patient.index'); 
+        }
+    }
+
     public function edit($id)
     {
         $menuActive = $this->menuActive;

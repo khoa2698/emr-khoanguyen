@@ -10,13 +10,17 @@
             <div class="col-sm-3">
                 <h1 class="m-0">Nhập chẩn đoán</h1>
             </div>
-            <div class="col-sm-9">
-                <a href="{{ route('account.index') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-arrow-left"></i> @lang('Back')
-                </a>
-            </div>
             </div><!-- /.row -->
-
+            @if (Session::get('patient_id') != null)
+            <div class="col-md-12 text-success mt-2">
+                Bênh nhân được chọn: 
+                {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+            </div>
+            @else
+                <div class="col-md-12 text-danger mt-2">
+                    Chưa chọn bệnh nhân thăm khám
+                </div>
+            @endif
             @include('admin.layouts.alert')
         </div><!-- /.container-fluid -->
     </div>
@@ -32,10 +36,10 @@
         <form action="{{ route('diagnosis.store') }}" method="POST" id="form-1">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div hidden class="col-6">
                         <div class="form-group">
                             <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input value="{{old('patient_id')}}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
                             <datalist id="fullname_patient">
                             </datalist>
                             <span class="form-message"></span>
@@ -51,7 +55,7 @@
                             <select id="icd10_main_code" name="icd10_main_code" class="form-control select2" style="width: 100%;">
                                 <option value=""></option>
                                 @foreach ($icd10s as $icd10)
-                                    <option value="{{ $icd10->code . '-' . $icd10->name}}">{{ $icd10->code . '-' . $icd10->name}}</option>
+                                    <option {{ old('icd10_main_code') == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
                                 @endforeach
                             </select>
                             <span class="form-message"></span>
@@ -63,7 +67,7 @@
                             <select id="icd10_sub_code" name="icd10_sub_code" class="form-control select2" style="width: 100%;">
                                 <option value=""></option>
                                 @foreach ($icd10s as $icd10)
-                                    <option value="{{ $icd10->code . '-' . $icd10->name}}">{{ $icd10->code . '-' . $icd10->name}}</option>
+                                    <option {{ old('icd10_sub_code') == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
                                 @endforeach
                             </select>
                             <span class="form-message"></span>
@@ -99,13 +103,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="result_imaging">Kết quả ảnh chụp</label>
-                            <textarea style="resize: none" name="result_imaging" id="result_imaging" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('result_imaging') }}</textarea>
+
+                            <div class="form-group">
+                                {!! App\Helpers\Helper::getImagingResultLink(Session::get('patient_id')) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="result_lab">Kết quả xét nghiệm</label>
-                            <textarea style="resize: none" name="result_lab" id="result_lab" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('result_lab') }}</textarea>
+                            <div class="form-group">
+                                {!! App\Helpers\Helper::getLabResultLink(Session::get('patient_id')) !!}
+                            </div>
                         </div>
                     </div>
                 </div>

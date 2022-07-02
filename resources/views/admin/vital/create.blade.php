@@ -10,13 +10,17 @@
             <div class="col-sm-3">
                 <h1 class="m-0">Nhập thông tin sinh hiệu</h1>
             </div>
-            <div class="col-sm-9">
-                <a href="{{ route('account.index') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-arrow-left"></i> @lang('Back')
-                </a>
-            </div>
             </div><!-- /.row -->
-
+            @if (Session::get('patient_id') != null)
+            <div class="col-md-12 text-success mt-2">
+                Bênh nhân được chọn: 
+                {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+            </div>
+            @else
+                <div class="col-md-12 text-danger mt-2">
+                    Chưa chọn bệnh nhân thăm khám
+                </div>
+            @endif
             @include('admin.layouts.alert')
         </div><!-- /.container-fluid -->
     </div>
@@ -32,10 +36,10 @@
         <form action="{{ route('vital.store') }}" method="POST" id="form-1">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-4">
+                    <div hidden class="col-4">
                         <div class="form-group">
                             <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
                             <datalist id="fullname_patient">
                             </datalist>
                             <span class="form-message"></span>
@@ -69,9 +73,6 @@
                             <span class="form-message"></span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="blood_group">Nhóm máu</label>
@@ -96,6 +97,10 @@
                             <span class="form-message"></span>
                         </div>
                     </div>
+                </div>
+                
+                <div class="row">
+                
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="systolic">HA tâm thu <i>mmHg</i></label>

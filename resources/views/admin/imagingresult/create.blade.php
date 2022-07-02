@@ -7,16 +7,25 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-            <div class="col-sm-3">
-                <h1 class="m-0">Nhập kết quả chụp</h1>
+            <div class="col-sm-6">
+                <h1 class="m-0">Nhập kết quả CĐHA</h1>
             </div>
-            <div class="col-sm-9">
-                <a href="{{ route('account.index') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-arrow-left"></i> @lang('Back')
-                </a>
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-md btn-primary ml-1" data-toggle="modal" data-target="#select_patient">
+                    <i class="fas fa-hand-pointer"></i> Chọn bệnh nhân 
+                </button>
             </div>
             </div><!-- /.row -->
-
+            @if (Session::get('patient_id') != null)
+            <div class="col-md-12 text-success mt-2">
+                Bênh nhân được chọn: 
+                {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+            </div>
+            @else
+                <div class="col-md-12 text-danger mt-2">
+                    Chưa chọn bệnh nhân
+                </div>
+            @endif
             @include('admin.layouts.alert')
         </div><!-- /.container-fluid -->
     </div>
@@ -25,25 +34,32 @@
     <!-- Main content -->
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Nhập kết quả chụp</h3>
+          <h3 class="card-title">Nhập kết quả CĐHA</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="{{ route('account.store') }}" method="POST" id="form-1">
+        <form action="{{ route('imagingresult.store') }}" method="POST" id="form-1">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div hidden class="col-md-6">
                         <div class="form-group">
-                            <label for="fullname">@lang('Full Name')<span class="mandatory"> *</span></label>
-                            <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="fullname" placeholder="@lang('Type full name')">
+                            <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <datalist id="fullname_patient">
+                            </datalist>
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email">@lang('Email Address')<span class="mandatory"> *</span></label>
-                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email" placeholder="@lang('Type email address')">
-                            <span class="form-message"></span>
+                            <label for="name_subclinical_service">Dịch vụ cận lâm sàng</label>
+                            <select class="select2" name="name_subclinical_service" data-placeholder="Chọn dịch vụ" style="width: 100%;">
+                                <option value="">Chọn dịch vụ</option>
+                                <option value="Siêu âm">Siêu âm</option>
+                                <option value="X quang">X quang</option>
+                                <option value="Cộng hưởng từ">Cộng hưởng từ</option>
+                                <option value="Nội soi">Nội soi</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -51,16 +67,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password">@lang('PassWord')<span class="mandatory"> *</span></label>
-                            <input type="text" class="form-control" name="password" id="password" placeholder="@lang('Enter password')">
+                            <label for="url">Đường dẫn kết quả ảnh<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" name="url" id="url_image" placeholder="Nhập đường dẫn ảnh">
                             <span class="form-message"></span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="password_confirmation">@lang('Re-enter Password')<span class="mandatory"> *</span></label>
-                            <input type="text" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="@lang('Enter password')">
-                            <span class="form-message"></span>
+                        <div id="box_show_image" class="form-group" style="display:none">
+                            <a target="_blank" id="link_show_image" href="">
+                                <img style="width:250px" id="show_image" src="" alt="photo">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -68,12 +82,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>@lang('Select role group')</label>
-                            
-                          </div>
-                          <!-- /.form-group -->
+                            <label for="comment">Nhận xét</label>
+                            <textarea style="resize: none" name="comment" id="comment" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('comment') }}</textarea>
+                        </div>
                     </div>
-                    <!-- /.col -->
+                    
                 </div>
                 
             </div>
@@ -89,7 +102,56 @@
             </div>
         </form>
     </div>
-    
+    <!-- Modal select bệnh nhân -->
+    <div class="modal fade" id="select_patient">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn bệnh nhân
+                </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="{{ route('patient.imageclinicalpatient') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Nhập tên bệnh nhân để tìm kiếm:</label>
+                                        <input autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="nhập tên bệnh nhân">
+                                        {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
+                                        <datalist id="selected_patient">
+                                        </datalist>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-md">
+                                    <button type="submit" class="btn btn-success ml-1">
+                                        <i class="fas fa-book-medical"></i> Chọn
+                                    </button>
+                                    
+                                    <button style="margin-left: 20px" type="button" class="btn btn-danger" data-dismiss="modal">
+                                        <i class="fas fa-times-circle"></i> Hủy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+            
+        </div>
+        </div>
+    </div>
     <!-- /.content -->
 </div>
     
@@ -102,15 +164,7 @@
         formGroupSelector: ".form-group",
         errorSelector: ".form-message",
         rules: [
-        Validator.isRequired("#fullname", "@lang('Please fill out your full name')"),
-        Validator.isRequired("#email", "@lang('Please fill out this field')"),
-        Validator.isRequired("#password", "@lang('Please fill out this field')"),
-        Validator.isRequired("#password_confirmation", "@lang('Please fill out this field')"),
-        Validator.isEmail("#email", 'Email không hợp lệ'),
-        Validator.validatePassword("#password", '@lang('Minimum eight and maximum 50 characters, at least one uppercase letter, one lowercase letter, one number and one special character')'),
-        Validator.isConfirmed("#password_confirmation", function() {
-            return document.querySelector('#form-1 #password').value;
-        }, '@lang('Re-entered password is incorrect')'),
+       
         ],
     });
     $(function () {

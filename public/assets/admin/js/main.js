@@ -115,3 +115,36 @@ $('#search_khoa_nguyen').on('keyup', function(){
         }
     })
 })
+
+$('#select_patient').on('keyup', function(){
+    let full_name =$('#select_patient').val()
+    // console.log(full_name);
+    $.ajax({
+        type: 'GET',
+        data: {full_name},
+        url: base_url + '/emr/patient/loadPatientName',
+        success: function(result) {
+            $('#selected_patient').html(result)
+        }
+    })
+})
+
+$('#url_image').on('change', function(){
+    let url_image = $(this).val()
+    if (url_image != '') {
+        $('#link_show_image').attr('href', url_image)
+        $('#show_image').attr('src', url_image)
+        $('#box_show_image').css('display', 'block')
+    } else {
+        $('#box_show_image').css('display', 'none')
+    }
+
+    // $.ajax({
+    //     type: 'GET',
+    //     data: {url_image},
+    //     url: base_url + '/emr/loadimage',
+    //     success: function(result) {
+    //         $('#show_image').attr('src', result)
+    //     }
+    // })
+})

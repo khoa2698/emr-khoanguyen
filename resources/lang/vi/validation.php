@@ -46,7 +46,7 @@ return [
     'email' => ':attribute không hợp lệ.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
-    'exists' => 'The selected :attribute is invalid.',
+    'exists' => ':attribute được chọn không tồn tại.',
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
@@ -168,7 +168,22 @@ return [
         'dob' => 'Ngày tháng năm sinh',
         'city_id' => 'Thành phố / tỉnh',
         'district_id' => 'Quận / Huyện',
-        'ward_id' => 'Phường / Xã'
+        'ward_id' => 'Phường / Xã',
+        'patient_id' => 'Mã bệnh nhân',
+        'date_attented' => 'Thời gian đến',
+        'date_admitted' => 'Thời gian tiếp nhận',
+        'admit_dept' => 'Khoa tiếp nhận',
+        'reason' => 'Lý do',
+        'temperature' => 'Nhiệt độ',
+        'systolic' => 'Huyết áp tâm thu',
+        'diastolic' => 'Huyết áp tâm trương',
+        'name_subclinical_service' => 'Dịch vụ cận lâm sàng',
+        'icd10_main_code' => 'Bệnh chính',
+        'diagnosis' => 'Chẩn đoán',
+        'disease_plan' => 'Kế hoạch điều trị',
+        'result_imaging' => 'Kết quả ảnh',
+        'result_lab' => 'Kết quả xét nghiệm',
+        'url' => 'Đường dẫn ảnh'
     ],
 
 ];

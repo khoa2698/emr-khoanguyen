@@ -7,16 +7,20 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <h1 class="m-0">Nhập thông tin khám lâm sàng</h1>
             </div>
-            <div class="col-sm-9">
-                <a href="{{ route('account.index') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-arrow-left"></i> @lang('Back')
-                </a>
-            </div>
             </div><!-- /.row -->
-
+            @if (Session::get('patient_id') != null)
+            <div class="col-md-12 text-success mt-2">
+                Bênh nhân được chọn: 
+                {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+            </div>
+            @else
+                <div class="col-md-12 text-danger mt-2">
+                    Chưa chọn bệnh nhân thăm khám
+                </div>
+            @endif
             @include('admin.layouts.alert')
         </div><!-- /.container-fluid -->
     </div>
@@ -32,10 +36,10 @@
         <form action="{{ route('generalclinical.store') }}" method="POST" id="form-1">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div hidden class="col-6">
                         <div class="form-group">
                             <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
                             <datalist id="fullname_patient">
                             </datalist>
                             <span class="form-message"></span>
@@ -45,11 +49,11 @@
                         <div class="form-group">
                             <label for="name_subclinical_service">Chỉ định dịch vụ cận lâm sàng</label>
                             <select class="select2" name="name_subclinical_service[]" multiple="multiple" data-placeholder="Chọn dịch vụ" style="width: 100%;">
-                                <option value="1">Siêu âm</option>
-                                <option value="2">Xét nghiệm máu</option>
-                                <option value="3">X quang</option>
-                                <option value="4">Cộng hưởng từ</option>
-                                <option value="5">Nội soi</option>
+                                <option value="Siêu âm">Siêu âm</option>
+                                <option value="Xét nghiệm máu">Xét nghiệm máu</option>
+                                <option value="X quang">X quang</option>
+                                <option value="Cộng hưởng từ">Cộng hưởng từ</option>
+                                <option value="Nội soi">Nội soi</option>
                             </select>
                         </div>
                     </div>

@@ -72,6 +72,19 @@
                                     </button>
                                 </div>
                                 
+                                <button type="button" class="btn btn-md btn-primary ml-1" data-toggle="modal" data-target="#select_patient">
+                                    <i class="fas fa-hand-pointer"></i> Chọn bệnh nhân thăm khám 
+                                </button>
+                                @if (Session::get('patient_id') != null)
+                                <div class="col-md-12 text-success mt-2">
+                                    Bênh nhân được chọn: 
+                                    {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+                                </div>
+                                @else
+                                    <div class="col-md-12 text-danger mt-2">
+                                        Chưa chọn bệnh nhân thăm khám
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -366,7 +379,57 @@
     </div>
     <!-- /.content -->
 </div>
-    
+
+    <!-- Modal select bệnh nhân -->
+    <div class="modal fade" id="select_patient">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn bệnh nhân để thăm khám
+                </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="{{ route('patient.selectpatient') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Nhập tên bệnh nhân để tìm kiếm:</label>
+                                        <input value="{{$patient_id_search}}" autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="nhập tên bệnh nhân">
+                                        {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
+                                        <datalist id="selected_patient">
+                                        </datalist>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-md">
+                                    <button type="submit" class="btn btn-success ml-1">
+                                        <i class="fas fa-book-medical"></i> Chọn
+                                    </button>
+                                    
+                                    <button style="margin-left: 20px" type="button" class="btn btn-danger" data-dismiss="modal">
+                                        <i class="fas fa-times-circle"></i> Hủy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+            
+        </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')

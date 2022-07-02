@@ -64,6 +64,7 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
         Route::get('/', 'index')->name('patient.index');
         Route::get('/add', 'create')->name('patient.create');
         Route::post('/add', 'store')->name('patient.store');
+        Route::post('/select', 'selectpatient')->name('patient.selectpatient');
         Route::get('/edit/{id}', 'edit')->name('patient.edit');
         Route::post('/{id}', 'update')->name('patient.update');
         Route::get('/loadDistrict', 'loadDistrict');
@@ -85,9 +86,14 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
     });
     Route::prefix('/labresult')->middleware(['role:Super Admin|Technicians'])->controller(LabResultController::class)->group(function(){
         Route::get('/', 'create')->name('labresult.create');
+        Route::post('/', 'store')->name('labresult.store');
+        Route::post('/selectclinicalpatient', 'selectSubclinicalPatient')->name('patient.selectclinicalpatient');
     });
     Route::prefix('/imagingresult')->middleware(['role:Super Admin|Technicians'])->controller(ImagingResultController::class)->group(function(){
         Route::get('/', 'create')->name('imagingresult.create');
+        Route::post('/', 'store')->name('imagingresult.store');
+        Route::post('/imageclinicalpatient', 'imageSubclinicalPatient')->name('patient.imageclinicalpatient');
+
     });
     Route::prefix('/diagnosis')->middleware(['role:Super Admin|Doctor'])->controller(DiagnosisController::class)->group(function(){
         Route::get('/', 'create')->name('diagnosis.create');
