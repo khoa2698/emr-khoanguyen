@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diagnosis;
+use App\Models\GeneralClinical;
 use App\Models\HospitalHistory;
+use App\Models\Vital;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use SubclinicalService;
+
+use function PHPUnit\Framework\isNull;
 
 class HospitalHistoryController extends Controller
 {
@@ -20,20 +27,53 @@ class HospitalHistoryController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'patient_id' => ['bail','required', 'exists:patients,patient_id'],
-            'date_attented' => ['required'],
-            'date_admitted' => ['required'],
-            'admit_dept' => ['required'],
-            'reason' => ['required'],
-        ]);
+        $validated = true;
+        // $validated = $request->validate([
+        //     'patient_id' => ['bail','required', 'exists:patients,patient_id'],
+        //     'date_attented' => ['required'],
+        //     'date_admitted' => ['required'],
+        //     'admit_dept' => ['required'],
+        //     'reason' => ['required'],
+        // ]);
         if($validated) {
+            $visited_patient = HospitalHistory::where('patient_id', $request->patient_id);
+            
+            $info_visit = [
+                'patient_id' => $request->patient_id,
+                'time' => 1,
+            ];
+            if(!empty($visited_patient->first())) {
+                $nearest_visit = $visited_patient->max('time');
+                $lastest_visit = array_merge($request->except('_token'), ['time' => $nearest_visit + 1]);
+                $info_visit['time'] = $nearest_visit + 1;
+                DB::beginTransaction();
+                try {
+                    HospitalHistory::create($lastest_visit);
+                    Vital::create($info_visit);
+                    GeneralClinical::create($info_visit);
+                    Diagnosis::create($info_visit);
+                    DB::commit();
+                    Session::flash('success', 'Thêm lịch sử khám thành công, tiếp tục thủ tục');
+                } catch (\Exception $err) {
+                    DB::rollBack();
+                    Session::flash('error', $err->getMessage());
+                    return redirect()->route('hospital-history.create');
+                }
+                return redirect()->route('vital.create');
+            }
 
+            DB::beginTransaction();
             try {
                 HospitalHistory::create($request->except('_token'));
+                Vital::create($info_visit);
+                GeneralClinical::create($info_visit);
+                Diagnosis::create($info_visit);
+                DB::commit();
                 Session::flash('success', 'Thêm lịch sử khám thành công, tiếp tục thủ tục');
             } catch (\Exception $err) {
+                DB::rollBack();
                 Session::flash('error', $err->getMessage());
+                return redirect()->route('hospital-history.create');
             }
             return redirect()->route('vital.create');
             // dd($request->all());

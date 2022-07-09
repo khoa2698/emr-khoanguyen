@@ -27,7 +27,6 @@ class GeneralClinicalController extends Controller
         ]);
         if($validated) {
             $params = [
-                'patient_id' => $request->patient_id,
                 'diagnosis_tuanhoan' => $request->diagnosis_tuanhoan,
                 'diagnosis_hohap' => $request->diagnosis_hohap,
                 'diagnosis_tieuhoa' => $request->diagnosis_tieuhoa,
@@ -47,14 +46,16 @@ class GeneralClinicalController extends Controller
             }
             DB::beginTransaction();
             try {
-
-                GeneralClinical::create($params);
+                $patient_general = GeneralClinical::where('patient_id', $request->patient_id);
+                $lastest_visit_general = $patient_general->max('time');
+                GeneralClinical::where('patient_id', $request->patient_id)->where('time', $lastest_visit_general)->update($params);
 
                 $subclinical_services = $request->name_subclinical_service;
                 foreach($subclinical_services as $subclinical_service) {
                     DB::table('subclinical_service')->insert([
                         'patient_id' => $request->patient_id,
                         'name' => $subclinical_service,
+                        'time' => $lastest_visit_general,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
                     ]);

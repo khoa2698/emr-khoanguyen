@@ -37,7 +37,6 @@ class DiagnosisController extends Controller
                 "disease_prognosis" => $request->disease_prognosis,
                 "disease_plan" => $request->disease_plan,
             ];
-            // dd($name_subclinical_service);
             try {
                 Diagnosis::create($params);
                 Session::flash('success', 'Thêm kết quả chẩn đoán thành công, tiếp tục thủ tục');

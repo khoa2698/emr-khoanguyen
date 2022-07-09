@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
+use App\Models\HospitalHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -20,22 +21,28 @@ class LabResultController extends Controller
     }
     public function selectSubclinicalPatient(Request $request)
     {
-        $selectedpatient = DB::table('subclinical_service')->where('patient_id', $request->selected_patient)->where('name', 'Xét nghiệm máu')->get();
-        // dd($selectedpatient);
+        // $lastest_subclinical = DB::table('subclinical_service')->where('patient_id', $request->selected_patient)->max('time');
+        $lastest_hospitalhistory = HospitalHistory::where('patient_id', $request->selected_patient)->max('time');
+        $selectedpatient = DB::table('subclinical_service')->where('patient_id', $request->selected_patient)->where('time', $lastest_hospitalhistory)->get();
+        // Nếu bệnh nhân yêu cầu dịch vụ cls trong lần khám đó
         if(count($selectedpatient) != 0) {
-            // dd(1);
             $request->session()->put('patient_id', $request->selected_patient);
             return redirect()->route('labresult.create');
         }
         else{
-            // dd(0);
             Session::forget('patient_id');
-            return redirect()->route('labresult.create')->withErrors('Bệnh nhân chưa yêu cầu dịch vụ'); 
+            return redirect()->route('labresult.create'); 
         }
     }
     public function store(Request $request)
     {
-        // dd($request->all());
+        $lastest_hospitalhistory = HospitalHistory::where('patient_id', $request->patient_id)->max('time');
+        // Kiểm tra trước khi lưu thông tin xét nghiệm
+        $selectedpatient = DB::table('subclinical_service')->where('patient_id', $request->patient_id)->where('time', $lastest_hospitalhistory)->where('name', 'Xét nghiệm máu')->get();
+        if(count($selectedpatient) == 0) {
+            return redirect()->route('labresult.create')->withErrors('Bệnh nhân chưa yêu cầu dịch vụ xét nghiệm');
+        }
+
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
             'name_subclinical_service' => ['required'],
@@ -45,6 +52,7 @@ class LabResultController extends Controller
         if($validated) {
             $params = [
                 'patient_id' => $request->patient_id,
+                'time' => $lastest_hospitalhistory,
                 'name' => $request->name_subclinical_service,
                 'url' => $request->url,
                 'comment' => $request->comment,
@@ -53,7 +61,7 @@ class LabResultController extends Controller
             ];
             try {
                 DB::table('lab_result')->insert($params);
-                Session::flash('success', 'Thêm kết quả xét nghiệm thành công');
+                Session::flash('success', 'Thêm kết quả '.$request->name_subclinical_service.' thành công');
             } catch (\Exception $err) {
                 Session::flash('error', $err->getMessage());
             }

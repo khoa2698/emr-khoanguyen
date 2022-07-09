@@ -17,13 +17,21 @@
             </div>
             </div><!-- /.row -->
             @if (Session::get('patient_id') != null)
-            <div class="col-md-12 text-success mt-2">
-                Bênh nhân được chọn: 
-                {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
-            </div>
+                <div class="col-md-12 text-success mt-2">
+                    Bênh nhân được chọn: 
+                    {!! App\Helpers\Helper::getPatientInfo(Session::get('patient_id')) !!}
+                </div>
+                @php
+                    $selectedservices = App\Helpers\Helper::checkImageService(Session::get('patient_id'));
+                @endphp
+                @if (!$selectedservices)
+                    <div class="col-md-12 text-danger mt-2">
+                        Bệnh nhân chưa yêu cầu dịch vụ chụp ảnh.
+                    </div>
+                @endif
             @else
                 <div class="col-md-12 text-danger mt-2">
-                    Chưa chọn bệnh nhân
+                    Bệnh nhân chưa yêu cầu dịch vụ Cận lâm sàng.
                 </div>
             @endif
             @include('admin.layouts.alert')
@@ -43,8 +51,8 @@
                 <div class="row">
                     <div hidden class="col-md-6">
                         <div class="form-group">
-                            <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
                             <datalist id="fullname_patient">
                             </datalist>
                             <span class="form-message"></span>
@@ -54,11 +62,11 @@
                         <div class="form-group">
                             <label for="name_subclinical_service">Dịch vụ cận lâm sàng</label>
                             <select class="select2" name="name_subclinical_service" data-placeholder="Chọn dịch vụ" style="width: 100%;">
-                                <option value="">Chọn dịch vụ</option>
-                                <option value="Siêu âm">Siêu âm</option>
-                                <option value="X quang">X quang</option>
-                                <option value="Cộng hưởng từ">Cộng hưởng từ</option>
-                                <option value="Nội soi">Nội soi</option>
+                                @if (isset($selectedservices) && !empty($selectedservices) && count($selectedservices) != 0)
+                                    @foreach ($selectedservices as $selectedservice)
+                                        <option value="{{$selectedservice->name}}">{{ $selectedservice->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -123,8 +131,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Nhập tên bệnh nhân để tìm kiếm:</label>
-                                        <input autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="nhập tên bệnh nhân">
+                                        <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:</label>
+                                        <input autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
                                         {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
                                         <datalist id="selected_patient">
                                         </datalist>

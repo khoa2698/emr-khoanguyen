@@ -12,6 +12,8 @@ use App\Http\Controllers\emr\ImagingResultController;
 use App\Http\Controllers\emr\LabResultController;
 use App\Http\Controllers\emr\PatientController;
 use App\Http\Controllers\emr\PermissionController;
+use App\Http\Controllers\emr\summaryemr;
+use App\Http\Controllers\emr\SummaryEmrController;
 use App\Http\Controllers\emr\VitalController;
 use App\Http\Controllers\LangController;
 use Illuminate\Http\Request;
@@ -69,9 +71,13 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
         Route::post('/{id}', 'update')->name('patient.update');
         Route::get('/loadDistrict', 'loadDistrict');
         Route::get('/loadWard', 'loadWard');
-        Route::get('/loadPatientName', 'loadPatientName');
         Route::delete('/destroy', 'destroy');
     });
+    # Search ajax Patient
+    Route::middleware(['role:Super Admin|Doctor|Nurse|Technicians'])->controller(PatientController::class)->group(function(){
+        Route::get('/patient/loadPatientName', 'loadPatientName');
+    });
+
     Route::prefix('/hospital-history')->middleware(['role:Super Admin|Doctor|Nurse'])->controller(HospitalHistoryController::class)->group(function(){
         Route::get('/', 'create')->name('hospital-history.create');
         Route::post('/', 'store')->name('hospital-history.store');
@@ -87,8 +93,10 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
     Route::prefix('/labresult')->middleware(['role:Super Admin|Technicians'])->controller(LabResultController::class)->group(function(){
         Route::get('/', 'create')->name('labresult.create');
         Route::post('/', 'store')->name('labresult.store');
+        
         Route::post('/selectclinicalpatient', 'selectSubclinicalPatient')->name('patient.selectclinicalpatient');
     });
+
     Route::prefix('/imagingresult')->middleware(['role:Super Admin|Technicians'])->controller(ImagingResultController::class)->group(function(){
         Route::get('/', 'create')->name('imagingresult.create');
         Route::post('/', 'store')->name('imagingresult.store');
@@ -98,6 +106,9 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
     Route::prefix('/diagnosis')->middleware(['role:Super Admin|Doctor'])->controller(DiagnosisController::class)->group(function(){
         Route::get('/', 'create')->name('diagnosis.create');
         Route::post('/', 'store')->name('diagnosis.store');
+    });
+    Route::prefix('/summaryemr')->middleware(['role:Super Admin|Doctor'])->controller(SummaryEmrController::class)->group(function(){
+        Route::get('/', 'index')->name('summaryemr.index');
     });
     
 

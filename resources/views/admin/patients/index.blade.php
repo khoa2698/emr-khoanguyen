@@ -32,8 +32,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Nhập tên bệnh nhân để tìm kiếm:</label>
-                                    <input value="{{$patient_id_search}}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                                    <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:</label>
+                                    <input value="{{$patient_id_search}}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
                                     {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
                                     <datalist id="fullname_patient">
                                     </datalist>
@@ -401,8 +401,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Nhập tên bệnh nhân để tìm kiếm:</label>
-                                        <input value="{{$patient_id_search}}" autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="nhập tên bệnh nhân">
+                                        <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:</label>
+                                        <input value="{{$patient_id_search}}" autocomplete="off" id="select_patient" type="text" class="form-control" name="selected_patient" list="selected_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
                                         {{-- <input style="display:block" autocomplete="off" id="search_khoa_nguyen" type="text" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân"> --}}
                                         <datalist id="selected_patient">
                                         </datalist>

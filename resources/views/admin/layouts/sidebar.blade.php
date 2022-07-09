@@ -127,7 +127,7 @@
                 </ul>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('patient.create') }}" class="nav-link">
+                    <a href="{{ route('summaryemr.index') }}" class="nav-link{{ $childMenuActive == 'childSummaryEmrMenu' ? ' active' : '' }}">
                       <i class="nav-icon fas fa-book"></i>
                       <p>Tổng kết bệnh án</p>
                     </a>

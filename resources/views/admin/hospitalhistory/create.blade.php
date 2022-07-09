@@ -11,24 +11,6 @@
                 <h1 class="m-0">Nhập quá trình khám bệnh</h1>
             </div>
             </div><!-- /.row -->
-
-            {{-- <h4 class="text-center display-5">Chọn bệnh nhân</h4>
-            <div class="row">
-                <div class="col-md-10 offset-md-1">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Nhập tên bệnh nhân để tìm kiếm:</label>
-                                <input autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
-                                
-                                <datalist id="fullname_patient">
-                                </datalist>
-                            </div>
-                        </div>
-                    
-                    </div>
-                </div>
-            </div> --}}
             @if (Session::get('patient_id') != null)
             <div class="col-md-12 text-success mt-2">
                 Bênh nhân được chọn: 
@@ -56,8 +38,8 @@
                 <div class="row">
                     <div hidden class="col-6">
                         <div class="form-group">
-                            <label>Nhập tên bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="nhập tên bệnh nhân">
+                            <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
+                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
                             <datalist id="fullname_patient">
                             </datalist>
                             <span class="form-message"></span>
