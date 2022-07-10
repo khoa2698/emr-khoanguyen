@@ -7,12 +7,15 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Requests\emr\appointment\AppointmentRequest;
 use App\Mail\Appointment as MailAppointment;
+use App\Models\Patient;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use App\Helpers;
+use App\Helpers\Helper;
 
 class AppointmentController extends Controller
 {
@@ -113,14 +116,39 @@ class AppointmentController extends Controller
         }
     }
 
-    // public function emailVerified($token)
-    // {
-    //     try{
-    //         $update = Appointment::where('token', $token)->update(['email_verified_at' => Carbon::now()]);
-    //         // dd($update);
-    //         return redirect()->route('appointmentPatient.verified.get', $token)->withSuccess('Đặt lịch thành công');
-    //     } catch(\Exception $err) {
-    //         return redirect()->route('appointmentPatient.verified.get', $token)->withErrors($err->getMessage());
-    //     }
-    // }
+    public function addNewPatient(Request $request)
+    {
+        $checkExistPatient = Patient::where('email', $request->get('email'))->get();
+        $validated = $request->validate([
+            'full_name' => ['required','max:255'],
+            'email' => ['required', 'email'],
+            'phone_patient' => ['bail', 'required', 'numeric'],
+            'identity_number' => ['bail', 'required', 'min:12', 'max:12'],
+        ]);
+        $checkExistPatient = Patient::where('email', $request->get('email'))->first();
+        // Nếu bệnh nhân đã tồn tại
+        if(!empty($checkExistPatient)) {
+            $message = 'Bệnh nhân có địa chỉ email: '.$checkExistPatient->email.' đã tồn tại: '. Helper::getPatientInfo($checkExistPatient->patient_id);
+            return redirect()->route('appointment.showPatientAccepted')->withErrors($message);
+        }
+
+        // Nếu là bệnh nhân mới
+        if($validated) {
+            $patient_id = 'BN' . time();
+            $params = [
+                'patient_id' => $patient_id,
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'identity_number' => $request->identity_number,
+                'phone_patient' => $request->phone_patient,
+                'sex' => $request->sex,
+            ]; 
+            $new_patient = new Patient($params);
+            if($new_patient->save()){
+                $id = Patient::where('email', $request->get('email'))->first()->id;
+                return redirect()->route('patient.edit', $id)->withSuccess('Thêm bệnh nhân mới thành công. Cập nhật thêm thông tin');
+            }
+            return redirect()->route('appointment.showPatientAccepted')->withErrors('Có lỗi, thử lại sau.');
+        }
+    }
 }

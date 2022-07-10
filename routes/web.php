@@ -139,6 +139,7 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
         // Route::get('/{id}', 'show')->name('appointment.show');
         Route::get('/pending', 'showPatientPending')->name('appointment.showPatientPending');
         Route::post('/add', 'store')->name('appointment.store');
+        Route::post('/add/patient', 'addNewPatient')->name('addpatient.addNewPatient');
     });
 });
 

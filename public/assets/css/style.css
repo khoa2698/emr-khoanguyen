@@ -49,6 +49,6 @@
     font-size: 18px;
     cursor: pointer;
 }
-#fullname_patient option:hover, .active{
+/* #fullname_patient option:hover, .active{
     background-color: lightblue;
-}
+} */

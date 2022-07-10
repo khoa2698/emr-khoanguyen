@@ -283,9 +283,9 @@
                                     <label for="gender" class="form-label">Giới tính</label>
                                     <select name="gender" id="gender" class="form-control">
                                     <option value="">Chọn</option>
-                                    <option value="nam">Nam</option>
-                                    <option value="nữ">Nữ</option>
-                                    <option value="khác">Khác</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
                                     </select>
                                     <span class="form-message"></span>
                                 </div>

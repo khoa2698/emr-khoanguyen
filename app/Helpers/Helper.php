@@ -2,8 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Models\Diagnosis;
+use App\Models\GeneralClinical;
 use App\Models\HospitalHistory;
 use App\Models\Patient;
+use App\Models\Vital;
 use HoangPhi\VietnamMap\Models\Province;
 use HoangPhi\VietnamMap\Models\District;
 use HoangPhi\VietnamMap\Models\Ward;
@@ -21,10 +24,12 @@ class Helper
         if($home_address != null) {
             $html .= $home_address . ', ';
         }
-        $ward = Ward::where('id', $ward_id)->first()->name;
-        $district = District::where('id', $district_id)->first()->name;
-        $province = Province::where('id', $province_id)->first()->name;
-        $html .= $ward . ', ' . $district . ', ' . $province;
+        if($district_id != null && $province_id != null && $ward_id != null) {
+            $ward = Ward::where('id', $ward_id)->first()->name;
+            $district = District::where('id', $district_id)->first()->name;
+            $province = Province::where('id', $province_id)->first()->name;
+            $html .= $ward . ', ' . $district . ', ' . $province;
+        }
         return $html;
     }
 
@@ -45,6 +50,16 @@ class Helper
         if($id != null){
             $ethnic = DB::table('ethnics')->where('ethnic_id', $id)->first()->name;
             return $ethnic;
+        }
+        return '';
+
+    }
+
+    public static function getIcd10Name($code)
+    {
+        if($code != null){
+            $icd10_name = DB::table('icd10')->where('code', $code)->first()->name;
+            return $icd10_name;
         }
         return '';
 
@@ -120,5 +135,40 @@ class Helper
             return false;
         }
         return $selectedservices;
+    }
+
+    public static function getHistoryWithTime($patient_id, $time)
+    {
+        $history = HospitalHistory::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
+        if(!empty($history)) return $history;
+        return false;
+    }
+
+    public static function getVitalWithTime($patient_id, $time)
+    {
+        $vital = Vital::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
+        if(!empty($vital)) return $vital;
+        return false;
+    }
+
+    public static function getGeneralWithTime($patient_id, $time)
+    {
+        $general = GeneralClinical::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
+        if(!empty($general)) return $general;
+        return false;
+    }
+
+    public static function getSubClinicWithTime($patient_id, $time)
+    {
+        $sub_clinical_services = DB::table('subclinical_service')->select('name')->where('patient_id', $patient_id)->where('time', $time)->get()->toArray();
+        if(count($sub_clinical_services) != 0) return $sub_clinical_services;
+        return false;
+    }
+
+    public static function getDiagnosisWithTime($patient_id, $time)
+    {
+        $diagnosis = Diagnosis::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
+        if(!empty($diagnosis)) return $diagnosis;
+        return false;
     }
 }

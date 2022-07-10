@@ -20,17 +20,6 @@
                             <div class="card-header">
                                 <h3 class="card-title">Lịch hẹn đã xác nhận</h3>
 
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
@@ -56,7 +45,7 @@
                                                             {{-- <a href="#" class="btn btn-outline-info btn-inline-block">
                                                                 <i class="fas fa-tools"></i> @lang('Edit')
                                                             </a> --}}
-                                                            <button type="button" class="btn btn-outline-info btn-inline-block" data-toggle="modal" data-target="#{{ 'ModalDetail-' . $appointmentVerified->id }}">
+                                                            <button type="button" class="btn btn-sm btn-outline-info btn-inline-block" data-toggle="modal" data-target="#{{ 'ModalDetail-' . $appointmentVerified->id }}">
                                                                 <i class="fas fa-eye"></i> @lang('Detail')
                                                             </button>
 
@@ -72,94 +61,107 @@
                                                                         </div>
                                                                         
                                                                         <!-- Modal body -->
-                                                                        <div class="modal-body">
-                                                                
-                                                                            <div class="row">
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="fullname" class="form-label">Tên đầy đủ</label>
-                                                                                  <input disabled id="fullname" name="fullname" value="{{ $appointmentVerified->name }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
+                                                                        <form action="{{ route('addpatient.addNewPatient') }}" method="post">
+                                                                            @csrf
+                                                                            <div class="modal-body">
+                                                                    
+                                                                                <div class="row">
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="full_name" class="form-label">Tên đầy đủ</label>
+                                                                                      <input id="full_name" name="full_name" value="{{ $appointmentVerified->name }}" type="text" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="email" class="form-label">Email</label>
+                                                                                      <input id="email" name="email" value="{{ $appointmentVerified->email }}" type="text" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
                                                                                 </div>
-                                                                              </div>
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="email" class="form-label">Email</label>
-                                                                                  <input disabled id="email" name="email" value="{{ $appointmentVerified->email }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
+                                                                    
+                                                                                <div class="row">
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="phone_patient" class="form-label">Điện thoại di động</label>
+                                                                                      <input id="phone_patient" name="phone_patient" value="{{ $appointmentVerified->phone }}" type="tel" placeholder="Số điện thoại" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="formDate" class="form-label">Lịch hẹn</label>
+                                                                                      <input disabled id="formDate" name="date" value="{{ $appointmentVerified->date }}" type="date" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
                                                                                 </div>
-                                                                              </div>
-                                                                            </div>
-                                                                
-                                                                            <div class="row">
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="phone-number" class="form-label">Điện thoại di động</label>
-                                                                                  <input disabled id="phone-number" name="phone-number" value="{{ $appointmentVerified->phone }}" type="tel" placeholder="Số điện thoại" class="form-control">
-                                                                                  <span class="form-message"></span>
+                                                                    
+                                                                                <div class="row">
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="time" class="form-label">Thời gian</label>
+                                                                                      <input disabled id="time" name="time" value="{{ $appointmentVerified->time }}" type="text" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                      <label for="formAddress" class="form-label">Địa chỉ</label>
+                                                                                      <input disabled id="formAddress" name="address" value="{{ $appointmentVerified->address }}" type="text" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                    </div>
+                                                                                  </div>
                                                                                 </div>
-                                                                              </div>
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="formDate" class="form-label">Lịch hẹn</label>
-                                                                                  <input disabled id="formDate" name="date" value="{{ $appointmentVerified->date }}" type="date" class="form-control">
-                                                                                  <span class="form-message"></span>
+                                                                    
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="form-group">
+                                                                                        <label for="sex" class="form-label">Giới tính</label>
+                                                                                        <input id="sex" name="sex" value="{{ $appointmentVerified->gender }}" type="text" class="form-control">
+                                                                                        <span class="form-message"></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="identity_number">Căn cước công dân<span style="color: red" class="mandatory"> *</span></label>
+                                                                                            <input value="{{ old('identity_number') }}" id="identity_number" name="identity_number" type="text" placeholder="Số CCCD" class="form-control">
+                                                                                            <span class="form-message"></span>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                              </div>
-                                                                            </div>
-                                                                
-                                                                            <div class="row">
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="time" class="form-label">Thời gian</label>
-                                                                                  <input disabled id="time" name="time" value="{{ $appointmentVerified->time }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
-                                                                                </div>
-                                                                              </div>
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="formAddress" class="form-label">Địa chỉ</label>
-                                                                                  <input disabled id="formAddress" name="address" value="{{ $appointmentVerified->address }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
-                                                                                </div>
-                                                                              </div>
-                                                                            </div>
-                                                                
-                                                                            <div class="row">
-                                                                              <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                  <label for="gender" class="form-label">Giới tính</label>
-                                                                                  <input disabled id="gender" name="gender" value="{{ $appointmentVerified->gender }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
-                                                                                </div>
-                                                                              </div>
-                                                                            </div>
-                                                                
-                                                                            <div class="form-group">
-                                                                              <label for="services" class="form-label">Dịch vụ yêu cầu</label>
-                                                                                  <input disabled id="services" name="services" value="{{ $appointmentVerified->services }}" type="text" class="form-control">
-                                                                                  <span class="form-message"></span>
-                                                                            </div>
-                                                                
-                                                                            <div class="form-group">
-                                                                              <label for="more_info" class="form-label">Thông tin ghi thêm</label>
-                                                                              <textarea disabled name="more_info" id="more_info" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ $appointmentVerified->more_info }}</textarea>
-                                                                            </div>
+                                                                                
+                                                                                {{-- <div class="row">
 
-                                                                            <button onclick="alert('test')" type="button" class="btn btn-danger" data-dismiss="modal">
-                                                                                <i class="fas fa-check"></i> @lang('Agree')
-                                                                            </button>
-                                                                            {{-- <button type="button" style="margin-left: 20px" class="btn btn-primary" data-dismiss="modal">
-                                                                                <i class="fas fa-window-close"></i> @lang('Cancel')
-                                                                            </button> --}}
-                                                                            
-                                                                        </div>
+                                                                                </div> --}}
+                                                                                <div class="form-group">
+                                                                                  <label for="services" class="form-label">Dịch vụ yêu cầu</label>
+                                                                                      <input disabled id="services" name="services" value="{{ $appointmentVerified->services }}" type="text" class="form-control">
+                                                                                      <span class="form-message"></span>
+                                                                                </div>
+                                                                    
+                                                                                <div class="form-group">
+                                                                                  <label for="more_info" class="form-label">Thông tin ghi thêm</label>
+                                                                                  <textarea disabled name="more_info" id="more_info" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ $appointmentVerified->more_info }}</textarea>
+                                                                                </div>
+    
+                                                                                <button type="submit" class="btn btn-danger">
+                                                                                    <i class="fas fa-check"></i> Thêm bệnh nhân mới
+                                                                                </button>
+                                                                                {{-- <button type="button" style="margin-left: 20px" class="btn btn-primary" data-dismiss="modal">
+                                                                                    <i class="fas fa-window-close"></i> @lang('Cancel')
+                                                                                </button> --}}
+                                                                                
+                                                                            </div>
+                                                                        </form>
                                                                         
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <button type="button" class="btn btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $appointmentVerified->id }}">
+                                                            <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $appointmentVerified->id }}">
                                                                 <i class="fas fa-trash"></i> @lang('Delete')
                                                             </button>
 
