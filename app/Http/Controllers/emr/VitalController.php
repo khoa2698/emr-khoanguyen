@@ -28,10 +28,12 @@ class VitalController extends Controller
             'diastolic' => ['required'],
         ]);
         if($validated) {
+            $user_auth = auth()->user()->id;
             $patient_vital = Vital::where('patient_id', $request->patient_id);
             $lastest_visit_vital = $patient_vital->max('time');
             try {
-                Vital::where('patient_id', $request->patient_id)->where('time', $lastest_visit_vital)->update($request->except(['_token', 'patient_id']));
+                Vital::where('patient_id', $request->patient_id)->where('time', $lastest_visit_vital)
+                        ->update(array_merge($request->except(['_token', 'patient_id']), ['creator_id' => $user_auth]));
                 Session::flash('success', 'Thêm sinh hiệu thành công, tiếp tục thủ tục');
             } catch (\Exception $err) {
                 Session::flash('error', $err->getMessage());

@@ -22,7 +22,6 @@ class PatientController extends Controller
     public $childMenuActive = 'childPatientMenu';
     public function index(Request $request)
     {
-        // dd($request->session->get('patient_id'));
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
         if(!empty($request->patient_id)){
@@ -74,7 +73,7 @@ class PatientController extends Controller
     
     public function loadPatientName(Request $request)
     {
-        $patients = Patient::where('full_name', 'like', '%'.$request->full_name.'%')->get();
+        $patients = Patient::where('full_name', 'like', '%'.$request->full_name.'%')->orWhere('patient_id', 'like', '%'.$request->full_name.'%')->get();
         // dd($patients);
         if(count($patients) > 0) {
             $results = '';
@@ -88,6 +87,7 @@ class PatientController extends Controller
 
     public function store(PatientRequest $request)
     {
+        $user_auth = auth()->user()->id;
         $patient_id = 'BN' . time();
         $params = [
             'patient_id' => $patient_id,
@@ -113,6 +113,7 @@ class PatientController extends Controller
             'type_of_object' => $request->type_of_object,
             'health_insurance_id' => $request->health_insurance_id,
             'health_insurance_date' => $request->health_insurance_date,
+            'creator_id' => $user_auth,
         ];
         $new_patient = new Patient($params);
         if($new_patient->save()){
@@ -150,6 +151,7 @@ class PatientController extends Controller
 
     public function update(PatientRequest $request, $id)
     {
+        $user_auth = auth()->user()->id;
         $params = [
             'title' => $request->title,
             'full_name' => $request->full_name,
@@ -173,6 +175,7 @@ class PatientController extends Controller
             'type_of_object' => $request->type_of_object,
             'health_insurance_id' => $request->health_insurance_id,
             'health_insurance_date' => $request->health_insurance_date,
+            'creator_id' => $user_auth,
         ];
         
             if(!empty(Patient::where('id', $id)->first())){

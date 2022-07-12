@@ -32,5 +32,11 @@ class Patient extends Model
         'type_of_object',
         'health_insurance_id',
         'health_insurance_date',
+        'creator_id'
     ];
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
 }

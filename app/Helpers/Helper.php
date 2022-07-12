@@ -6,6 +6,7 @@ use App\Models\Diagnosis;
 use App\Models\GeneralClinical;
 use App\Models\HospitalHistory;
 use App\Models\Patient;
+use App\Models\User;
 use App\Models\Vital;
 use HoangPhi\VietnamMap\Models\Province;
 use HoangPhi\VietnamMap\Models\District;
@@ -139,7 +140,7 @@ class Helper
 
     public static function getHistoryWithTime($patient_id, $time)
     {
-        $history = HospitalHistory::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
+        $history = HospitalHistory::where('patient_id', $patient_id)->where('time', $time)->with('creator')->orderBy('created_at', 'DESC')->first();
         if(!empty($history)) return $history;
         return false;
     }
@@ -170,5 +171,42 @@ class Helper
         $diagnosis = Diagnosis::where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'DESC')->first();
         if(!empty($diagnosis)) return $diagnosis;
         return false;
+    }
+
+    // Lấy kết quả xét nghiệm view tổng kết bệnh án
+    public static function getLabResultLink2($patient_id, $time) {
+        $html = '<h5>Kết quả xét nghiệm lần khám ' . $time .'</h5>';
+        $url_results = DB::table('lab_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        if(count($url_results) > 0){
+            foreach($url_results as $url_result) {
+                $creator_id = DB::table('lab_result')->where('url', $url_result->url)->first()->creator_id;
+                $creator_name = User::where('id', $creator_id)->first()->name; 
+                $html .= '<br><i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
+                $html .= '<a target="_blank" href="'. $url_result->url .'">
+                            <img style="width:250px; height:250px;margin-bottom: 10px" src="'. $url_result->url .'" alt="photo">
+                        </a>';
+            }
+            return $html;
+        }
+        return $html .= 'Chưa có kết quả Xét nghiệm lần khám '. $time;
+        
+    }
+    // Lấy kết quả ảnh chụp view tổng kết bệnh án
+    public static function getImagingResultLink2($patient_id, $time) {
+        
+        $html = '<h5>Kết quả ảnh chụp lần khám ' . $time .'</h5>';
+        $url_results = DB::table('imaging_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        if(count($url_results) > 0){
+            foreach($url_results as $url_result) {
+                $creator_id = DB::table('imaging_result')->where('url', $url_result->url)->first()->creator_id;
+                $creator_name = User::where('id', $creator_id)->first()->name;
+                $html .= '<br><i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
+                $html .= '<a target="_blank" href="'. $url_result->url .'">
+                            <img style="width:250px; height:250px;margin-bottom: 10px" src="'. $url_result->url .'" alt="photo">
+                        </a>';
+            }
+            return $html;
+        }
+        return $html .= 'Chưa có kết quả ảnh chụp lần khám '. $time;
     }
 }

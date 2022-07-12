@@ -34,6 +34,7 @@ class ImagingResultController extends Controller
     }
     public function store(Request $request)
     {
+        $user_auth = auth()->user()->id;
         $lastest_hospitalhistory = HospitalHistory::where('patient_id', $request->patient_id)->max('time');
         // Kiểm tra trước khi lưu thông tin ảnh chụp
         $selectedpatient = DB::table('subclinical_service')->where('patient_id', $request->patient_id)->where('time', $lastest_hospitalhistory)->where('name', '<>', 'Xét nghiệm máu')->get();
@@ -55,6 +56,7 @@ class ImagingResultController extends Controller
                 'comment' => $request->comment,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
+                'creator_id' => $user_auth
             ];
             try {
                 DB::table('imaging_result')->insert($params);

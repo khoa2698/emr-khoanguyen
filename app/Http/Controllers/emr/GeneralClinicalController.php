@@ -26,6 +26,7 @@ class GeneralClinicalController extends Controller
             'name_subclinical_service' => ['required'],
         ]);
         if($validated) {
+            $user_auth = auth()->user()->id;
             $params = [
                 'diagnosis_tuanhoan' => $request->diagnosis_tuanhoan,
                 'diagnosis_hohap' => $request->diagnosis_hohap,
@@ -38,12 +39,13 @@ class GeneralClinicalController extends Controller
                 'diagnosis_mat' => $request->diagnosis_mat,
                 'diagnosis_noitiet_dinhduong_khac' => $request->diagnosis_noitiet_dinhduong_khac,
                 'diagnosis_syndrome' => $request->diagnosis_syndrome,
+                'creator_id' => $user_auth
             ];
-            $name_subclinical_service = '';
-            $subclinical_services = $request->name_subclinical_service;
-            foreach($subclinical_services as $subclinical_service) {
-                $name_subclinical_service .= $subclinical_service . ',';
-            }
+            // $name_subclinical_service = '';
+            // $subclinical_services = $request->name_subclinical_service;
+            // foreach($subclinical_services as $subclinical_service) {
+            //     $name_subclinical_service .= $subclinical_service . ',';
+            // }
             DB::beginTransaction();
             try {
                 $patient_general = GeneralClinical::where('patient_id', $request->patient_id);
@@ -58,6 +60,7 @@ class GeneralClinicalController extends Controller
                         'time' => $lastest_visit_general,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
+                        'creator_id' => $user_auth
                     ]);
                 }
                 

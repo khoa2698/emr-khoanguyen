@@ -106,7 +106,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="reason_date">Số ngày biểu hiện</label>
-                            <input type="text" class="form-control" value="{{ old('reason_date') }}" name="reason_date" id="reason_date" placeholder="triệu chứng">
+                            <input type="text" class="form-control" value="{{ old('reason_date') }}" name="reason_date" id="reason_date" placeholder="">
                             <span class="form-message"></span>
                         </div>
                     </div>

@@ -27,24 +27,31 @@ class HospitalHistoryController extends Controller
 
     public function store(Request $request)
     {
-        $validated = true;
-        // $validated = $request->validate([
-        //     'patient_id' => ['bail','required', 'exists:patients,patient_id'],
-        //     'date_attented' => ['required'],
-        //     'date_admitted' => ['required'],
-        //     'admit_dept' => ['required'],
-        //     'reason' => ['required'],
-        // ]);
+        $user_auth = auth()->user()->id;
+        // dd(array_merge($request->except('_token'), ['creator_id' => $user_auth]));
+        $validated = $request->validate([
+            'patient_id' => ['bail','required', 'exists:patients,patient_id'],
+            'date_attented' => ['required'],
+            'date_admitted' => ['required'],
+            'admit_dept' => ['required'],
+            'reason' => ['required'],
+        ]);
+
         if($validated) {
             $visited_patient = HospitalHistory::where('patient_id', $request->patient_id);
-            
             $info_visit = [
                 'patient_id' => $request->patient_id,
                 'time' => 1,
             ];
+            
             if(!empty($visited_patient->first())) {
                 $nearest_visit = $visited_patient->max('time');
-                $lastest_visit = array_merge($request->except('_token'), ['time' => $nearest_visit + 1]);
+                $lastest_visit = array_merge($request->except('_token'), 
+                    [
+                        'time' => $nearest_visit + 1,
+                        'creator_id' => $user_auth
+                    ]
+                );
                 $info_visit['time'] = $nearest_visit + 1;
                 DB::beginTransaction();
                 try {
@@ -62,9 +69,10 @@ class HospitalHistoryController extends Controller
                 return redirect()->route('vital.create');
             }
 
+            // Nếu là bệnh nhân mới
             DB::beginTransaction();
             try {
-                HospitalHistory::create($request->except('_token'));
+                HospitalHistory::create(array_merge($request->except('_token'), ['creator_id' => $user_auth]));
                 Vital::create($info_visit);
                 GeneralClinical::create($info_visit);
                 Diagnosis::create($info_visit);

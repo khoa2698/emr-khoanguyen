@@ -21,7 +21,11 @@ class Vital extends Model
         'diastolic',
         'blood_pressure',
         'respiration',
-        'note'
+        'note',
+        'creator_id'
     ];
-
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
 }

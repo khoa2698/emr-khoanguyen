@@ -173,13 +173,12 @@
                                             $general = App\Helpers\Helper::getGeneralWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
                                             $sub_clinical_services = App\Helpers\Helper::getSubClinicWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
                                             $diagnosis = App\Helpers\Helper::getDiagnosisWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
-                                            
                                         @endphp
                                         <div class="card card-primary card-outline">
                                             <a class="d-block w-100" data-toggle="collapse" href="#collapse_{{$hospitalhistory_time->time}}">
                                                 <div class="card-header">
                                                     <h4 class="card-title w-100">
-                                                        Lần khám thứ {{$hospitalhistory_time->time}}
+                                                        Lần khám thứ {{$hospitalhistory_time->time}}, thời gian: {{ $history->date_attented }}
                                                     </h4>
                                                 </div>
                                             </a>
@@ -198,6 +197,9 @@
                                                                 <div class="tab-content">
                                                                     <div class="active tab-pane" id="activity_{{$hospitalhistory_time->time}}">
                                                                         @if ($history)
+                                                                            <div class="row">
+                                                                                <h6><i>Người cập nhật: <b>{{ $history->creator->name }}</b></i></h6>
+                                                                            </div>
                                                                             <div class="row">
                                                                                 <div class="col-md-3">
                                                                                     <div class="form-group">
@@ -363,6 +365,11 @@
 
                                                                     <div class="tab-pane" id="timeline_{{$hospitalhistory_time->time}}">
                                                                         @if ($vital)
+                                                                            @if ($vital->creator != null)
+                                                                                <div class="row">
+                                                                                    <h6><i>Người cập nhật: <b>{{ $vital->creator->name }}</b></i></h6>
+                                                                                </div>
+                                                                            @endif
                                                                             <div class="row">
                                                                                 <div class="col-md-2">
                                                                                     <div class="form-group">
@@ -451,27 +458,32 @@
                                                                             </div>
                                                                         @endif
                                                                         
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="name_subclinical_service">Chỉ định dịch vụ cận lâm sàng</label>
-                                                                                    @if ($sub_clinical_services)
-                                                                                        <select disabled class="select2" name="name_subclinical_service[]" multiple="multiple" data-placeholder="Chọn dịch vụ" style="width: 100%;">
-                                                                                            @foreach ($sub_clinical_services as $sub_clinical_service)
-                                                                                                <option selected value="{{$sub_clinical_service->name}}">{{$sub_clinical_service->name}}</option>
-                                                                                            @endforeach
-                                                                                        </select>
-                                                                                    @else
-                                                                                        <div class="col-md-12 text-danger mt-2">
-                                                                                            chưa yêu cầu dịch vụ cận lâm sàng
-                                                                                        </div>
-                                                                                    @endif
-                                                                                    
+                                                                        @if ($general)
+                                                                            <hr><hr>
+                                                                            @if ($vital->creator != null)
+                                                                                <div class="row">
+                                                                                    <h6><i>Người cập nhật: <b>{{ $general->creator->name }}</b></i></h6>
+                                                                                </div>
+                                                                            @endif
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="name_subclinical_service">Chỉ định dịch vụ cận lâm sàng</label>
+                                                                                        @if ($sub_clinical_services)
+                                                                                            <select disabled class="select2" name="name_subclinical_service[]" multiple="multiple" data-placeholder="Chọn dịch vụ" style="width: 100%;">
+                                                                                                @foreach ($sub_clinical_services as $sub_clinical_service)
+                                                                                                    <option selected value="{{$sub_clinical_service->name}}">{{$sub_clinical_service->name}}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        @else
+                                                                                            <div class="col-md-12 text-danger mt-2">
+                                                                                                chưa yêu cầu dịch vụ cận lâm sàng
+                                                                                            </div>
+                                                                                        @endif
+                                                                                        
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        
-                                                                        @if ($general)
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
@@ -563,6 +575,11 @@
                                                 
                                                                     <div class="tab-pane" id="settings_{{$hospitalhistory_time->time}}">
                                                                         @if ($diagnosis)
+                                                                            @if ($vital->creator != null)
+                                                                                <div class="row">
+                                                                                    <h6><i>Người cập nhật: <b>{{ $diagnosis->creator->name }}</b></i></h6>
+                                                                                </div>
+                                                                            @endif
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
@@ -606,6 +623,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             
+                                                                            <hr><hr>
                                                                             <div class="row">
                                                                                 
                                                                                 <div class="col-md-6">
@@ -613,7 +631,7 @@
                                                                                         <label for="result_imaging">Kết quả ảnh chụp</label>
                                                             
                                                                                         <div class="form-group">
-                                                                                            {!! App\Helpers\Helper::getImagingResultLink(Session::get('patient_id')) !!}
+                                                                                            {!! App\Helpers\Helper::getImagingResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -621,7 +639,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="result_lab">Kết quả xét nghiệm</label>
                                                                                         <div class="form-group">
-                                                                                            {!! App\Helpers\Helper::getLabResultLink(Session::get('patient_id')) !!}
+                                                                                            {!! App\Helpers\Helper::getLabResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

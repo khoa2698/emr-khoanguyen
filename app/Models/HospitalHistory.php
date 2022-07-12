@@ -29,6 +29,11 @@ class HospitalHistory extends Model
         'disease_relateto_thuocla',
         'disease_relateto_thuocla_time',
         'disease_relateto_khac',
-        'disease_relateto_khac_time'
+        'disease_relateto_khac_time',
+        'creator_id'
     ];
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
 }

@@ -17,6 +17,11 @@ class Diagnosis extends Model
         'disease_prognosis',
         'disease_plan',
         'result_imaging',
-        'result_lab'
+        'result_lab',
+        'creator_id'
     ];
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
 }

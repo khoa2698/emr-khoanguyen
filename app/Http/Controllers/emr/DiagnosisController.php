@@ -21,7 +21,7 @@ class DiagnosisController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request->all());
+        $user_auth = auth()->user()->id;
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
             'icd10_main_code' => ['required'],
@@ -36,6 +36,7 @@ class DiagnosisController extends Controller
                 "diagnosis" => $request->diagnosis,
                 "disease_prognosis" => $request->disease_prognosis,
                 "disease_plan" => $request->disease_plan,
+                'creator_id' => $user_auth
             ];
             try {
                 Diagnosis::create($params);

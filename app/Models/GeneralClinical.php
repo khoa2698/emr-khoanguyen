@@ -22,6 +22,11 @@ class GeneralClinical extends Model
         'diagnosis_mat',
         'diagnosis_noitiet_dinhduong_khac',
         'diagnosis_syndrome',
-        'name_subclinical_service'
+        'name_subclinical_service',
+        'creator_id'
     ];
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
 }
