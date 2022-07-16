@@ -175,15 +175,18 @@ class Helper
 
     // Lấy kết quả xét nghiệm view tổng kết bệnh án
     public static function getLabResultLink2($patient_id, $time) {
-        $html = '<h5>Kết quả xét nghiệm lần khám ' . $time .'</h5>';
-        $url_results = DB::table('lab_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
-        if(count($url_results) > 0){
-            foreach($url_results as $url_result) {
-                $creator_id = DB::table('lab_result')->where('url', $url_result->url)->first()->creator_id;
-                $creator_name = User::where('id', $creator_id)->first()->name; 
-                $html .= '<br><i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
-                $html .= '<a target="_blank" href="'. $url_result->url .'">
-                            <img style="width:250px; height:250px;margin-bottom: 10px" src="'. $url_result->url .'" alt="photo">
+        $html = '<div class="text-info">Kết quả xét nghiệm lần khám ' . $time .'</div>';
+        $lab_results = DB::table('lab_result')->select(['url', 'name', 'creator_id', 'created_at'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        if(count($lab_results) > 0){
+            foreach($lab_results as $lab_result) {
+                $creator_name = User::where('id', $lab_result->creator_id)->first()->name; 
+                $html .= '<i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
+                $html .= '<i>Thời gian: <b>'. $lab_result->created_at .'</b></i><br>';
+                $html .= '<a target="_blank" href="'. $lab_result->url .'">
+                            <figure>
+                                <img style="width:250px; height:250px" src="'. $lab_result->url .'" alt="photo">
+                                <figcaption><i>Kết quả: <b>'. $lab_result->name .'</b></i></figcaption>
+                            </figure>
                         </a>';
             }
             return $html;
@@ -194,19 +197,30 @@ class Helper
     // Lấy kết quả ảnh chụp view tổng kết bệnh án
     public static function getImagingResultLink2($patient_id, $time) {
         
-        $html = '<h5>Kết quả ảnh chụp lần khám ' . $time .'</h5>';
-        $url_results = DB::table('imaging_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
-        if(count($url_results) > 0){
-            foreach($url_results as $url_result) {
-                $creator_id = DB::table('imaging_result')->where('url', $url_result->url)->first()->creator_id;
-                $creator_name = User::where('id', $creator_id)->first()->name;
-                $html .= '<br><i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
-                $html .= '<a target="_blank" href="'. $url_result->url .'">
-                            <img style="width:250px; height:250px;margin-bottom: 10px" src="'. $url_result->url .'" alt="photo">
-                        </a>';
+        $html = '<div class="text-info">Kết quả ảnh chụp lần khám ' . $time .'</div>';
+        $image_results = DB::table('imaging_result')->select(['url', 'name', 'creator_id', 'created_at'])->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        if(count($image_results) > 0){
+            foreach($image_results as $image_result) {
+                $creator_name = User::where('id', $image_result->creator_id)->first()->name;
+                $html .= '<i>Người cập nhật: <b>'. $creator_name .'</b></i><br>';
+                $html .= '<i>Thời gian: <b>'. $image_result->created_at .'</b></i><br>';
+                $html .= '<figure><a target="_blank" href="'. $image_result->url .'">
+                            <img style="width:250px; height:250px;" src="'. $image_result->url .'" alt="photo">
+                            <figcaption><i>Kết quả: <b>'. $image_result->name .'</b></i></figcaption>
+                        </a></figure>';
             }
             return $html;
         }
         return $html .= 'Chưa có kết quả ảnh chụp lần khám '. $time;
+    }
+
+    public static function getBloodResult($patient_id, $time)
+    {
+        $image_results = DB::table('lab_result')->select('id')->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        $lab_result_ids = [];
+        foreach ($image_results as $image_result) {
+            $lab_result_ids[] = $image_result->id;
+        }
+        return DB::table('blood_results')->whereIn('lab_result_id', $lab_result_ids)->get();
     }
 }

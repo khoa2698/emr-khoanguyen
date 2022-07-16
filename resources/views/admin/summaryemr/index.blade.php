@@ -173,6 +173,7 @@
                                             $general = App\Helpers\Helper::getGeneralWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
                                             $sub_clinical_services = App\Helpers\Helper::getSubClinicWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
                                             $diagnosis = App\Helpers\Helper::getDiagnosisWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+                                            $blood_results =  App\Helpers\Helper::getBloodResult(Session::get('patient_id'), $hospitalhistory_time->time);
                                         @endphp
                                         <div class="card card-primary card-outline">
                                             <a class="d-block w-100" data-toggle="collapse" href="#collapse_{{$hospitalhistory_time->time}}">
@@ -190,6 +191,7 @@
                                                                 <ul class="nav nav-pills">
                                                                     <li class="nav-item"><a class="nav-link active" href="#activity_{{$hospitalhistory_time->time}}" data-toggle="tab">Lịch sử khám</a></li>
                                                                     <li class="nav-item"><a class="nav-link" href="#timeline_{{$hospitalhistory_time->time}}" data-toggle="tab">Lâm sàng tổng quát</a></li>
+                                                                    <li class="nav-item"><a class="nav-link" href="#subclinical_{{$hospitalhistory_time->time}}" data-toggle="tab">Kết quả cận lâm sàng</a></li>
                                                                     <li class="nav-item"><a class="nav-link" href="#settings_{{$hospitalhistory_time->time}}" data-toggle="tab">Chẩn đoán</a></li>
                                                                 </ul>
                                                             </div><!-- /.card-header -->
@@ -572,10 +574,138 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
-                                                
+                                                                    
+                                                                    <div class="tab-pane" id="subclinical_{{$hospitalhistory_time->time}}">
+                                                                        @if (count($blood_results) != 0)
+                                                                            @foreach ($blood_results as $blood_result)
+                                                                                <div class="row">
+                                                                                    <div class="card-header">
+                                                                                        <h3 class="card-title">Bảng kết quả xét nghiệm máu</h3>
+                                                                                        <p><i>Thời gian: <b> {{$blood_result->created_at}}</b></i></p>
+                                                                                    </div>
+                                                                                    <!-- /.card-header -->
+                                                                                    <div class="card-body table-responsive p-0">
+                                                                                        <table class="table table-hover">
+                                                                                            <thead>
+                                                                                            <tr>
+                                                                                                <th>Yêu cầu xét nghiệm</th>
+                                                                                                <th>Kết quả xét nghiệm</th>
+                                                                                                <th>Trị số bình thường</th>
+                                                                                                <th>Đơn vị</th>
+                                                                                            </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td>Đường trong máu (GLU)</td>
+                                                                                                    <td><b>{{ $blood_result->glu }}</b></td>
+                                                                                                    <td>4.1 - 5.9</td>
+                                                                                                    <td><span class="tag tag-success">mmol/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Ure (Ure máu)</td>
+                                                                                                    <td><b>{{ $blood_result->ure }}</b></td>
+                                                                                                    <td>2.5 - 7.5</td>
+                                                                                                    <td><span class="tag tag-success">mmol/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Số lượng hồng cầu (RBC)</td>
+                                                                                                    <td><b>{{ $blood_result->rbc }}</b></td>
+                                                                                                    <td>4,2 - 5.4 (nam) <br>4.0 - 4.9 (nữ)</td>
+                                                                                                    <td><span class="tag tag-success">Tera/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Lượng huyết sắc tố (Hb)</td>
+                                                                                                    <td><b>{{ $blood_result->hb }}</b></td>
+                                                                                                    <td>130 - 160 (nam) <br>125 - 142 (nữ)</td>
+                                                                                                    <td><span class="tag tag-success">g/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Khối hồng cầu (HCT)</td>
+                                                                                                    <td><b>{{ $blood_result->hct }}</b></td>
+                                                                                                    <td>42 - 47 (nam) <br> 37 - 42 (nữ)</td>
+                                                                                                    <td><span class="tag tag-success">%</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Thể tích trung bình của hồng cầu (MCV)</td>
+                                                                                                    <td><b>{{ $blood_result->mcv }}</b></td>
+                                                                                                    <td>85 - 95</td>
+                                                                                                    <td><span class="tag tag-success">fL</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Lượng Hb trung bình hồng cầu (MCH)</td>
+                                                                                                    <td><b>{{ $blood_result->mch }}</b></td>
+                                                                                                    <td>26 - 32</td>
+                                                                                                    <td><span class="tag tag-success">pg</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Số lượng bạch cầu trong một thể tích máu (WBC)</td>
+                                                                                                    <td><b>{{ $blood_result->wbc }}</b></td>
+                                                                                                    <td>4 - 10</td>
+                                                                                                    <td><span class="tag tag-success">g/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Bạch cầu trung tính(NEUT)</td>
+                                                                                                    <td><b>{{ $blood_result->neut }}</b></td>
+                                                                                                    <td>42.8 - 75.8</td>
+                                                                                                    <td><span class="tag tag-success">%</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Bạch cầu Lympho (LYM)</td>
+                                                                                                    <td><b>{{ $blood_result->lym }}</b></td>
+                                                                                                    <td>16.8 - 45.3</td>
+                                                                                                    <td><span class="tag tag-success">%</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Bạch cầu Mono</td>
+                                                                                                    <td><b>{{ $blood_result->mono }}</b></td>
+                                                                                                    <td>4.7 - 12</td>
+                                                                                                    <td><span class="tag tag-success">%</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Số lượng tiểu cầu trong một thể tích máu (PLT)</td>
+                                                                                                    <td><b>{{ $blood_result->plt }}</b></td>
+                                                                                                    <td>150 - 350</td>
+                                                                                                    <td><span class="tag tag-success">g/L</span></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Nhóm máu</td>
+                                                                                                    <td><b>{{ $blood_result->blood_group }}</b></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Loại máu</td>
+                                                                                                    <td><b>{{ $blood_result->blood_type }}</b></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <hr>
+                                                                            @endforeach
+                                                                        @endif
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="result_imaging">Kết quả ảnh chụp</label>
+                                                        
+                                                                                    <div class="form-group">
+                                                                                        {!! App\Helpers\Helper::getImagingResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="result_lab">Kết quả xét nghiệm</label>
+                                                                                    <div class="form-group">
+                                                                                        {!! App\Helpers\Helper::getLabResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="tab-pane" id="settings_{{$hospitalhistory_time->time}}">
                                                                         @if ($diagnosis)
-                                                                            @if ($vital->creator != null)
+                                                                            @if ($diagnosis->creator != null)
                                                                                 <div class="row">
                                                                                     <h6><i>Người cập nhật: <b>{{ $diagnosis->creator->name }}</b></i></h6>
                                                                                 </div>
@@ -623,27 +753,6 @@
                                                                                 </div>
                                                                             </div>
                                                                             
-                                                                            <hr><hr>
-                                                                            <div class="row">
-                                                                                
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="result_imaging">Kết quả ảnh chụp</label>
-                                                            
-                                                                                        <div class="form-group">
-                                                                                            {!! App\Helpers\Helper::getImagingResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="result_lab">Kết quả xét nghiệm</label>
-                                                                                        <div class="form-group">
-                                                                                            {!! App\Helpers\Helper::getLabResultLink2(Session::get('patient_id'), $hospitalhistory_time->time) !!}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         @else
                                                                             <div class="col-md-12 text-danger mt-2">
                                                                                 chưa có kết quả chẩn đoán

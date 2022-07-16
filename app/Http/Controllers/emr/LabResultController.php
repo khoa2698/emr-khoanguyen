@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\emr\BloodResultRequest;
 use App\Models\HospitalHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +35,9 @@ class LabResultController extends Controller
             return redirect()->route('labresult.create'); 
         }
     }
-    public function store(Request $request)
+    public function store(BloodResultRequest $request)
     {
+        // dd($request->all());
         $user_auth = auth()->user()->id;
         $lastest_hospitalhistory = HospitalHistory::where('patient_id', $request->patient_id)->max('time');
         // Kiểm tra trước khi lưu thông tin xét nghiệm
@@ -44,31 +46,35 @@ class LabResultController extends Controller
             return redirect()->route('labresult.create')->withErrors('Bệnh nhân chưa yêu cầu dịch vụ xét nghiệm');
         }
 
-        $validated = $request->validate([
-            'patient_id' => ['bail','required', 'exists:patients,patient_id'],
-            'name_subclinical_service' => ['required'],
-            'url' => ['required'],
-            'comment' => ['required'],
-        ]);
-        if($validated) {
-            $params = [
-                'patient_id' => $request->patient_id,
-                'time' => $lastest_hospitalhistory,
-                'name' => $request->name_subclinical_service,
-                'url' => $request->url,
-                'comment' => $request->comment,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'creator_id' => $user_auth
-            ];
-            try {
-                DB::table('lab_result')->insert($params);
-                Session::flash('success', 'Thêm kết quả '.$request->name_subclinical_service.' thành công');
-            } catch (\Exception $err) {
-                Session::flash('error', $err->getMessage());
-            }
-            return redirect()->route('labresult.create');
-            // dd($request->all());
+        $params = [
+            'patient_id' => $request->patient_id,
+            'time' => $lastest_hospitalhistory,
+            'name' => $request->name_subclinical_service,
+            'url' => $request->url,
+            'comment' => $request->comment,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'creator_id' => $user_auth
+        ];
+        DB::beginTransaction();
+        try {
+            DB::table('lab_result')->insert($params);
+            $lab_result_id = DB::table('lab_result')->latest()->first()->id;
+            DB::table('blood_results')
+            ->insert($request->merge(
+                [
+                    'lab_result_id' => $lab_result_id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ])
+                ->except(['patient_id', 'time', 'name', 'url', 'comment', 'name_subclinical_service', '_token'])
+            );
+            Session::flash('success', 'Thêm kết quả '.$request->name_subclinical_service.' thành công');
+            DB::commit();
+        } catch (\Exception $err) {
+            DB::rollBack();
+            Session::flash('error', $err->getMessage());
         }
+        return redirect()->route('labresult.create');
     }
 }

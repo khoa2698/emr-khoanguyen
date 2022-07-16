@@ -49,52 +49,185 @@
         <form action="{{ route('labresult.store') }}" method="POST" id="form-1">
             <div class="card-body">
                 <div class="row">
-                    <div hidden class="col-md-6">
-                        <div class="form-group">
-                            <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
-                            <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
-                            <datalist id="fullname_patient">
-                            </datalist>
-                            <span class="form-message"></span>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div hidden class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nhập tên hoặc mã bệnh nhân để tìm kiếm:<span class="mandatory"> *</span></label>
+                                    <input value="{{ Session::get('patient_id') }}" autocomplete="off" id="search_khoa_nguyen" type="text" class="form-control" name="patient_id" list="fullname_patient" placeholder="Nhập tên hoặc mã bệnh nhân">
+                                    <datalist id="fullname_patient">
+                                    </datalist>
+                                    <span class="form-message"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name_subclinical_service">Dịch vụ cận lâm sàng<span class="mandatory"> *</span></label>
+                                    <select class="select2" name="name_subclinical_service" data-placeholder="Chọn dịch vụ" style="width: 100%;">
+                                        @if (isset($selectedservices) && !empty($selectedservices) && count($selectedservices) != 0)
+                                            @foreach ($selectedservices as $selectedservice)
+                                                <option value="{{$selectedservice->name}}">{{ $selectedservice->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="url">Đường dẫn kết quả ảnh<span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control" name="url" id="url_image" placeholder="Nhập đường dẫn ảnh">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div id="box_show_image" class="form-group" style="display:none">
+                                    <a target="_blank" id="link_show_image" href="">
+                                        <img style="width:250px" id="show_image" src="" alt="photo">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="comment">Nhận xét<span class="mandatory"> *</span></label>
+                                    <textarea style="resize: none" name="comment" id="comment" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('comment') }}</textarea>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name_subclinical_service">Dịch vụ cận lâm sàng</label>
-                            <select class="select2" name="name_subclinical_service" data-placeholder="Chọn dịch vụ" style="width: 100%;">
-                                @if (isset($selectedservices) && !empty($selectedservices) && count($selectedservices) != 0)
-                                    @foreach ($selectedservices as $selectedservice)
-                                        <option value="{{$selectedservice->name}}">{{ $selectedservice->name }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="url">Đường dẫn kết quả ảnh<span class="mandatory"> *</span></label>
-                            <input type="text" class="form-control" name="url" id="url_image" placeholder="Nhập đường dẫn ảnh">
-                            <span class="form-message"></span>
-                        </div>
-                        <div id="box_show_image" class="form-group" style="display:none">
-                            <a target="_blank" id="link_show_image" href="">
-                                <img style="width:250px" id="show_image" src="" alt="photo">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                        
+                        <fieldset style="padding:30px; border:1px solid #4238ca; background:#f6f8ff;">
+                            <legend>Nhập kết quả xét nghiệm máu:</legend>
+                                <label for="glu">Đường trong máu (Glu):<span class="mandatory"> *</span></label>
+                                <div class="input-group mb-3">
+                                    <input id="glu" name="glu" type="text" value="{{ old('glu') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(mmol/l)</span>
+                                    </div>
+                                </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="comment">Nhận xét</label>
-                            <textarea style="resize: none" name="comment" id="comment" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('comment') }}</textarea>
-                        </div>
+                                <label for="ure">Ure máu (Ure):<span class="mandatory"> *</span></label>
+                                <div class="input-group mb-3">
+                                    <input id="ure" name="ure" type="text" value="{{ old('ure') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(mmol/l)</span>
+                                    </div>
+                                </div>
+
+                                <label for="rbc">Số lượng hồng cầu (RBC)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="rbc" name="rbc" type="text" value="{{ old('rbc') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(Tera/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="hb">Lượng huyết sắc tố (Hb)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="hb" name="hb" type="text" value="{{ old('hb') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="hct">Khối hồng cầu (HCT)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="hct" name="hct" type="text" value="{{ old('hct') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(%)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="mcv">Thể tích trung bình của hồng cầu (MCV)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="mcv" name="mcv" type="text" value="{{ old('mcv') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(fL)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="mch">Lượng Hb trung bình hồng cầu (MCH)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="mch" name="mch" type="text" value="{{ old('mch') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(pg)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="wbc">Số lượng bạch cầu trong một thể tích máu (WBC)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="wbc" name="wbc" type="text" value="{{ old('wbc') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="neut">Bạch cầu trung tính (NEUT)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="neut" name="neut" type="text" value="{{ old('neut') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="lym">Bạch cầu Lympho (LYM)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="lym" name="lym" type="text" value="{{ old('lym') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="mono">Bạch cầu Mono<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="mono" name="mono" type="text" value="{{ old('mono') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <label for="plt">Số lượng tiểu cầu trong một thể tích máu (PLT)<span class="mandatory"> *</span>:</label>
+                                <div class="input-group mb-3">
+                                    <input id="plt" name="plt" type="text" value="{{ old('plt') }}" class="form-control">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">(g/L)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="blood_group">Nhóm máu<span class="mandatory"> *</span></label>
+                                            <select id="blood_group" name="blood_group" class="form-control">
+                                                <option value="">-- chọn nhóm máu --</option>
+                                                <option {{ old('blood_group') == 'O' ? 'selected' : '' }} value="O">O</option>
+                                                <option {{ old('blood_group') == 'A' ? 'selected' : '' }} value="A">A</option>
+                                                <option {{ old('blood_group') == 'B' ? 'selected' : '' }} value="B">B</option>
+                                                <option {{ old('blood_group') == 'AB' ? 'selected' : '' }} value="AB">AB</option>
+                                            </select>
+                                            <span class="form-message"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="blood_type">Loại máu<span class="mandatory"> *</span></label>
+                                            <select id="blood_type" name="blood_type" class="form-control">
+                                                <option value="">----</option>
+                                                <option {{ old('blood_type') == 'Rh+' ? 'selected' : '' }} value="Rh+">Rh+</option>
+                                                <option {{ old('blood_type') == 'Rh-' ? 'selected' : '' }} value="Rh-">Rh-</option>
+                                            </select>
+                                            <span class="form-message"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                           </fieldset>
                     </div>
-                    
                 </div>
                 
             </div>

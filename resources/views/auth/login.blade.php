@@ -53,7 +53,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>Admin EMR </b>KN</a>
+      <a href="#" class="h1">Website quản lý <b>bệnh án điện tử</b></a>
     </div>
     <div class="card-body">
         <p class="login-box-msg">Đăng nhập để bắt đầu</p>
