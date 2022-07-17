@@ -123,6 +123,7 @@ class PatientController extends Controller
     }
     public function selectpatient(Request $request)
     {
+        // dd($request->all());
         $selectedpatient = Patient::where('patient_id', $request->selected_patient)->first();
         // dd($selectedpatient);
         if(!empty($selectedpatient)) {

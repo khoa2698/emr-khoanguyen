@@ -39,7 +39,16 @@ class DiagnosisController extends Controller
                 'creator_id' => $user_auth
             ];
             try {
-                Diagnosis::create($params);
+                $patient_diagnosis = Diagnosis::where('patient_id', $request->patient_id);
+                $lastest_visit = $patient_diagnosis->max('time');
+                // Check đã tạo lần khám nào chưa
+                $checkFirstVisited = Diagnosis::where('patient_id', $request->patient_id)->where('time', $lastest_visit);
+                $checkedFirstVisited = $checkFirstVisited->get();
+                if(count($checkedFirstVisited) == 0) {
+                    return redirect()->route('diagnosis.create')->withErrors('Chưa có lần khám nào được tạo');
+                }
+                
+                $checkFirstVisited->update($params);
                 Session::flash('success', 'Thêm kết quả chẩn đoán thành công, tiếp tục thủ tục');
             } catch (\Exception $err) {
                 Session::flash('error', $err->getMessage());

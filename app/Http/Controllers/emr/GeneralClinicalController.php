@@ -41,16 +41,18 @@ class GeneralClinicalController extends Controller
                 'diagnosis_syndrome' => $request->diagnosis_syndrome,
                 'creator_id' => $user_auth
             ];
-            // $name_subclinical_service = '';
-            // $subclinical_services = $request->name_subclinical_service;
-            // foreach($subclinical_services as $subclinical_service) {
-            //     $name_subclinical_service .= $subclinical_service . ',';
-            // }
             DB::beginTransaction();
             try {
                 $patient_general = GeneralClinical::where('patient_id', $request->patient_id);
                 $lastest_visit_general = $patient_general->max('time');
-                GeneralClinical::where('patient_id', $request->patient_id)->where('time', $lastest_visit_general)->update($params);
+                // Check đã tạo lần khám nào chưa
+                $checkFirstVisited = GeneralClinical::where('patient_id', $request->patient_id)->where('time', $lastest_visit_general);
+                $checkedFirstVisited = $checkFirstVisited->get();
+                if(count($checkedFirstVisited) == 0) {
+                    return redirect()->route('generalclinical.create')->withErrors('Chưa có lần khám nào được tạo');
+                }
+                // Cập nhật khi đã tồn tại lần khám
+                $checkFirstVisited->update($params);
 
                 $subclinical_services = $request->name_subclinical_service;
                 foreach($subclinical_services as $subclinical_service) {

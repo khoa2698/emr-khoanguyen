@@ -197,6 +197,8 @@
                                                             </div><!-- /.card-header -->
                                                             <div class="card-body">
                                                                 <div class="tab-content">
+
+                                                                    <!-- Lịch sử khám -->
                                                                     <div class="active tab-pane" id="activity_{{$hospitalhistory_time->time}}">
                                                                         @if ($history)
                                                                             <div class="row">
@@ -365,7 +367,9 @@
                                                                         @endif
                                                                     </div>
 
+                                                                    <!-- Lâm sàng tổng quát -->
                                                                     <div class="tab-pane" id="timeline_{{$hospitalhistory_time->time}}">
+                                                                        <!-- Thông tin sinh hiệu -->
                                                                         @if ($vital)
                                                                             @if ($vital->creator != null)
                                                                                 <div class="row">
@@ -462,7 +466,7 @@
                                                                         
                                                                         @if ($general)
                                                                             <hr><hr>
-                                                                            @if ($vital->creator != null)
+                                                                            @if ($general->creator != null)
                                                                                 <div class="row">
                                                                                     <h6><i>Người cập nhật: <b>{{ $general->creator->name }}</b></i></h6>
                                                                                 </div>
@@ -575,6 +579,7 @@
                                                                         @endif
                                                                     </div>
                                                                     
+                                                                    <!-- Kết quả cận lâm sàng -->
                                                                     <div class="tab-pane" id="subclinical_{{$hospitalhistory_time->time}}">
                                                                         @if (count($blood_results) != 0)
                                                                             @foreach ($blood_results as $blood_result)
@@ -703,6 +708,7 @@
                                                                         </div>
                                                                     </div>
 
+                                                                    <!-- Chẩn đoán -->
                                                                     <div class="tab-pane" id="settings_{{$hospitalhistory_time->time}}">
                                                                         @if ($diagnosis)
                                                                             @if ($diagnosis->creator != null)
