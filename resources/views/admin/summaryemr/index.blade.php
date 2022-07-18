@@ -7,9 +7,14 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <h1 class="m-0">Tổng kết bệnh án</h1>
             </div>
+            <div class="col-md-6">
+                <button class="btn btn-default" type="button">
+                    <a href="{{ route('pdf.index') }}">xuất PDF</a>
+                </button>
+              </div>
             </div><!-- /.row -->
             @if (Session::get('patient_id') != null)
             <div class="col-md-12 text-success mt-2">
@@ -30,6 +35,7 @@
     <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title">Tổng kết bệnh án</h3>
+          
         </div>
         <!-- Main content -->
         @if (Session::get('patient_id') != null)

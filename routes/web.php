@@ -11,6 +11,7 @@ use App\Http\Controllers\emr\HospitalHistoryController;
 use App\Http\Controllers\emr\ImagingResultController;
 use App\Http\Controllers\emr\LabResultController;
 use App\Http\Controllers\emr\PatientController;
+use App\Http\Controllers\emr\PdfController;
 use App\Http\Controllers\emr\PermissionController;
 use App\Http\Controllers\emr\summaryemr;
 use App\Http\Controllers\emr\SummaryEmrController;
@@ -109,6 +110,10 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
     });
     Route::prefix('/summaryemr')->middleware(['role:Super Admin|Doctor'])->controller(SummaryEmrController::class)->group(function(){
         Route::get('/', 'index')->name('summaryemr.index');
+    });
+
+    Route::prefix('/pdf')->middleware(['role:Super Admin|Doctor'])->controller(PdfController::class)->group(function(){
+        Route::get('/', 'index')->name('pdf.index');
     });
     
 
