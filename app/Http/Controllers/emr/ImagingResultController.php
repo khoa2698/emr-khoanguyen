@@ -44,7 +44,7 @@ class ImagingResultController extends Controller
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
             'name_subclinical_service' => ['required'],
-            'url' => ['required'],
+            'url' => ['required', 'max:255'],
             'comment' => ['required'],
         ]);
         if($validated) {

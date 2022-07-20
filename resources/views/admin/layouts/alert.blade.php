@@ -1,4 +1,4 @@
-@if ($errors->any())
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul style="list-style-type:decimal;">
             @foreach ($errors->all() as $error)
@@ -18,4 +18,4 @@
     <div class="alert alert-danger">
         {{ Session::get('error') }}
     </div>
-@endif
+@endif --}}

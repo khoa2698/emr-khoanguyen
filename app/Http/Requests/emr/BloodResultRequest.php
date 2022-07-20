@@ -26,7 +26,7 @@ class BloodResultRequest extends FormRequest
         return [
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
             'name_subclinical_service' => ['required'],
-            'url' => ['required'],
+            'url' => ['required', 'max:255'],
             'comment' => ['required'],
             'glu' => ['bail', 'required', 'numeric', 'gte:0'],
             'ure' => ['bail', 'required', 'numeric', 'gte:0'],
