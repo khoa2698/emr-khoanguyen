@@ -223,4 +223,23 @@ class Helper
         }
         return DB::table('blood_results')->whereIn('lab_result_id', $lab_result_ids)->get();
     }
+
+    public static function getLabResult($patient_id, $time)
+    {
+        $lab_results = DB::table('lab_result')->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        return $lab_results;
+    }
+    
+    public static function getImagingResult($patient_id, $time)
+    {
+        $image_results = DB::table('imaging_result')->where('patient_id', $patient_id)->where('time', $time)->orderBy('created_at', 'desc')->get();
+        return $image_results;
+    }
+
+    public static function countImages($table, $patient_id, $time, $type)
+    {
+        $countImages = DB::table($table)->where('patient_id', $patient_id)->where('name', $type)->where('time', $time)->get()->count();
+        // dd($countImages);
+        return $countImages;
+    }
 }

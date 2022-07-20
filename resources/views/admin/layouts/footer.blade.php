@@ -41,4 +41,25 @@
 
 <script src="/assets/admin/js/main.js"></script>
 
-  @yield('script')
+@yield('script')
+<script>
+  // @if (Session::has('success'))
+  //   toastr.options = {
+  //   "newestOnTop": false,
+  //   "progressBar": true,
+  //   "timeOut": "3000",
+  //   "extendedTimeOut": "1000",
+  //   }
+  //   toastr.success({{ Session::get('success') }})
+  // @endif
+  // @if ($errors->any())
+  //   toastr.options = {
+  //   "closeButton": true,
+  //   "timeOut": "0",
+  //   "extendedTimeOut": "0",
+  //   }
+  //   @foreach ($errors->all() as $error)
+  //     toastr.error({{ $error }})
+  //   @endforeach
+  // @endif
+</script>

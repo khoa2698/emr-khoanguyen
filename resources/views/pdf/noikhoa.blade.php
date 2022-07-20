@@ -7,7 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     
   </head>
-  <style type="text/css">
+  <style>
+
     @font-face {
       font-family: "Times New Roman" !important;
       src: url("/storage/fonts/times.ttf");
@@ -29,9 +30,7 @@
       font-style: italic;
       font-weight: bold;
     }
-    * {
-      font-family: "Times New Roman" !important;
-    }
+    * { font-family: DejaVu Sans !important; }
     .font-bold {
       font-weight: bold;
     }
@@ -45,33 +44,29 @@
       page-break-before: always;
     }
     .center {
-    text-align: center;
+    text-align: center !important;
     }
     table {
     border-collapse: collapse;
     }
   </style>
 
-  <body style="font-family: Times New Roman; font-size: 12px">
+  <body style="font-size: 12px">
     <!-- header -->
     <div class="header">
       <table width="100%">
         <tr>
-          <td width="30%">Sở Y tế tỉnh Phú Thọ</td>
+          <td width="30%">Phòng khám đa khoa EMR</td>
           <td width="40%" rowspan="3" style="text-align: center; font-size: 25px">
-            <b>HỒ SƠN BỆNH ÁN</b>
+            <b>HỒ SƠ BỆNH ÁN</b>
           </td>
           {{-- <td width="30%">Mã HSBA: BA0000001</td> --}}
         </tr>
         <tr>
-          <td width="30%">TTYT Huyện Cẩm Khê</td>
-          <td width="30%">Mã BN: BN0000001</td>
+          <td width="30%">TTYT Sức Khỏe</td>
+          <td width="30%" style="text-align: right;">Mã BN: {{ $patient_info->patient_id }}</td>
         </tr>
 
-        <tr>
-          <td width="30%">Khoa: Cấp cứu &nbsp; Giường: 00</td>
-          <td width="30%"></td>
-        </tr>
       </table>
     </div>
     <!-- Thông tin bệnh nhân -->
@@ -81,175 +76,186 @@
         <tr>
           <td width="40%"><b>I. HÀNH CHÍNH</b></td>
           <td width="10%"></td>
-          <td width="40%"></td>
-          <td width="10%" class="center">Tuổi</td>
+          <td width="50%"></td>
+          {{-- <td width="10%" class="center">Tuổi</td> --}}
         </tr>
         <tr>
-          <td colspan="2">1. Họ và tên <i>(In hoa)</i>: <span class="uppercase">Khoa Nguyen</span></td>
-          <td>2. Sinh ngày: 00/00/1999</td>
-          <td class="center">[23]</td>
+          <td colspan="2">1. Họ và tên <i>(In hoa)</i>: <span class="uppercase">{{ $patient_info->full_name }}</span></td>
+          <td>2. Sinh ngày: {{ date('d/m/Y',strtotime($patient_info->dob)) }}
+          </td>
+          {{-- <td class="center">[23]</td> --}}
         </tr>
         <tr>
-          <td>3. Giới tính: nam</td>
+          <td>3. Giới tính: {{ $patient_info->sex }}</td>
           <td></td>
-          <td>4. Nghề nghiệp: sinh viên</td>
-          <td class="center">[00]</td>
+          <td>4. Nghề nghiệp: {{ $patient_info->occupation }}</td>
+          {{-- <td class="center">[00]</td> --}}
         </tr>
         <tr>
-          <td>5. Dân tộc: kinh</td>
-          <td class="center">[00]</td>
-          <td>6. Ngoại kiều: không</td>
-          <td class="center">[00]</td>
+          <td>5. Dân tộc: {!! App\Helpers\Helper::getEthnicName($patient_info->ethnic_id) !!}</td>
+          {{-- <td class="center">[00]</td> --}}
+          <td></td>
+          <td>6. Quốc tịch: {{ $patient_info->nationality }}</td>
+          {{-- <td class="center">[00]</td> --}}
         </tr>
       </table>
       <table width="100%">
         <tr>
-          <td colspan="4">7. Địa chỉ : ABC</td>
+          <td colspan="3">7. Địa chỉ : {!! App\Helpers\Helper::getPatientAddress($patient_info->city_id, $patient_info->district_id, $patient_info->ward_id, $patient_info->home_address) !!}</td>
         </tr>
         <tr>
-          <td width="40%">Huyện (Q, Tx) A</td>
-          <td width="10%" class="center">[00]</td>
-          <td width="40%">Tỉnh, thành phố B</td>
-          <td width="10%" class="center">[00]</td>
+          <td width="40%">8. Tôn giáo : {{ $patient_info->religion }}</td>
+          <td width="10%"></td>
+          <td width="50%">9. Đối tượng : {{ $patient_info->type_of_object }}</td>
+          {{-- <td></td> --}}
         </tr>
         <tr>
-          <td>8. Nơi làm việc : HUST</td>
+          <td>10. BHYT giá trị đến: {{ $patient_info->health_insurance_date }}</td>
           <td></td>
-          <td>9. Đối tượng : BHYT</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>10. BHYT giá trị đến: 00/00/2030</td>
-          <td></td>
-          <td>Số thẻ BHYT: 0123456789</td>
+          <td>Số thẻ BHYT: {{ $patient_info->health_insurance_id }}</td>
           <td></td>
         </tr>
         <tr>
-          <td colspan="4">
-            11. Họ tên, địa chỉ người nhà khi cần báo tin: OK - Đ/C: D
+          <td colspan="3">
+            11. Họ tên, địa chỉ người nhà khi cần báo tin: {{ $patient_info->name_next_of_kin }} - Đ/C: {{ $patient_info->home_next_of_kin }}
           </td>
         </tr>
         <tr>
-          <td colspan="4">Số điện thoại người nhà: 0123456789</td>
+          <td colspan="3">Số điện thoại người nhà: {{ $patient_info->phone_next_of_kin }}</td>
         </tr>
       </table>
     </div>
+    @foreach ($hospitalhistory_times as $hospitalhistory_time)
+      <div style="margin-top: 0.5em; font-size: 16px;"><b>Lần khám thứ {{$hospitalhistory_time->time}}</b></div>
+      @php
+          $history = App\Helpers\Helper::getHistoryWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+          $vital = App\Helpers\Helper::getVitalWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+          $general = App\Helpers\Helper::getGeneralWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+          $sub_clinical_services = App\Helpers\Helper::getSubClinicWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+          $diagnosis = App\Helpers\Helper::getDiagnosisWithTime(Session::get('patient_id'), $hospitalhistory_time->time);
+          $blood_results =  App\Helpers\Helper::getBloodResult(Session::get('patient_id'), $hospitalhistory_time->time);
+          $lab_results =  App\Helpers\Helper::getLabResult(Session::get('patient_id'), $hospitalhistory_time->time);
+          $imaging_results =  App\Helpers\Helper::getImagingResult(Session::get('patient_id'), $hospitalhistory_time->time);
+      @endphp
+
     <!-- Quản lý người bệnh -->
     <div>
       <b> II. QUẢN LÝ NGƯỜI BỆNH </b>
       <br />
       <table width="100%" style="border: 1px solid black">
         <tr>
-          <td style="border-right: 1px solid black" width="50%">12. Vào viện: 00/00/2022</td>
-          <td>14. Nơi giới thiệu: 00</td>
+          <td style="border-right: 1px solid black" width="50%">12. Vào viện: {{ date('d/m/Y H:i',strtotime($history->date_attented)) }}</td>
+          <td>14. Nơi giới thiệu: {{ $history->refer_dept }}</td>
         </tr>
         <tr>
-          <td style="border-right: 1px solid black; border-bottom: 1px solid black">13. Trực tiếp vào: Khoa điều trị</td>
-          <td style="border-bottom: 1px solid black">- Vào viện do bệnh này lần thứ: N</td>
+          <td style="border-right: 1px solid black; border-bottom: 1px solid black">13. Trực tiếp vào: {{ $history->admit_dept }}</td>
+          <td style="border-bottom: 1px solid black"></td>
         </tr>
 
         <tr>
-          <td width="50%" style="border-right: 1px solid black;">15. Vào Khoa: Khoa điều trị</td>
+          <td width="50%" style="border-right: 1px solid black;">15. Vào Khoa: {{ $history->admit_dept }}</td>
           <td>
-            17. Chuyển viện: 00
+            17. Chuyển viện: 
             <br />
-            - Chuyển đến: 00
+            - Chuyển đến: 
           </td>
         </tr>
         <tr>
-          <td style="border-right: 1px solid black;">16. Chuyển khoa lần 1: 00</td>
+          <td style="border-right: 1px solid black;">16. Chuyển khoa lần 1: </td>
           <td>18. Ra viện:</td>
         </tr>
         <tr>
-          <td style="border-right: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chuyển khoa lần 2: 00</td>
-          <td>19. Tổng số ngày điều trị: 99</td>
+          <td style="border-right: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chuyển khoa lần 2: </td>
+          <td>19. Tổng số ngày điều trị: </td>
         </tr>
         <tr>
-          <td style="border-right: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chuyển khoa lần 3: 00</td>
+          <td style="border-right: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chuyển khoa lần 3: </td>
           <td></td>
         </tr>
       </table>
     </div>
+
     <!-- Chẩn đoán -->
     <div>
       <table width="100%" style="border-bottom: 1px solid black">
         <tr>
           <td width="40%"><b> III. CHẨN ĐOÁN </b></td>
-          <td width="10%" class="center">MÃ</td>
-          <td width="40%"></td>
+          <td width="10%" class="center"></td>
+          <td width="40%" style="border-bottom: 1px solid black;"></td>
           <td width="10%" class="center">MÃ</td>
         </tr>
         <tr>
           <td style="border-top: 1px solid black; border-left: 1px solid black;">
             20. Nơi chuyển đến: <br />
-            OPA
+            
           </td>
-          <td style="border-top: 1px solid black; border-right: 1px solid black;" class="center"><br />[00]</td>
-          <td style="border-top: 1px solid black; " rowspan="2" style="vertical-align: text-top">
+          <td style="border-top: 1px solid black; border-right: 1px solid black;" class="center"><br /></td>
+          <td style="border-top: 1px solid black !important; " rowspan="2" style="vertical-align: text-top">
             23. Ra viện: <br />
-            + Bệnh chính: buồn
+            + Bệnh chính: {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_main_code) !!}
           </td>
-          <td style="border-right: 1px solid black; border-top: 1px solid black;" rowspan="2" class="center"><br />[00]</td>
+          <td style="border-right: 1px solid black; border-top: 1px solid black;" rowspan="2" class="center"><br />[{{$diagnosis->icd10_main_code}}]</td>
         </tr>
         <tr>
           <td style="border-left: 1px solid black;">
             21. KKB, cấp cứu: <br />
-            buồn
+            {{ $general->diagnosis_syndrome }}
           </td>
-          <td style="border-right: 1px solid black;" class="center"><br />[00]</td>
+          <td style="border-right: 1px solid black;" class="center"><br /></td>
         </tr>
         <tr>
           <td style="border-left: 1px solid black;">
             22. Khi vào khoa điều trị: <br />
-            sốt rét
+            {{ $history->reason }}
           </td>
-          <td style="border-right: 1px solid black;" class="center"><br />[00]</td>
-          <td >+ Bệnh kèm theo: buồn<br /></td>
-          <td style="border-right: 1px solid black;" class="center"><br />[00]</td>
+          <td style="border-right: 1px solid black;" class="center"><br /></td>
+          <td >+ Bệnh kèm theo: {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_sub_code) !!}<br /></td>
+          <td style="border-right: 1px solid black;" class="center"><br />[{{$diagnosis->icd10_sub_code}}]</td>
         </tr>
         <tr style="border-right: 1px solid black; border-left: 1px solid black;">
-          <td style="border-left: 1px solid black;" colspan="2">+ Thủ thuật: [00]&nbsp;&nbsp; + Phẫu thuật: [00]</td>
-          <td style="border-left: 1px solid black; border-right: 1px solid black;" style="border-right: 1px solid black;" colspan="2">+ Tai biến: [00] &nbsp;&nbsp; + Biến chứng: [00]</td>
+          <td style="border-right: 1px solid black;" colspan="2"></td>
+          <td style="border-left: 1px solid black !important; border-right: 1px solid black;" style="border-right: 1px solid black;" colspan="2"></td>
         </tr>
       </table>
     </div>
+
     <!-- Tình trạng ra viện -->
     <div>
       <b> IV. TÌNH TRẠNG RA VIỆN </b>
       <table width="100%" style="border: 1px solid black">
         <tr>
-          <td style="border-right: 1px solid black;" width="30%" style="vertical-align: text-top">
+          <td style="border-right: 1px solid black; !important;" width="30%" style="vertical-align: text-top">
             24. Kết quả điều trị: <br />
-            khỏi
+            {{ $diagnosis->disease_prognosis }} <br> {{ $diagnosis->disease_plan }}
           </td>
-          <td >
+          <td style="border-left: 1px solid black; !important;">
             26. Tình hình tử vong:
              {{-- {{ \Carbon\Carbon::parse($summary->death_time)->format('H \g\i\ờ m \p\h, \n\g\à\y d \t\h\á\n\g m \n\ă\m Y') }} --}}
             <br />
-            00 <br />
-            00
+            <br />
           </td>
         </tr>
         <tr>
           <td style="border-right: 1px solid black;"></td>
           <td>
             27. Nguyên nhân chính tử vong: <br />
-            00
+            
           </td>
         </tr>
         <tr>
           <td style="border-right: 1px solid black;">
             25. Giải phẫu bệnh <i>(khi có sinh thiết)</i>: <br />
-            00
+            
           </td>
-          <td>28. Khám nghiệm tử thi: [00]</td>
+          <td>28. Khám nghiệm tử thi: </td>
         </tr>
         <tr>
           <td style="border-right: 1px solid black;"></td>
-          <td>29. Chẩn đoán giải phẫu tử thi: 00</td>
+          <td>29. Chẩn đoán giải phẫu tử thi: </td>
         </tr>
       </table>
     </div>
+    
     <!-- ký tên -->
     <table width="100%" style="text-align: center">
       <tr>
@@ -295,8 +301,8 @@
       <table width="100%">
         <!--I.Lý do vào viện-->
         <tr>
-          <td width="60%"><b>I. Lý do vào viện:</b> ốm</td>
-          <td>Vào ngày thứ 2 của bệnh</td>
+          <td width="60%"><b>I. Lý do vào viện:</b> {{ $history->reason }}</td>
+          <td>Vào ngày thứ {{ $history->reason_date != null ? $history->reason_date : '...'}} của bệnh</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -310,7 +316,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">{!! nl2br(e(00)) !!}</td>
+          <td colspan="2">{!! nl2br(e($history->symptoms)) !!}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -323,7 +329,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">{!! nl2br(e(00)) !!}</td>
+          <td colspan="2">{!! nl2br(e($history->disease_self)) !!}</td>
         </tr>
         <tr>
           <td colspan="2">Đặc điểm liên quan bệnh:</td>
@@ -350,32 +356,32 @@
               <tr>
                 <td style="border:1px solid black;" style="border:1px solid black;">01</td>
                 <td style="border:1px solid black;">Dị ứng</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;"><i>(dị nguyên)</i> 01</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_relateto_diung == '1' ? 'X' : '' }}</td>
+                <td style="border:1px solid black;"><i></i>{{ $history->disease_relateto_diung_time}}</td>
                 <td style="border:1px solid black;">04</td>
                 <td style="border:1px solid black;">Thuốc lá</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;">01</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_thuocla == '1' ? 'X' : '' }}</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_thuocla_time}}</td>
               </tr>
               <tr>
                 <td style="border-bottom:1px solid black; border-right:1px solid black;">02</td>
                 <td style="border:1px solid black;">Ma túy</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;">01</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_matuy == '1' ? 'X' : '' }}</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_matuy_time}}</td>
                 <td style="border:1px solid black;">05</td>
-                <td style="border:1px solid black;">Thuốc lào</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;">01</td>
+                <td style="border:1px solid black;">Khác</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_khac == '1' ? 'X' : '' }}</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_khac_time }}</td>
               </tr>
               <tr>
                 <td style="border-bottom:1px solid black; border-right:1px solid black;">03</td>
                 <td style="border:1px solid black;">Rượu bia</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;">01</td>
-                <td style="border:1px solid black;">06</td>
-                <td style="border:1px solid black;">Khác</td>
-                <td style="border:1px solid black;">00</td>
-                <td style="border:1px solid black;">01</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_ruoubia == '1' ? 'X' : '' }}</td>
+                <td style="border:1px solid black;">{{ $history->disease_relateto_ruoubia_time }}</td>
+                <td style="border:1px solid black;"></td>
+                <td style="border:1px solid black;"></td>
+                <td style="border:1px solid black;"></td>
+                <td style="border:1px solid black;"></td>
               </tr>
             </table>
           </td>
@@ -384,7 +390,7 @@
           <td colspan="2">+ Gia đình: <i>(Những người trong gia đình: bệnh đã mắc, đời sống, tinh thần, vật chất v.v...).</i></td>
         </tr>
         <tr>
-          <td colspan="2">{!! nl2br(e(00)) !!}</td>
+          <td colspan="2">{!! nl2br(e($history->disease_family)) !!}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -397,32 +403,32 @@
           </td>
         </tr>
         <tr>
-          <td width="50%">{!! nl2br(e(00)) !!}</td>
+          <td width="70%">{!! nl2br(e($vital->note)) !!}</td>
           <td>
-            <table width="100%">
+            <table width="100%" style="border:1px solid black;">
               <tr>
                 <td>Mạch</td>
-                <td>99</td>
-                <td style="text-align: right">lần/ph</td>
+                <td>{{ $vital->blood_pressure }}</td>
+                <td style="text-align: right">lần/phút</td>
               </tr>
               <tr>
                 <td>Nhiệt độ</td>
-                <td>99</td>
+                <td>{{ $vital->temperature }}</td>
                 <td style="text-align: right">°C</td>
               </tr>
               <tr>
                 <td>Huyết áp</td>
-                <td>99 / 99</td>
+                <td>{{ $vital->systolic }} / {{ $vital->diastolic }}</td>
                 <td style="text-align: right">mmHg</td>
               </tr>
               <tr>
                 <td>Nhịp thở</td>
-                <td>99</td>
+                <td>{{ $vital->respiration }}</td>
                 <td style="text-align: right">lần/phút</td>
               </tr>
               <tr>
                 <td>Cân nặng</td>
-                <td>99</td>
+                <td>{{ $vital->weight }}</td>
                 <td style="text-align: right">kg</td>
               </tr>
             </table>
@@ -434,31 +440,31 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">+ Tuần hoàn: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Tuần hoàn: {!! nl2br(e($general->diagnosis_tuanhoan)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Hô hấp: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Hô hấp: {!! nl2br(e($general->diagnosis_hohap)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Tiêu hóa: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Tiêu hóa: {!! nl2br(e($general->diagnosis_tieuhoa)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Thận- Tiết niệu- Sinh dục: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Thận- Tiết niệu- Sinh dục: {!! nl2br(e($general->diagnosis_than_tietnieu_sinhduc)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Thần Kinh: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Thần Kinh: {!! nl2br(e($general->diagnosis_thankinh)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Cơ- Xương- Khớp: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Cơ- Xương- Khớp: {!! nl2br(e($general->diagnosis_coxuongkhop)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Tai- Mũi- Họng: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Tai- Mũi- Họng: {!! nl2br(e($general->diagnosis_taimuihong)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Mắt: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Mắt: {!! nl2br(e($general->diagnosis_mat)) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Nội tiết, dinh dưỡng và các bệnh lý khác: {!! nl2br(e('ok')) !!}</td>
+          <td colspan="2">+ Nội tiết, dinh dưỡng và các bệnh lý khác: {!! nl2br(e($general->diagnosis_noitiet_dinhduong_khac)) !!}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -466,10 +472,14 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">99</td>
-        </tr>
-        <tr>
-          <td colspan="2">99</td>
+          <td colspan="2">
+            @if ($sub_clinical_services)
+              @foreach ($sub_clinical_services as $sub_clinical_service)
+                  {{ $sub_clinical_service->name . ', ' }}
+              @endforeach
+            @endif
+
+          </td>
         </tr>
         <tr>
           <td colspan="2">
@@ -478,11 +488,11 @@
         </tr>
         <tr>
           <td colspan="2">
-            Người bệnh Tên <br />
-            Nhập viện vì lý do, vào ngày thứ 2 của bệnh <br />
+            Người bệnh {{ $patient_info->full_name }} <br />
+            Nhập viện vì lý do {{ $general->reason != null ? $general->reason : '...'}}, vào ngày thứ {{ $general->reason_date != null ? $general->reason_date : '...'}} của bệnh <br />
             Qua thăm hỏi và khám bệnh phát hiện các triệu chứng và hội chứng sau: <br />
-            + Triệu chứng: {!! nl2br(e('ok')) !!}<br />
-            + Hội chứng: {!! nl2br(e('ok')) !!}
+            + Triệu chứng: {!! nl2br(e($history->symptoms)) !!}<br />
+            + Hội chứng: {!! nl2br(e($general->diagnosis_syndrome)) !!}
           </td>
         </tr>
         <tr>
@@ -491,10 +501,10 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">+ Bệnh chính: <br /> ốm</td>
+          <td colspan="2">+ Bệnh chính: <br /> {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_main_code) !!}</td>
         </tr>
         <tr>
-          <td colspan="2">+ Bệnh kèm theo: <i>(nếu có)</i>: <br /> không</td>
+          <td colspan="2">+ Bệnh kèm theo: <i>(nếu có)</i>: <br /> {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_sub_code) !!}</td>
         </tr>
         <tr>
           <td colspan="2">+ Phân biệt: không</td>
@@ -502,13 +512,13 @@
         <tr>
           <td colspan="2">
             <b>V. Tiên lượng:</b> <br />
-            {!! nl2br(e('khỏi sau 1 tháng')) !!}
+            {!! nl2br(e($diagnosis->disease_prognosis)) !!}
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <b>VI. Hướng điều trị:</b> <br />
-            {!! nl2br(e('uống thuốc')) !!}
+            {!! nl2br(e($diagnosis->disease_plan)) !!}
           </td>
         </tr>
         <tr>
@@ -533,7 +543,7 @@
         <tr width="100%">
           <td colspan="2">
             <table width="100%" class="page_break">
-              <tr width="100%" class="page_break">
+              <tr width="100%">
                 <td colspan="2">
                   <b>B. TỔNG KẾT BỆNH ÁN </b>
                 </td>
@@ -541,37 +551,43 @@
               <tr width="100%">
                 <td colspan="4">
                   <b>1. Quá trình bệnh lý và diễn biến lâm sàng: </b> <br />
-                  {!! nl2br(e('ok')) !!} {!! nl2br(e('ok')) !!}
+                  {!! nl2br(e('Triệu chứng: ' . ($history->symptoms != null ? $history->symptoms : '... '). '. Số ngày biểu hiện: ' . ($history->reason_date != null ? $history->reason_date : '... '))) !!} {!! nl2br(e('.Hội chứng lâm sàng: '.($general->diagnosis_syndrome != null ? $general->diagnosis_syndrome : '... .'))) !!}
                 </td>
               </tr>
               <tr>
                 <td colspan="4">
                   <b>2. Tóm tắt kết quả xét nghiệm cận lâm sàng có giá trị chẩn đoán:</b> <br />
-                  {!! nl2br(e('ok')) !!} <br>
-                  {!! nl2br(e('ok')) !!}
+                  @foreach ($lab_results as $lab_result)
+                      {{ $lab_result->name }} {!! nl2br(e(': ' . $lab_result->comment)) !!} <br>
+                  @endforeach
+                  
+                  @foreach ($imaging_results as $imaging_result)
+                      {{ $imaging_result->name }} {!! nl2br(e(': ' . $imaging_result->comment)) !!} <br>
+                  @endforeach
                 </td>
               </tr>
               <tr>
                 <td colspan="4">
                   <b>3. Phương pháp điều trị: </b> <br />
-                  {!! nl2br(e('ok')) !!}
+                  {!! nl2br(e($diagnosis->disease_plan)) !!}
                 </td>
               </tr>
               <tr>
                 <td colspan="4">
                   <b>4. Tình trạng người bệnh ra viện:</b> <br />
-                  {!! nl2br(e('ok')) !!}
+                  + Bệnh chính: {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_main_code) !!} <br>
+                  + Bệnh kèm theo: {!! App\Helpers\Helper::getIcd10Name($diagnosis->icd10_sub_code) !!} <br>
                 </td>
               </tr>
               <tr>
                 <td colspan="4">
                   <b>5. Hướng điều trị và các chế độ tiếp theo:</b> <br />
-                  {!! nl2br(e('ok')) !!}
+                  {!! nl2br(e($diagnosis->disease_plan)) !!}
                 </td>
               </tr>
-              <tr>
-                <td style="border:1px solid black; text-align: center;" colspan="2" style=""><b>Hồ sơ, phim ảnh</b></td>
-                <td style="border:1px solid black; text-align: center;" width="30%" rowspan="4" >
+              <tr style="border-top:1px solid black; border-left:1px solid black; text-align: center;">
+                <td style="border:1px solid black !important; text-align: center;" colspan="2" style=""><b>Hồ sơ, phim ảnh</b></td>
+                <td style="border:1px solid black; text-align: center;" class="center" width="30%" rowspan="4" >
                   <b> Người giao hồ sơ</b> <br />
                   <br />
                   <br />
@@ -591,7 +607,7 @@
                   <br />
                   <br />
                   <br />
-                  <br />Họ tên <b>OK</b>
+                  <br />Họ tên <br /> <b>{{ $history->creator->name }}</b>
                 </td>
               </tr>
               <tr>
@@ -604,15 +620,15 @@
               </tr>
               <tr>
                 <td style="border:1px solid black;">&nbsp;- X-quang</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;" class="center">{!! App\Helpers\Helper::countImages('imaging_result', Session::get('patient_id'), $hospitalhistory_time->time, 'X quang') !!}</td>
               </tr>
               <tr>
-                <td style="border:1px solid black;">&nbsp;- CT Scanner</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;">&nbsp;- CT Scanner / MRI</td>
+                <td style="border:1px solid black;" class="center">{!! App\Helpers\Helper::countImages('imaging_result', Session::get('patient_id'), $hospitalhistory_time->time, 'Cộng hưởng từ') !!}</td>
               </tr>
               <tr>
                 <td style="border:1px solid black;">&nbsp;- Siêu âm</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;" class="center">{!! App\Helpers\Helper::countImages('imaging_result', Session::get('patient_id'), $hospitalhistory_time->time, 'Siêu âm') !!}</td>
                 <td style="border:1px solid black; text-align: center;" width="30%" rowspan="4">
                   <b> Người nhận hồ sơ</b> <br />
                   <br />
@@ -626,20 +642,22 @@
               </tr>
               <tr>
                 <td style="border:1px solid black;">&nbsp;- Xét nghiệm</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;" class="center">{!! App\Helpers\Helper::countImages('lab_result', Session::get('patient_id'), $hospitalhistory_time->time, 'Xét nghiệm máu') !!}</td>
               </tr>
               <tr>
-                <td style="border:1px solid black;">&nbsp;- Khác............</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;">&nbsp;- Khác (nội soi, ............)</td>
+                <td style="border:1px solid black;" class="center">{!! App\Helpers\Helper::countImages('imaging_result', Session::get('patient_id'), $hospitalhistory_time->time, 'Nội soi') !!}</td>
               </tr>
               <tr>
                 <td style="border:1px solid black;">&nbsp;- Toàn bộ hồ sơ</td>
-                <td style="border:1px solid black;" class="center">99</td>
+                <td style="border:1px solid black;" class="center">{{ count($lab_results) + count($imaging_results) }}</td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
     </div>
+    @endforeach
+
   </body>
 </html>

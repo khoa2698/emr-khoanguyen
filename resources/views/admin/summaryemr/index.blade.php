@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6">
                 <button class="btn btn-default" type="button">
-                    <a href="{{ route('pdf.index') }}">xuất PDF</a>
+                    <a href="{{ route('pdf.index') }}">Xuất PDF <i class="fas fa-file-export"></i></a>
                 </button>
               </div>
             </div><!-- /.row -->
@@ -185,7 +185,7 @@
                                             <a class="d-block w-100" data-toggle="collapse" href="#collapse_{{$hospitalhistory_time->time}}">
                                                 <div class="card-header">
                                                     <h4 class="card-title w-100">
-                                                        Lần khám thứ {{$hospitalhistory_time->time}}, thời gian: {{ $history->date_attented }}
+                                                        Lần khám thứ {{$hospitalhistory_time->time}}, thời gian: {{ date('d/m/Y H:i:s', strtotime($history->date_attented)) }}
                                                     </h4>
                                                 </div>
                                             </a>
