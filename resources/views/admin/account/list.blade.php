@@ -69,10 +69,10 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <a href="{{ route('account.edit', $account->id) }}" class="btn btn-outline-info btn-inline-block">
+                                                <a href="{{ route('account.edit', $account->id) }}" class="btn btn-sm btn-outline-info btn-inline-block">
                                                     <i class="fas fa-tools"></i> @lang('Edit')
                                                 </a>
-                                                <button type="button" class="btn btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $account->id }}">
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $account->id }}">
                                                     <i class="fas fa-trash"></i> @lang('Delete')
                                                 </button>
                                                 @php

@@ -61,13 +61,13 @@
                                         <td>{{ $role->name }}</td>
                                         <td>
                                             <div>
-                                                <a href="{{ route('permission.edit', $role->id) }}" class="btn btn-outline-info btn-inline-block">
+                                                <a href="{{ route('permission.edit', $role->id) }}" class="btn btn-sm btn-outline-info btn-inline-block">
                                                     <i class="fas fa-tools"></i> @lang('Edit')
                                                 </a>
-                                                <a href="{{ route('permission.show', $role->id) }}" class="btn btn-outline-info btn-inline-block">
+                                                {{-- <a href="{{ route('permission.show', $role->id) }}" class="btn btn-sm btn-outline-info btn-inline-block">
                                                     <i class="fas fa-eye"></i> @lang('Detail')
-                                                </a>
-                                                <button type="button" class="btn btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $role->id }}">
+                                                </a> --}}
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-inline-block" data-toggle="modal" data-target="#{{ 'myModal-' . $role->id }}">
                                                     <i class="fas fa-trash"></i> @lang('Delete')
                                                 </button>
                                                 @php
