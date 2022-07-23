@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6">
                 <button class="btn btn-default" type="button">
-                    <a href="{{ route('pdf.index') }}">Xuất PDF <i class="fas fa-file-export"></i></a>
+                    <a target="_blank" href="{{ route('pdf.index') }}">Xuất PDF <i class="fas fa-file-export"></i></a>
                 </button>
               </div>
             </div><!-- /.row -->

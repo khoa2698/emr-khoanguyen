@@ -23,9 +23,10 @@ type: create database YourDatabase <br>
 	MAIL_ENCRYPTION=tls <br>
 	MAIL_FROM_ADDRESS=<Email của bạn> <br>
 (9) php artisan key:generate <br>
-(10) php artisan vietnam-map:install <br>
-(11) php artisan migrate:refresh --seed <br>
-(12) open file icd10s.txt, copy and insert data into database <br>
+(10) php artisan migrate <br>
+(11) php artisan vietnam-map:download <br>
+(12) php artisan db:seed <br>
+(13) open file icd10s.txt, copy and insert data into database <br>
 
 
 ## License
