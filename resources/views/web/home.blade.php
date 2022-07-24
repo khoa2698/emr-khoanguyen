@@ -11,7 +11,7 @@
           <div class="content">
             <h4>Chuyên gia hàng đầu</h4>
             <div class="text">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis semper felis.</p>
+              <p>DentalCare quy tụ đội ngũ chuyên gia, bác sĩ, dược sĩ và điều dưỡng được đào tạo bài bản đến chuyên sâu tại Việt nam và nhiều nước có nên y học phát triển như Mỹ, Anh, Pháp... Luôn lấy người bệnh là trung tâm, DentalCare cam kết mang lại dịch vụ chăm sóc sức khỏe toàn diện và chất lượng cao cho khách hàng.</p>
             </div>
           </div>
           <a class="content--btn" href="#">
@@ -23,7 +23,7 @@
           <div class="content">
             <h4>Kiểm tra nhanh</h4>
             <div class="text">
-              <p>Aliquam sit amet porttitor ex, sit amet pellentesque nibh. Praesent viverra dui augue.</p>
+              <p>Quy trình kiểm tra theo chuẩn Châu Âu với các công nghệ cao, đưa ra kết quả nhanh chóng và chính xác.</p>
             </div>
           </div>
           <a class="content--btn" href="#">
@@ -35,7 +35,7 @@
           <div class="content">
             <h4>Điều trị không đau đớn</h4>
             <div class="text">
-              <p>Praesent cursus ligula elit, vitae ullamcorper felis sodales non suspendisse.</p>
+              <p>Với đội ngũ giàu kinh nghiệm trong chuyên khoa răng, bạn sẽ có một trải nghiệm hoàn hảo nhất.</p>
             </div>
           </div>
           <a class="content--btn" href="#">
@@ -47,7 +47,7 @@
           <div class="content">
             <h4>Đặt lịch ngay</h4>
             <div class="text">
-              <p>Lựa chọn bác sĩ và đặt lịch khám với chuyên gia.</p>
+              <p>Đặt lịch khám ngay để nhận được tư vấn từ đội ngũ chuyên nghiệp. Và được tư vấn các dịch vụ hợp lý.</p>
             </div>
           </div>
           <a class="content--btn" href="#">
@@ -61,7 +61,7 @@
           <div class="content">
             <div class="content__header">
               <div class="content__header--subtitle">
-                Dr Jenna Wilson
+                Bác sĩ Jenna Wilson
               </div>
               <span class="d-block dash"></span>
               <div class="content__header--title">
@@ -101,8 +101,7 @@
             <a href="#" class="icon-card icon-card--2"></a>
             <h5>Bác sĩ phẫu thuật</h5>
             <h3>Audrey Button</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quia totam amet laboriosam harum magni aut!
-              Veritatis, veniam facilis nihil itaque pariatur quam!</p>
+            <p>ThS. BS Audrey Button có hơn 15 kinh nghiệm trong lĩnh vực Răng - Hàm - Mặt với các thế mạnh trong các phẫu thuật về nhổ răng khôn áp dụng kỹ thuật cao Piezotome để nhổ răng khôn khó, cấy ghép Implant, chỉnh nha mắc cài - chỉnh nha bằng khay trong suốt, thiết kế lại nụ cười đường cười và profile cho bệnh nhân, răng thẩm mỹ, xử trí các trường hợp viêm nha chu... Hiện tại, BS đang làm việc tại Đơn nguyên Răng - Hàm - Mặt khoa Liên chuyên khoa Phòng khám DentalCare.</p>
           </div>
           <div class="dr-card--contact">
             <a href="#">
@@ -130,8 +129,7 @@
             <a href="#" class="icon-card icon-card--2"></a>
             <h5>Bác sĩ phẫu thuật</h5>
             <h3>Emma Beckett</h3>
-            <p>Vivamus sapien ligula, tempus ac ipsum ac, mattis luctus magna. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Nobis, obcaecati!</p>
+            <p>ThS. BS Emma Beckett đã có nhiều năm kinh nghiệm trong lĩnh vực Răng - Hàm - Mặt, đặc biệt có chuyên môn sâu về khám, điều trị, tư vấn các vấn đề bệnh lý răng miệng, phẫu thuật hàm mặt, chỉnh hình phục hình răng hàm mặt,... ở người lớn và trẻ em. Hiện tại, ThS. BS Emma Beckett đang giữ chức vụ là bác sĩ Răng - Hàm - Mặt tại Liên chuyên khoa - DentalCare.</p>
           </div>
           <div class="dr-card--contact">
             <a href="#">
@@ -159,8 +157,7 @@
             </a>
             <h5>Nha sĩ</h5>
             <h3>Hellen Hill</h3>
-            <p>Donec varius libero tortor, eu luctus ipsum aliquet ut. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Ut, eaque?</p>
+            <p>Bác sĩ Hellen Hill đã có hơn 7 năm kinh nghiệm trong lĩnh vực Răng hàm mặt, đặc biệt có chuyên môn sâu về làm thủ thuật nhổ răng khôn, chữa tuỷ, lấy cao răng, hàn răng nhẹ nhàng, ít sang chấn, giúp người bệnh giảm cảm giác đau tối đa; thiết kế và làm răng sứ đẹp. Hiện tại, BS Hellen Hill đang giữ chức vụ là bác sĩ Răng - Hàm - Mặt làm việc Part-time tại Liên chuyên khoa - Phòng khám DentalCare.</p>
           </div>
           <div class="dr-card--contact">
             <a href="#">
@@ -187,9 +184,8 @@
             <a href="#" class="icon-card">
             </a>
             <h5>Nha sĩ</h5>
-            <h3>Audrey Button</h3>
-            <p>Curabitur lobortis, eros eu efficitur lacinia, velit magna cursus nisi. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Dolorem, aliquam.</p>
+            <h3>Jennifer Green</h3>
+            <p>BSCK II Jennifer Green đã có hơn 30 năm kinh nghiệm trong lĩnh vực Răng - Hàm - Mặt, đặc biệt có chuyên môn sâu về khám, điều trị, tư vấn các vấn đề bệnh lý răng miệng, phẫu thuật hàm mặt, chỉnh hình phục hình răng hàm mặt. Hiện tại, BSCK II Jennifer Green đang giữ chức vụ là Bác sĩ Răng - Hàm - Mặt tại Ngoại tổng hợp - Phòng khám DentalCare</p>
           </div>
           <div class="dr-card--contact">
             <a href="#">
@@ -232,9 +228,7 @@
               <div class="testimonial__content--text">
                 <blockquote>
                   <i class="fas fa-quote-left"></i>
-                  <p>Nullam eleifend lectus a tortor interdum, non sodales ante vehicula. Proin consequat, at commodo.
-                    Donec eros massa, gravida ac lectus et, pharetra interdum lectus. Sed vel scelerisque quam, id
-                    fringilla ante. Vivamus sagittis velit quis dictum ultricies.</p>
+                  <p>Bác sĩ Philippe hiểu rất rõ những gì tôi cần và cách để khắc phục tình trạng này. Quá trình điều trị rất cẩn thận. Hiện tại, thì mọi triệu chứng đã biến mất. Tôi vất vui vì điều này. Về vấn đề bảo hiểm, do tôi có thẻ bảo lãnh trực tiếp, nên không cần phải trả tiền mặt, chỉ cần ký giấy tờ rất đơn giản và nhanh chóng.</p>
                 </blockquote>
               </div>
             </div>
@@ -251,9 +245,7 @@
               <div class="testimonial__content--text">
                 <blockquote>
                   <i class="fas fa-quote-left"></i>
-                  <p>Quisque posuere rhoncus erat, sit amet aliquet augue. Donec eros massa, gravida ac lectus et,
-                    pharetra interdum lectus. Sed vel scelerisque quam, id fringilla ante. Vivamus sagittis velit quis
-                    dictum ultricies. Nullam eleifend lectus a tortor interdum, non sodales.</p>
+                  <p>Tôi đánh giá cao dịch vụ tại DentalCare vì nhân viên và các bác sĩ rất tốt, rất chuyên nghiệp. Tôi hoàn toàn tin hưởng họ. Và gần như không cảm thấy sợ hãi mỗi khi đến đây. Cảm thấy luôn tự tin khi đến DentalCare vì tôi biết các bác sĩ sẽ không làm mình đau, họ luôn điều trị răng nhẹ nhàng, thậm chí còn mang đến sự thoải mái, vui vẻ.</p>
                 </blockquote>
               </div>
             </div>
@@ -272,9 +264,7 @@
               <div class="testimonial__content--text">
                 <blockquote>
                   <i class="fas fa-quote-left"></i>
-                  <p>Nullam eleifend lectus a tortor interdum, non sodales ante vehicula. Proin consequat, at commodo.
-                    Donec eros massa, gravida ac lectus et, pharetra interdum lectus. Sed vel scelerisque quam, id
-                    fringilla ante. Vivamus sagittis velit quis dictum ultricies.</p>
+                  <p>Mọi người rất thân thiện, tôi chưa từng gặp rắc rối với bất kỳ ai ở đây. Mọi thứ đều tốt. Và tôi đã tìm ra DentalCare 5 năm trước. Tôi muốn chia sẻ rằng, DentalCare là phòng khám tốt nhất, tôi từng được trải nghiệm trong đời.</p>
                 </blockquote>
               </div>
             </div>
@@ -291,9 +281,7 @@
               <div class="testimonial__content--text">
                 <blockquote>
                   <i class="fas fa-quote-left"></i>
-                  <p>Quisque posuere rhoncus erat, sit amet aliquet augue. Donec eros massa, gravida ac lectus et,
-                    pharetra interdum lectus. Sed vel scelerisque quam, id fringilla ante. Vivamus sagittis velit quis
-                    dictum ultricies. Nullam eleifend lectus a tortor interdum, non sodales.</p>
+                  <p>Trải nghiệm tại phòng khám thực sự tuyệt vời. Trước đây khi ở quê hương, tôi không hề mong muốn đến thăm khám bác sĩ. Nhưng hiện tại, tôi cảm thấy trải nghiệm này rất thú vị, từ không gian thư giãn, cách bày trí thoải mái, rất tuyệt mỹ. Có thể nhận xét rằng đây là trải nghiệm tuyệt vời.</p>
                 </blockquote>
               </div>
             </div>
@@ -308,7 +296,7 @@
     <div class="container content d-flex justify-content-between flex-wrap">
       <div class="heading ElementScrollEffect left">
         <h5>Hợp tác?</h5>
-        <h2 class="mb-3">liên hệ với chúng tôi và có một cuộc hẹn</h2>
+        <h2 class="mb-3">liên hệ với chúng tôi và có một gặp gỡ thân mật</h2>
       </div>
       <div class="d-flex align-items-center ElementScrollEffect right">
         <a href="#">
@@ -331,8 +319,7 @@
           <b>của chúng tôi</b>
         </h2>
         <p>
-          Quisque posuere rhoncus erat, sit amet aliquet augue. Donec eros massa, gravida ac lectus et, pharetra
-          interdum lectus.
+          Các dịch vụ được thực hiện dưới sự giám sát của các chuyên gia hàng đầu.
         </p>
       </div>
       <div class="row">
@@ -347,7 +334,7 @@
               <a href="#" class="icon-card"></a>
               <h5>Răng</h5>
               <h3>Dịch vụ răng</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quia totam amet laboriosam harum magni aut!
+              <p>Dịch vụ cạo vôi răng công nghệ Thụy Sĩ. Đầu cạo vôi chất lượng cao hạn chế ma sát, không gây ê buốt như phương pháp truyền thống, kết hợp cùng máy thổi khí Air - Flow đánh bay vết dính, mang đến hơi thở thơm mát
               </p>
             </div>
           </div>
@@ -363,7 +350,7 @@
               <a href="#" class="icon-card"></a>
               <h5>Nếu bạn thiếu</h5>
               <h3>Cấy ghép implant</h3>
-              <p>Nullam eleifend lectus a tortor interdum, non sodales ante vehicula. Proin consequat, at commodo.</p>
+              <p>Khôi phục răng đã mất với implant - kĩ thuật phục hình răng hiện đại, được thực hiện bởi các bác sĩ có tay nghề cao. Không xâm lấn đến các răng kế cận, đảm bảo chức năng ăn nhai lẫn độ thẩm mỹ cao hệt răng thật</p>
             </div>
           </div>
         </div>
@@ -378,8 +365,7 @@
               <a href="#" class="icon-card"></a>
               <h5>Thẩm mỹ</h5>
               <h3>nha khoa</h3>
-              <p>Curabitur nec interdum justo. Suspendisse in venenatis justo. Sed arcu velit, pulvinar eu consequat in,
-                volutpat et urna.</p>
+              <p>Các sản phẩm răng sứ được chế tác từ nguyên liệu cao cấp tại labo riêng của DentalCare. Kết hợp cùng công nghệ chế tác hiện đại, mang đến dịch vụ răng sứ đạt độ thẩm mỹ cao và bền bỉ theo năm tháng.</p>
             </div>
           </div>
         </div>
@@ -394,8 +380,7 @@
               <a href="#" class="icon-card"></a>
               <h5>biện pháp tốt nhất</h5>
               <h3>cầu răng sứ</h3>
-              <p>Vestibulum volutpat, nunc vitae tempus efficitur, sapien quam tristique nunc, in pulvinar sapien sem et
-                massa.</p>
+              <p>Mão răng sứ giúp răng phục hồi lại hình dạng, kích thước và khả năng chịu lực. Mão răng sẽ bọc quanh phần cùi răng hoặc trụ implant. Một khi mão răng sứ được gắn cố định chỉ có bác sĩ hoặc chuyên viên nha khoa mới có thể tháo rời.</p>
             </div>
           </div>
         </div>
@@ -412,8 +397,7 @@
               <a href="#" class="icon-card"></a>
               <h5>điều trị không đau</h5>
               <h3>chụp răng</h3>
-              <p>Integer ullamcorper odio vitae nibh dapibus, id mollis quam eleifend. Fusce finibus vestibulum odio
-                vitae malesuada.</p>
+              <p>Chụp răng sứ là một kỹ thuật nha khoa nhằm cải thiện thẩm mỹ và chức năng ăn nhai của mỗi người. Răng thật được mài với một tỷ lệ nhất định để tạo thành cùi răng, sau đó bác sĩ sẽ bọc mão sứ lên trên.</p>
             </div>
           </div>
         </div>
@@ -428,8 +412,7 @@
               <a href="#" class="icon-card"></a>
               <h5>hàm răng đều</h5>
               <h3>niềng răng</h3>
-              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi a
-                pulvinar leo.</p>
+              <p>Chỉnh Nha - Niềng răng tiêu chuẩn quốc tế với bác sĩ giàu kinh nghiệm, khắc phục tình trạng răng lệch lạc, chen chúc, hô, móm. Giải pháp ưu việt mang đến nụ cười hoàn mỹ giúp tự tin hơn trong cuộc sống và công việc</p>
             </div>
           </div>
         </div>
@@ -444,8 +427,7 @@
               <a href="#" class="icon-card"></a>
               <h5>dán sứ</h5>
               <h3>Dán sứ veneers</h3>
-              <p>Praesent porta lacus a viverra tempus. Proin maximus felis ac risus aliquam maximus. Pellentesque quis
-                orci tempus.</p>
+              <p>Các sản phẩm răng sứ được chế tác từ nguyên liệu cao cấp tại labo riêng của DentalCare. Kết hợp cùng công nghệ chế tác hiện đại, mang đến dịch vụ răng sứ đạt độ thẩm mỹ cao và bền bỉ theo năm tháng</p>
             </div>
           </div>
         </div>
@@ -460,8 +442,7 @@
               <a href="#" class="icon-card"></a>
               <h5>nụ cười tỏa sáng</h5>
               <h3>làm trắng răng</h3>
-              <p>Fusce tempus suscipit auctor. Sed at nulla at nisi pretium tincidunt. Nullam mattis arcu porttitor,
-                dictum metus sed.</p>
+              <p>Áp dụng công nghệ White Smile nhập khẩu từ Đức giúp bật tone răng nhanh chóng. Kĩ thuật làm trắng răng được chứng nhận an toàn, đạt độ thẩm mỹ cao. Không gây tổn hại đến nướu, men răng</p>
             </div>
           </div>
         </div>
@@ -479,23 +460,23 @@
           <div class="working-hours">
             <div class="row">
               <div class="col-md-5">
-                Mon - Wed
+                Thứ 2 - Thứ 4
               </div>
               <div class="col-md-7">
-                8:00 AM - 7:00 PM
+                8:00 - 19:00
               </div>
             </div>
             <div class="row">
               <div class="col-md-5">
-                Thu - Fri
+                Thứ 5 - Thứ 7
               </div>
               <div class="col-md-7">
-                8:00 AM - 5:00 PM
+                8:00 - 17:00
               </div>
             </div>
             <div class="row">
               <div class="col-md-5">
-                Sat - Sun
+                Chủ nhật
               </div>
               <div class="col-md-7">
                 Đóng cửa
@@ -506,17 +487,17 @@
           <h3>liên hệ chi tiết</h3>
           <div class="contact">
             <div>
-              <a href="#">
+              <a target="_blank" href="https://www.google.com/maps/place/Vinmec+International+Hospital/@20.9962152,105.8669144,15z/data=!4m5!3m4!1s0x0:0xef1e1e02b64fcb4c!8m2!3d20.9962152!4d105.8669144">
                 <div style="display: table-cell; width: 28px;">
                   <span class="iconify" data-icon="fluent:location-28-regular" data-rotate="180deg" data-flip="vertical"></span>
                 </div>
-                <span style="display: table-cell;" class="ml-2 text">ABC Avenue 7, NY, VN</span>
+                <span style="display: table-cell;" class="ml-2 text">458 Minh Khai, Hai Bà Trưng, Hà Nội</span>
               </a>
-              <a class="d-block mt-2" href="mailto:clinic@dentalcare.com">
+              <a class="d-block mt-2" href="mailto:info@vinmec.com">
                 <span class="iconify" data-icon="uiw:mail-o"></span>
-                <span class="ml-2 text">clinic@dentalcare.com</span>
+                <span class="ml-2 text">info@vinmec.com</span>
               </a>
-              <a class="d-block mt-2" href="tel:555-666-777">
+              <a class="d-block mt-2" href="tel:024 3974 3556">
                 <span class="iconify" data-icon="healthicons:phone-outline" data-rotate="270deg" data-flip="vertical"></span>
                 <span class="ml-2 text">Gọi ngay</span>
               </a>

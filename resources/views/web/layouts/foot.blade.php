@@ -39,11 +39,11 @@
                 <div class="dash"></div>
                 <div class="content">
                     <ul>
-                        <li><a class="title" href="#">Some sugar-free drinks can also damage teeth, experts warn</a></li>
-                        <li><a class="title" href="#">Benefits of Dental Implant</a></li>
-                        <li><a class="title" href="#">Gum Diseases</a></li>
-                        <li><a class="title" href="#">Pulpitis - Risk of tooth loss</a></li>
-                        <li><a class="title" href="#">Meet the new dental guidelines.</a></li>
+                        <li><a class="title" href="#">Đồ uống có đường có thể gây tổn thương cho răng, chuyên gia cảnh báo</a></li>
+                        <li><a class="title" href="#">Những lợi ích của niềng răng</a></li>
+                        <li><a class="title" href="#">Chăm sóc răng miệng với kẹo cao su không đường</a></li>
+                        <li><a class="title" href="#">Viêm mạch máu - Nguy cơ rụng răng</a></li>
+                        <li><a class="title" href="#">Các hướng dẫn nha khoa mới.</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="dash"></div>
                 <div class="content">
-                    <p>Organically grow the holistic world view of innovation empowerment</p>
+                    <p>Theo dõi trên các nền tàng để được cập nhật các thông tin mới nhất từ DentalCare</p>
                     <div class="footer--contact">
                         <a class="mt-2" href="#">
                             <span class="iconify" data-icon="gg:facebook"></span>
