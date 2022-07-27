@@ -49,11 +49,29 @@
                         <div class="form-group">
                             <label for="name_subclinical_service">Chỉ định dịch vụ cận lâm sàng</label>
                             <select class="select2" name="name_subclinical_service[]" multiple="multiple" data-placeholder="Chọn dịch vụ" style="width: 100%;">
-                                <option value="Siêu âm">Siêu âm</option>
-                                <option value="Xét nghiệm máu">Xét nghiệm máu</option>
-                                <option value="X quang">X quang</option>
-                                <option value="Cộng hưởng từ">Cộng hưởng từ</option>
-                                <option value="Nội soi">Nội soi</option>
+                                @if (!empty($assigned_subclinical_services))
+                                    @if (!in_array("Siêu âm", $assigned_subclinical_services))
+                                        <option value="Siêu âm">Siêu âm</option>
+                                    @endif
+                                    @if (!in_array("Xét nghiệm máu", $assigned_subclinical_services))
+                                        <option value="Xét nghiệm máu">Xét nghiệm máu</option>
+                                    @endif
+                                    @if (!in_array("X quang", $assigned_subclinical_services))
+                                        <option value="X quang">X quang</option>
+                                    @endif
+                                    @if (!in_array("Cộng hưởng từ", $assigned_subclinical_services))
+                                        <option value="Cộng hưởng từ">Cộng hưởng từ</option>
+                                    @endif
+                                    @if (!in_array("Nội soi", $assigned_subclinical_services))
+                                        <option value="Nội soi">Nội soi</option>
+                                    @endif
+                                @else
+                                    <option value="Siêu âm">Siêu âm</option>
+                                    <option value="Xét nghiệm máu">Xét nghiệm máu</option>
+                                    <option value="X quang">X quang</option>
+                                    <option value="Cộng hưởng từ">Cộng hưởng từ</option>
+                                    <option value="Nội soi">Nội soi</option>
+                                @endif
                             </select>
                         </div>
                     </div>

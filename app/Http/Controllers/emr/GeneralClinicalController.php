@@ -4,6 +4,7 @@ namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
 use App\Models\GeneralClinical;
+use App\Models\HospitalHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +17,16 @@ class GeneralClinicalController extends Controller
     {
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
-        return view('admin.generalclinical.create', compact('menuActive', 'childMenuActive'));
+        $assigned_subclinical_services = [];
+        $patient_id = session()->get('patient_id');
+        if (!empty($patient_id)) {
+            $max_hospital_history = HospitalHistory::where('patient_id', $patient_id)->max('time');
+            $assigned_services = DB::table('subclinical_service')->select('name')->where('patient_id', $patient_id)->where('time', $max_hospital_history)->get();
+            foreach ($assigned_services as $assigned_service) {
+                $assigned_subclinical_services[] = $assigned_service->name;
+            }
+        };
+        return view('admin.generalclinical.create', compact('menuActive', 'childMenuActive', 'assigned_subclinical_services'));
     }
     public function store(Request $request)
     {
