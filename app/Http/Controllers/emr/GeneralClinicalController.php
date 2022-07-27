@@ -19,8 +19,9 @@ class GeneralClinicalController extends Controller
         $childMenuActive = $this->childMenuActive;
         $assigned_subclinical_services = [];
         $patient_id = session()->get('patient_id');
+        $max_hospital_history = HospitalHistory::where('patient_id', $patient_id)->max('time');
+        // $general_clinicals = 'j';
         if (!empty($patient_id)) {
-            $max_hospital_history = HospitalHistory::where('patient_id', $patient_id)->max('time');
             $assigned_services = DB::table('subclinical_service')->select('name')->where('patient_id', $patient_id)->where('time', $max_hospital_history)->get();
             foreach ($assigned_services as $assigned_service) {
                 $assigned_subclinical_services[] = $assigned_service->name;
@@ -33,7 +34,7 @@ class GeneralClinicalController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
-            'name_subclinical_service' => ['required'],
+            // 'name_subclinical_service' => ['required'],
         ]);
         if($validated) {
             $user_auth = auth()->user()->id;
@@ -65,15 +66,17 @@ class GeneralClinicalController extends Controller
                 $checkFirstVisited->update($params);
 
                 $subclinical_services = $request->name_subclinical_service;
-                foreach($subclinical_services as $subclinical_service) {
-                    DB::table('subclinical_service')->insert([
-                        'patient_id' => $request->patient_id,
-                        'name' => $subclinical_service,
-                        'time' => $lastest_visit_general,
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                        'creator_id' => $user_auth
-                    ]);
+                if (!empty($subclinical_services)) {
+                    foreach($subclinical_services as $subclinical_service) {
+                        DB::table('subclinical_service')->insert([
+                            'patient_id' => $request->patient_id,
+                            'name' => $subclinical_service,
+                            'time' => $lastest_visit_general,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                            'creator_id' => $user_auth
+                        ]);
+                    }
                 }
                 
                 Session::flash('success', 'Thêm khám lâm sàng tổng quát thành công, tiếp tục thủ tục');
