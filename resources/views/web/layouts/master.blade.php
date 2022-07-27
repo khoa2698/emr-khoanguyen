@@ -126,7 +126,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="gender" class="form-label">Giới tính</label>
+                  <label for="gender" class="form-label">Giới tính<span class="mandatory"> *</span></label>
                   <select name="gender" id="gender" class="form-control">
                     <option value="">Chọn</option>
                     <option value="Nam">Nam</option>

@@ -49,7 +49,9 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        return view('web.appointment.index');
+        $generalInfoActive = 'generalInfoActive';
+        $appointmentActive = 'appointmentActive';
+        return view('web.appointment.index', compact('generalInfoActive', 'appointmentActive'));
     }
 
     public function store(AppointmentRequest $appointmentRequest)
@@ -98,6 +100,8 @@ class AppointmentController extends Controller
     // Xử lý đặt lịch và hiển thị kết quả
     public function appointmentProcess($token)
     {
+        $generalInfoActive = 'generalInfoActive';
+        $appointmentActive = 'appointmentActive';
         $appointment = Appointment::where('token', $token);
         if(!empty($appointment->first())){
             if($this->checkTimeOut($appointment->first()->created_at)){
@@ -107,9 +111,13 @@ class AppointmentController extends Controller
                 } catch(\Exception $err) {
                     Session::flash('error', $err->getMessage());
                 }   
-                return view('web.appointment.appointmentverified');
+                return view('web.appointment.appointmentverified', compact('generalInfoActive', 'appointmentActive'));
             } else {
-                return view('web.appointment.appointmentverified', ['timeout' => 'Link hết hạn']);
+                return view('web.appointment.appointmentverified', [
+                    'timeout' => 'Link hết hạn',
+                    'generalInfoActive' => $generalInfoActive,
+                    'appointmentActive' => $appointmentActive,
+                ]);
             }
         } else {
             return abort(404);

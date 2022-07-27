@@ -57,10 +57,10 @@
 
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
-              <li class="nav-item active">
+              <li class="nav-item{{ isset($homeActive) && $homeActive ? ' active' : '' }}">
                 <a class="nav-link" href="/">Trang chủ</a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown{{ isset($generalInfoActive) && $generalInfoActive ? ' active' : '' }}">
                 <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" href="about.html">Giới thiệu chung</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="./pages/about.php">
@@ -71,7 +71,7 @@
                     <span class="iconify" data-icon="dashicons:arrow-right-alt2"></span>
                     Bác sĩ
                   </a>
-                  <a class="dropdown-item" href="{{ route('appointmentPatient.index') }}">
+                  <a class="dropdown-item{{ isset($appointmentActive) && $appointmentActive ? ' active' : '' }}" href="{{ route('appointmentPatient.index') }}">
                     <span class="iconify" data-icon="dashicons:arrow-right-alt2"></span>
                     Đặt hẹn
                   </a>

@@ -35,7 +35,8 @@ Route::get('/lang/{lang}', [LangController::class, 'changeLang'])->name('lang');
 
 /** -------Web----------- */
 Route::get('/', function() {
-    return view('web.home');
+    $homeActive = 'homeActive';
+    return view('web.home', compact('homeActive'));
 });
     # Load ajax time List
 Route::get('/loadTimeList', function(Request $request){
