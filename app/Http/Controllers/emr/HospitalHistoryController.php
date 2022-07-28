@@ -35,6 +35,12 @@ class HospitalHistoryController extends Controller
             'date_admitted' => ['required'],
             'admit_dept' => ['required'],
             'reason' => ['required'],
+            'reason_date' => ['nullable', 'numeric', 'max:100'],
+            'disease_relateto_diung_time' => ['nullable', 'numeric', 'max:100'],
+            'disease_relateto_thuocla_time' => ['nullable', 'numeric', 'max:100'],
+            'disease_relateto_matuy_time' => ['nullable', 'numeric', 'max:100'],
+            'disease_relateto_khac_time' => ['nullable', 'numeric', 'max:100'],
+            'disease_relateto_ruoubia_time' => ['nullable', 'numeric', 'max:100'],
         ]);
 
         if($validated) {

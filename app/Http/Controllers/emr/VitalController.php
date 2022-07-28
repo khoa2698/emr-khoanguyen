@@ -16,7 +16,14 @@ class VitalController extends Controller
     {
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
-        return view('admin.vital.create', compact('menuActive', 'childMenuActive'));
+        $patient_id = session()->get('patient_id');
+        $max_hospital_history = HospitalHistory::where('patient_id', $patient_id)->max('time');
+        if (!empty($patient_id)) {
+            $vital = Vital::query()->where('patient_id', $patient_id)->where('time', $max_hospital_history)->orderBy('updated_at', 'DESC')->first();
+        }
+        $patient_vital = Vital::where('patient_id', $patient_id);
+        $lastest_visit_vital = $patient_vital->max('time');
+        return view('admin.vital.create', compact('menuActive', 'childMenuActive', 'vital'));
     }
     public function store(Request $request)
     {

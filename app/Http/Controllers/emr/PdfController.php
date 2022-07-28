@@ -23,7 +23,7 @@ class PdfController extends Controller
         $patient_info = Patient::where('patient_id', $patient_id)->first();
         $pdf = Pdf::loadView('pdf.noikhoa', compact('patient_info', 'hospitalhistory_times'));
         // return view('pdf.noikhoa', compact('patient_info', 'hospitalhistory_times'));
-        return $pdf->stream('invoice.pdf');
+        return $pdf->stream('BA'. time() .'.pdf');
     }
 
     public function pdf_emr()

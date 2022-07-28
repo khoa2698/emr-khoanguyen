@@ -47,14 +47,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="date_attented">Thời gian đến</label>
+                            <label for="date_attented">Thời gian đến<span class="mandatory"> *</span></label>
                             <input value="{{ old('date_attented') }}" id="date_attented" name="date_attented" type="datetime-local" class="form-control">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="date_admitted">Thời gian tiếp nhận</label>
+                            <label for="date_admitted">Thời gian tiếp nhận<span class="mandatory"> *</span></label>
                             <input value="{{ old('date_admitted') }}" id="date_admitted" name="date_admitted" type="datetime-local" class="form-control">
                             <span class="form-message"></span>
                         </div>
@@ -62,7 +62,7 @@
 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="admit_dept">Khoa tiếp nhận</label>
+                            <label for="admit_dept">Khoa tiếp nhận<span class="mandatory"> *</span></label>
                             <select id="admit_dept" name="admit_dept" class="form-control">
                                 <option value="">-- Khoa tiếp nhận --</option>
                                 <option {{ old('admit_dept') == 'Cấp cứu' ? 'selected' : '' }} value="Cấp cứu">Cấp cứu</option>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="reason">Lý do</label>
+                            <label for="reason">Lý do<span class="mandatory"> *</span></label>
                             <input type="text" class="form-control" value="{{ old('reason') }}" name="reason" id="reason" placeholder="Lý do">
                             <span class="form-message"></span>
                         </div>
@@ -213,7 +213,7 @@
             </div>
             {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>

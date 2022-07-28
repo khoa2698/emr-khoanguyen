@@ -83,7 +83,7 @@ return [
     ],
     'mac_address' => 'The :attribute must be a valid MAC address.',
     'max' => [
-        'numeric' => ':attribute tối đa :max ký tự.',
+        'numeric' => ':attribute tối đa :max.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
         'string' => ':attribute vượt quá :max ký tự.',
         'array' => 'The :attribute must not have more than :max items.',
@@ -183,7 +183,13 @@ return [
         'disease_plan' => 'Kế hoạch điều trị',
         'result_imaging' => 'Kết quả ảnh',
         'result_lab' => 'Kết quả xét nghiệm',
-        'url' => 'Đường dẫn ảnh'
+        'url' => 'Đường dẫn ảnh',
+        'reason_date' => 'Số ngày biểu hiện',
+        'disease_relateto_diung_time' => 'Thời gian dị ứng',
+        'disease_relateto_thuocla_time' => 'Thời gian hút thuốc',
+        'disease_relateto_matuy_time' => 'Thời gian sử dụng ma túy',
+        'disease_relateto_ruoubia_time' => 'Thời gian sử dụng rượu bia',
+        'disease_relateto_khac_time' => 'Thời gian sử dụng chất khác'
     ],
 
 ];

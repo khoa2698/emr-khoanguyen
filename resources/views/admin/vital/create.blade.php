@@ -47,29 +47,29 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="temperature">Nhiệt độ <i>&deg;C</i></label>
-                            <input value="{{ old('temperature') }}" id="temperature" name="temperature" type="text" class="form-control">
+                            <label for="temperature">Nhiệt độ <i>&deg;C</i><span class="mandatory"> *</span></label>
+                            <input value="{{ old('temperature', isset($vital) ? $vital->temperature : '') }}" id="temperature" name="temperature" type="text" class="form-control">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="height">Chiều cao <i>cm</i></label>
-                            <input value="{{ old('height') }}" id="height" name="height" type="text" class="form-control">
+                            <input value="{{ old('height', isset($vital) ? $vital->height : '') }}" id="height" name="height" type="text" class="form-control">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="weight">Cân nặng <i>kg</i></label>
-                            <input value="{{ old('weight') }}" id="weight" name="weight" type="text" class="form-control">
+                            <input value="{{ old('weight', isset($vital) ? $vital->weight : '')}}" id="weight" name="weight" type="text" class="form-control">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="pulse">Nhịp tim <i>lần/phút</i></label>
-                            <input value="{{ old('pulse') }}" id="pulse" name="pulse" type="text" class="form-control">
+                            <input value="{{ old('pulse', isset($vital) ? $vital->pulse : '')}}" id="pulse" name="pulse" type="text" class="form-control">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -78,10 +78,10 @@
                             <label for="blood_group">Nhóm máu</label>
                             <select id="blood_group" name="blood_group" class="form-control">
                                 <option value="">-- chọn nhóm máu --</option>
-                                <option value="O">O</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="AB">AB</option>
+                                <option {{ isset($vital) && $vital->blood_group == 'O' ? 'selected' : '' }} value="O">O</option>
+                                <option {{ isset($vital) && $vital->blood_group == 'A' ? 'selected' : '' }} value="A">A</option>
+                                <option {{ isset($vital) && $vital->blood_group == 'B' ? 'selected' : '' }} value="B">B</option>
+                                <option {{ isset($vital) && $vital->blood_group == 'AB' ? 'selected' : '' }} value="AB">AB</option>
                             </select>
                             <span class="form-message"></span>
                         </div>
@@ -91,8 +91,8 @@
                             <label for="blood_type">Loại máu</label>
                             <select id="blood_type" name="blood_type" class="form-control">
                                 <option value="">----</option>
-                                <option value="Rh+">Rh+</option>
-                                <option value="Rh-">Rh-</option>
+                                <option {{ isset($vital) && $vital->blood_type == 'Rh+' ? 'selected' : '' }} value="Rh+">Rh+</option>
+                                <option {{ isset($vital) && $vital->blood_type == 'Rh-' ? 'selected' : '' }} value="Rh-">Rh-</option>
                             </select>
                             <span class="form-message"></span>
                         </div>
@@ -103,22 +103,22 @@
                 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="systolic">HA tâm thu <i>mmHg</i></label>
-                            <input type="text" class="form-control" value="{{ old('systolic') }}" name="systolic" id="systolic" placeholder="triệu chứng">
+                            <label for="systolic">HA tâm thu <i>mmHg</i><span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" value="{{ old('systolic', isset($vital) ? $vital->systolic : '') }}" name="systolic" id="systolic" placeholder="triệu chứng">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="diastolic">HA tâm trương <i>mmHg</i></label>
-                            <input type="text" class="form-control" value="{{ old('diastolic') }}" name="diastolic" id="diastolic" placeholder="triệu chứng">
+                            <label for="diastolic">HA tâm trương <i>mmHg</i><span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" value="{{ old('diastolic', isset($vital) ? $vital->diastolic : '') }}" name="diastolic" id="diastolic" placeholder="triệu chứng">
                             <span class="form-message"></span>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="blood_pressure">Mạch đập <i>lần/phút</i></label>
-                            <input type="text" class="form-control" value="{{ old('blood_pressure') }}" name="blood_pressure" id="blood_pressure" placeholder="triệu chứng">
+                            <input type="text" class="form-control" value="{{ old('blood_pressure', isset($vital) ? $vital->blood_pressure : '') }}" name="blood_pressure" id="blood_pressure" placeholder="triệu chứng">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="respiration">Nhịp thở <i>lần/phút</i></label>
-                            <input type="text" class="form-control" value="{{ old('respiration') }}" name="respiration" id="respiration" placeholder="triệu chứng">
+                            <input type="text" class="form-control" value="{{ old('respiration', isset($vital) ? $vital->respiration : '')}}" name="respiration" id="respiration" placeholder="triệu chứng">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="note">Ghi chú</label>
-                            <textarea name="note" id="note" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('note') }}</textarea>
+                            <textarea name="note" id="note" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('note', isset($vital) ? $vital->note : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
             </div>
             {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>
