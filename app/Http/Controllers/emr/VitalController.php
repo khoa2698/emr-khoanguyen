@@ -21,6 +21,9 @@ class VitalController extends Controller
         if (!empty($patient_id)) {
             $vital = Vital::query()->where('patient_id', $patient_id)->where('time', $max_hospital_history)->orderBy('updated_at', 'DESC')->first();
         }
+        else {
+            $vital = '';
+        }
         $patient_vital = Vital::where('patient_id', $patient_id);
         $lastest_visit_vital = $patient_vital->max('time');
         return view('admin.vital.create', compact('menuActive', 'childMenuActive', 'vital'));
@@ -30,9 +33,15 @@ class VitalController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
-            'temperature' => ['required'],
-            'systolic' => ['required'],
-            'diastolic' => ['required'],
+            'temperature' => ['required', 'numeric', 'max:60'],
+            'height' => ['nullable', 'numeric', 'gt:0'],
+            'weight' => ['nullable', 'numeric', 'gt:0'],
+            'pulse' => ['nullable', 'numeric', 'gt:0'],
+            'blood_pressure' => ['nullable', 'numeric', 'gt:0'],
+            'respiration' => ['nullable', 'numeric', 'gt:0'],
+            'systolic' => ['required', 'numeric', 'between:40,200'],
+            'diastolic' => ['required', 'numeric', 'between:40,200'],
+            'note' => ['nullable', 'max:255']
         ]);
         if($validated) {
             $user_auth = auth()->user()->id;

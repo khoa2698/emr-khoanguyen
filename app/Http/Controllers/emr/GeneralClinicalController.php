@@ -26,8 +26,12 @@ class GeneralClinicalController extends Controller
             foreach ($assigned_services as $assigned_service) {
                 $assigned_subclinical_services[] = $assigned_service->name;
             }
-        };
-        return view('admin.generalclinical.create', compact('menuActive', 'childMenuActive', 'assigned_subclinical_services'));
+            $general_clinicals = GeneralClinical::query()->where('patient_id', $patient_id)->where('time', $max_hospital_history)->orderBy('updated_at', 'DESC')->first();
+        }
+        else {
+            $general_clinicals = '';
+        }
+        return view('admin.generalclinical.create', compact('menuActive', 'childMenuActive', 'assigned_subclinical_services', 'general_clinicals'));
     }
     public function store(Request $request)
     {

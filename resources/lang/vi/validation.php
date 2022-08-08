@@ -25,7 +25,7 @@ return [
     'before' => 'The :attribute must be a date before :date.',
     'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
     'between' => [
-        'numeric' => 'The :attribute must be between :min and :max.',
+        'numeric' => ':attribute phải nằm trong khoảng :min đến :max.',
         'file' => 'The :attribute must be between :min and :max kilobytes.',
         'string' => 'The :attribute must be between :min and :max characters.',
         'array' => 'The :attribute must have between :min and :max items.',
@@ -50,7 +50,7 @@ return [
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
-        'numeric' => 'The :attribute must be greater than :value.',
+        'numeric' => ':attribute phải lớn hơn :value.',
         'file' => 'The :attribute must be greater than :value kilobytes.',
         'string' => 'The :attribute must be greater than :value characters.',
         'array' => 'The :attribute must have more than :value items.',
@@ -173,8 +173,15 @@ return [
         'date_attented' => 'Thời gian đến',
         'date_admitted' => 'Thời gian tiếp nhận',
         'admit_dept' => 'Khoa tiếp nhận',
+        'symptoms' => 'Triệu chứng',
         'reason' => 'Lý do',
         'temperature' => 'Nhiệt độ',
+        'height' => 'Chiều cao',
+        'weight' => 'Cân nặng',
+        'pulse' => 'Nhịp tim',
+        'blood_pressure' => 'Mạch đập',
+        'respiration' => 'Nhịp thở',
+        'note' => 'Ghi chú',
         'systolic' => 'Huyết áp tâm thu',
         'diastolic' => 'Huyết áp tâm trương',
         'name_subclinical_service' => 'Dịch vụ cận lâm sàng',
@@ -189,7 +196,8 @@ return [
         'disease_relateto_thuocla_time' => 'Thời gian hút thuốc',
         'disease_relateto_matuy_time' => 'Thời gian sử dụng ma túy',
         'disease_relateto_ruoubia_time' => 'Thời gian sử dụng rượu bia',
-        'disease_relateto_khac_time' => 'Thời gian sử dụng chất khác'
+        'disease_relateto_khac_time' => 'Thời gian sử dụng chất khác',
+        'comment' => 'Nhận xét'
     ],
 
 ];

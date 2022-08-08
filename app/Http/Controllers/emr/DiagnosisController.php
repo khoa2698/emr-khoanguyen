@@ -4,6 +4,7 @@ namespace App\Http\Controllers\emr;
 
 use App\Http\Controllers\Controller;
 use App\Models\Diagnosis;
+use App\Models\HospitalHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +18,15 @@ class DiagnosisController extends Controller
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
         $icd10s = DB::table('icd10')->orderBy('id', 'ASC')->get();
-        return view('admin.diagnosis.create', compact('menuActive', 'childMenuActive', 'icd10s'));
+        $patient_id = session()->get('patient_id');
+        $max_hospital_history = HospitalHistory::where('patient_id', $patient_id)->max('time');
+        if (!empty($patient_id)) {
+            $diagnosis = Diagnosis::query()->where('patient_id', $patient_id)->where('time', $max_hospital_history)->orderBy('updated_at', 'DESC')->first();
+        }
+        else {
+            $diagnosis = '';
+        }
+        return view('admin.diagnosis.create', compact('menuActive', 'childMenuActive', 'icd10s', 'diagnosis'));
     }
     public function store(Request $request)
     {
@@ -25,8 +34,8 @@ class DiagnosisController extends Controller
         $validated = $request->validate([
             'patient_id' => ['bail','required', 'exists:patients,patient_id'],
             'icd10_main_code' => ['required'],
-            'diagnosis' => ['required'],
-            'disease_plan' => ['required'],
+            'diagnosis' => ['required', 'max:255'],
+            'disease_plan' => ['required', 'max:255'],
         ]);
         if($validated) {
             $params = [

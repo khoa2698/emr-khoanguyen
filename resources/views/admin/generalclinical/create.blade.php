@@ -81,13 +81,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_tuanhoan">chẩn đoán hệ tuần hoàn</label>
-                            <textarea style="resize: none" name="diagnosis_tuanhoan" id="diagnosis_tuanhoan" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tuanhoan') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_tuanhoan" id="diagnosis_tuanhoan" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tuanhoan', !empty($general_clinicals) ? $general_clinicals->diagnosis_tuanhoan : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_hohap">chẩn đoán hệ hô hấp</label>
-                            <textarea style="resize: none" name="diagnosis_hohap" id="diagnosis_hohap" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_hohap') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_hohap" id="diagnosis_hohap" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_hohap', !empty($general_clinicals) ? $general_clinicals->diagnosis_hohap : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -96,13 +96,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_tieuhoa">chẩn đoán hệ tiêu hóa</label>
-                            <textarea style="resize: none" name="diagnosis_tieuhoa" id="diagnosis_tieuhoa" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tieuhoa') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_tieuhoa" id="diagnosis_tieuhoa" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_tieuhoa', !empty($general_clinicals) ? $general_clinicals->diagnosis_tieuhoa : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_than_tietnieu_sinhduc">chẩn đoán hệ tiết niệu sinh duc</label>
-                            <textarea style="resize: none" name="diagnosis_than_tietnieu_sinhduc" id="diagnosis_than_tietnieu_sinhduc" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_than_tietnieu_sinhduc') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_than_tietnieu_sinhduc" id="diagnosis_than_tietnieu_sinhduc" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_than_tietnieu_sinhduc', !empty($general_clinicals) ? $general_clinicals->diagnosis_than_tietnieu_sinhduc : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -111,13 +111,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_thankinh">chẩn đoán hệ thần kinh</label>
-                            <textarea style="resize: none" name="diagnosis_thankinh" id="diagnosis_thankinh" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_thankinh') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_thankinh" id="diagnosis_thankinh" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_thankinh', !empty($general_clinicals) ? $general_clinicals->diagnosis_thankinh : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_coxuongkhop">chẩn đoán hệ cơ xương khớp</label>
-                            <textarea style="resize: none" name="diagnosis_coxuongkhop" id="diagnosis_coxuongkhop" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_coxuongkhop') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_coxuongkhop" id="diagnosis_coxuongkhop" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_coxuongkhop', !empty($general_clinicals) ? $general_clinicals->diagnosis_coxuongkhop : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -126,13 +126,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_taimuihong">chẩn đoán tai mũi họng</label>
-                            <textarea style="resize: none" name="diagnosis_taimuihong" id="diagnosis_taimuihong" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_taimuihong') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_taimuihong" id="diagnosis_taimuihong" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_taimuihong', !empty($general_clinicals) ? $general_clinicals->diagnosis_taimuihong : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_ranghammat">chẩn đoán răng hàm mặt</label>
-                            <textarea style="resize: none" name="diagnosis_ranghammat" id="diagnosis_ranghammat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_ranghammat') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_ranghammat" id="diagnosis_ranghammat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_ranghammat', !empty($general_clinicals) ? $general_clinicals->diagnosis_ranghammat : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -140,13 +140,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_mat">chẩn đoán mắt</label>
-                            <textarea style="resize: none" name="diagnosis_mat" id="diagnosis_mat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_mat') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_mat" id="diagnosis_mat" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_mat', !empty($general_clinicals) ? $general_clinicals->diagnosis_mat : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_noitiet_dinhduong_khac">chẩn đoán khác</label>
-                            <textarea style="resize: none" name="diagnosis_noitiet_dinhduong_khac" id="diagnosis_noitiet_dinhduong_khac" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_noitiet_dinhduong_khac') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_noitiet_dinhduong_khac" id="diagnosis_noitiet_dinhduong_khac" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_noitiet_dinhduong_khac', !empty($general_clinicals) ? $general_clinicals->diagnosis_noitiet_dinhduong_khac : '') }}</textarea>
                         </div>
                     </div>
                     
@@ -155,7 +155,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="diagnosis_syndrome">Hội chứng</label>
-                            <textarea style="resize: none" name="diagnosis_syndrome" id="diagnosis_syndrome" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_syndrome') }}</textarea>
+                            <textarea style="resize: none" name="diagnosis_syndrome" id="diagnosis_syndrome" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis_syndrome', !empty($general_clinicals) ? $general_clinicals->diagnosis_syndrome : '') }}</textarea>
                         </div>
                     </div>
                     
@@ -170,7 +170,7 @@
             </div>
             {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>

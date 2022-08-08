@@ -51,11 +51,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="diagnosis_tuanhoan">Bệnh chính</label>
+                            <label for="diagnosis_tuanhoan">Bệnh chính<span class="mandatory"> *</span></label>
                             <select id="icd10_main_code" name="icd10_main_code" class="form-control select2" style="width: 100%;">
                                 <option value=""></option>
                                 @foreach ($icd10s as $icd10)
-                                    <option {{ old('icd10_main_code') == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
+                                    <option {{ !empty($diagnosis) && $diagnosis->icd10_main_code == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
                                 @endforeach
                             </select>
                             <span class="form-message"></span>
@@ -67,7 +67,7 @@
                             <select id="icd10_sub_code" name="icd10_sub_code" class="form-control select2" style="width: 100%;">
                                 <option value=""></option>
                                 @foreach ($icd10s as $icd10)
-                                    <option {{ old('icd10_sub_code') == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
+                                    <option {{ !empty($diagnosis) && $diagnosis->icd10_sub_code == $icd10->code ? 'selected' : '' }} value="{{ $icd10->code }}">{{ $icd10->code . '-' . $icd10->name}}</option>
                                 @endforeach
                             </select>
                             <span class="form-message"></span>
@@ -78,14 +78,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="diagnosis">Chẩn đoán</label>
-                            <textarea style="resize: none" name="diagnosis" id="diagnosis" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis') }}</textarea>
+                            <label for="diagnosis">Chẩn đoán<span class="mandatory"> *</span></label>
+                            <textarea style="resize: none" name="diagnosis" id="diagnosis" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('diagnosis', !empty($diagnosis) ? $diagnosis->diagnosis : '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="disease_prognosis">Tiên lượng</label>
-                            <textarea style="resize: none" name="disease_prognosis" id="disease_prognosis" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('disease_prognosis') }}</textarea>
+                            <textarea style="resize: none" name="disease_prognosis" id="disease_prognosis" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('disease_prognosis', !empty($diagnosis) ? $diagnosis->disease_prognosis : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
                     
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="disease_plan">Kế hoạch điều trị</label>
-                            <textarea style="resize: none" name="disease_plan" id="disease_plan" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('disease_plan') }}</textarea>
+                            <label for="disease_plan">Kế hoạch điều trị<span class="mandatory"> *</span></label>
+                            <textarea style="resize: none" name="disease_plan" id="disease_plan" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('disease_plan', !empty($diagnosis) ? $diagnosis->disease_plan : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
             </div>
             {{-- end loading submit --}}
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Add New')</button>
+                <button type="submit" class="btn btn-primary btn-submit-form"><i class="fas fa-plus"></i> @lang('Update')</button>
             </div>
         </form>
     </div>
