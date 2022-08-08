@@ -78,7 +78,7 @@ class Helper
         if(count($time_results) > 0){
             foreach ($time_results as $time_result) {
                 // dd($time_result);
-                $html .= '<h5 style="margin-top:20px">Kết quả xét nghiệm lần khám ' . $time_result->time .'</h5>';
+                $html .= '<div class="text-info">Kết quả xét nghiệm lần khám ' . $time_result->time .'</div>';
                 $url_results = DB::table('lab_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time_result->time)->orderBy('created_at', 'desc')->get();
                 foreach($url_results as $url_result) {
                     $html .= '<a target="_blank" href="'. $url_result->url .'">
@@ -126,7 +126,7 @@ class Helper
         if(count($time_results) > 0){
             foreach ($time_results as $time_result) {
                 // dd($time_result);
-                $html .= '<h5 style="margin-top:20px">Kết quả ảnh chụp lần khám ' . $time_result->time .'</h5>';
+                $html .= '<div class="text-info">Kết quả ảnh chụp lần khám ' . $time_result->time .'</div>';
                 $url_results = DB::table('imaging_result')->select(['url'])->where('patient_id', $patient_id)->where('time', $time_result->time)->orderBy('created_at', 'desc')->get();
                 foreach($url_results as $url_result) {
                     $html .= '<a target="_blank" href="'. $url_result->url .'">
