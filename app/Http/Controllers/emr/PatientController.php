@@ -12,6 +12,10 @@ use HoangPhi\VietnamMap\Models\District;
 use HoangPhi\VietnamMap\Models\Ward;
 use Buihuycuong\Vnfaker\VNFaker;
 use App\Helpers\Helper;
+use App\Models\Diagnosis;
+use App\Models\GeneralClinical;
+use App\Models\HospitalHistory;
+use App\Models\Vital;
 use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isNull;
@@ -195,11 +199,61 @@ class PatientController extends Controller
         $id = $request->id;
         $account = Patient::where('id', $id)->first();
         if($account) {
-            Patient::destroy($id);
-            return response()->json([
-                'error' => false,
-                'message' => 'Xóa Thành Công'
-            ]);
+            $patient_id = $account->patient_id;
+            // DB::transaction();
+            try {
+                $history = HospitalHistory::where('patient_id', $patient_id)->get();
+                $vitals = Vital::where('patient_id', $patient_id)->get();
+                $generals = GeneralClinical::where('patient_id', $patient_id)->get();
+                $diagnosis = Diagnosis::where('patient_id', $patient_id)->get();
+                $lab_result = DB::table('lab_result')->where('patient_id', $patient_id)->get();
+                $imaging_result = DB::table('imaging_result')->where('patient_id', $patient_id)->get();
+                $subclinical_services = DB::table('subclinical_service')->where('patient_id', $patient_id)->get();
+                if (!empty($history)) {
+                    HospitalHistory::where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($vitals)) {
+                    Vital::where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($generals)) {
+                    GeneralClinical::where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($diagnosis)) {
+                    Diagnosis::where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($lab_result)) {
+                    DB::table('lab_result')->where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($imaging_result)) {
+                    DB::table('imaging_result')->where('patient_id', $patient_id)->delete();
+                }
+                if (!empty($subclinical_services)) {
+                    DB::table('subclinical_service')->where('patient_id', $patient_id)->delete();
+                }
+                if(session()->get('patient_id') == $patient_id) {
+                    Session::forget('patient_id');
+                }
+                
+                Patient::destroy($id);
+                // DB::commit();
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Xóa Thành Công'
+                ]);
+
+            }
+            catch (\Exception $err) {
+                // DB::rollback();
+                return response()->json([
+                    'error' => true,
+                    'message' => $err->getMessage(),
+                ]);
+            }
+            // Patient::destroy($id);
+            // return response()->json([
+            //     'error' => false,
+            //     'message' => 'Xóa Thành Công'
+            // ]);
         }
 
         return response()->json([

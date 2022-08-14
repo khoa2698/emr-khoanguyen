@@ -19,7 +19,7 @@ class SummaryEmrController extends Controller
         $childMenuActive = $this->childMenuActive;
         $icd10s = DB::table('icd10')->orderBy('id', 'ASC')->get();
         $patient_id = session()->get('patient_id');
-        if($patient_id != null){
+        if(!empty($patient_id)){
             $patient = Patient::where('patient_id', $patient_id)->first();
             $hospitalhistory_times = HospitalHistory::select(['time'])->where('patient_id', $patient_id)->orderBy('time', 'desc')->get();
             
