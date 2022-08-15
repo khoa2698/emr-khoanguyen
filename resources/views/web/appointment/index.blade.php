@@ -61,14 +61,14 @@
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="fullname" class="form-label">Tên đầy đủ<span class="mandatory"> *</span></label>
-                                    <input id="fullname" name="name" type="text" placeholder="VD: Khoa Nguyễn" class="form-control">
+                                    <input id="fullname" name="name" value="{{ old('name') }}" type="text" placeholder="VD: Khoa Nguyễn" class="form-control">
                                     <span class="form-message"></span>
                                 </div>
                                 </div>
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email<span class="mandatory"> *</span></label>
-                                    <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+                                    <input id="email" value="{{ old('email') }}" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
                                     <span class="form-message"></span>
                                 </div>
                                 </div>
@@ -78,14 +78,14 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="phone-number" class="form-label">Điện thoại<span class="mandatory"> *</span></label>
-                                        <input id="phone-number" name="phone" type="text" placeholder="Số điện thoại" class="form-control">
+                                        <input id="phone-number" name="phone" value="{{ old('phone') }}" type="text" maxlength="10" placeholder="Số điện thoại" class="form-control">
                                         <span class="form-message"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="formDate" class="form-label">Lịch hẹn<span class="mandatory"> *</span></label>
-                                    <input id="formDate" min="" name="date" type="date" class="form-control">
+                                    <input id="formDate" min="" value="{{ old('date') }}" name="date" type="date" class="form-control">
                                     <span class="form-message"></span>
                                 </div>
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="formAddress" class="form-label">Địa chỉ<span class="mandatory"> *</span></label>
-                                    <input id="formAddress" name="address" type="text" placeholder="Địa chỉ của bạn" class="form-control">
+                                    <input id="formAddress" value="{{ old('address') }}" name="address" type="text" placeholder="Địa chỉ của bạn" class="form-control">
                                     <span class="form-message"></span>
                                 </div>
                                 </div>
@@ -116,9 +116,9 @@
                                     <label for="gender" class="form-label">Giới tính<span class="mandatory"> *</span></label>
                                     <select name="gender" id="gender" class="form-control">
                                     <option value="">Chọn</option>
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                    <option value="Khác">Khác</option>
+                                    <option {{ old('gender') == 'Nam' ? 'selected' : '' }} value="Nam">Nam</option>
+                                    <option {{ old('gender') == 'Nữ' ? 'selected' : ''  }} value="Nữ">Nữ</option>
+                                    <option {{ old('gender') == 'Khác' ? 'selected' : ''  }} value="Khác">Khác</option>
                                     </select>
                                     <span class="form-message"></span>
                                 </div>
@@ -130,25 +130,25 @@
                                 <span style="display: block" class="form-message"></span>
                                 <div class="row" id="formServices">
                                 <div class="col-lg-6">
-                                    <input type="checkbox" id="service-1" name="services[]" value="Nhận tư vấn">
+                                    <input type="checkbox" id="service-1" name="services[]" {{ old('services') == 'Nhận tư vấn' ? 'checked' : ''  }} value="Nhận tư vấn">
                                     <label for="service-1">Nhận tư vấn</label><br>
-                                    <input type="checkbox" id="service-2" name="services[]" value="Thẩm mỹ răng sứ">
+                                    <input type="checkbox" id="service-2" name="services[]" {{ old('services') == 'Thẩm mỹ răng sứ' ? 'checked' : ''  }} value="Thẩm mỹ răng sứ">
                                     <label for="service-2">Thẩm mỹ răng sứ</label><br>
-                                    <input type="checkbox" id="service-3" name="services[]" value="Chỉnh nha niềng rằng">
+                                    <input type="checkbox" id="service-3" name="services[]" {{ old('services') == 'Chỉnh nha niềng rằng' ? 'checked' : ''  }} value="Chỉnh nha niềng rằng">
                                     <label for="service-3">Chỉnh nha niềng rằng</label><br>
-                                    <input type="checkbox" id="service-4" name="services[]" value="Trám răng thẩm mỹ">
+                                    <input type="checkbox" id="service-4" name="services[]" {{ old('services') == 'Trám răng thẩm mỹ' ? 'checked' : ''  }} value="Trám răng thẩm mỹ">
                                     <label for="service-4">Trám răng thẩm mỹ</label><br>
-                                    <input type="checkbox" id="service-5" name="services[]" value="Làm răng giả">
+                                    <input type="checkbox" id="service-5" name="services[]" {{ old('services') == 'Làm răng giả' ? 'checked' : ''  }} value="Làm răng giả">
                                     <label for="service-5">Làm răng giả</label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="checkbox" id="service-6" name="services[]" value="Tẩy trắng răng">
+                                    <input type="checkbox" id="service-6" name="services[]" {{ old('services') == 'Tẩy trắng răng' ? 'checked' : ''  }} value="Tẩy trắng răng">
                                     <label for="service-6">Tẩy trắng răng</label><br>
-                                    <input type="checkbox" id="service-7" name="services[]" value="Lấy cao răng">
+                                    <input type="checkbox" id="service-7" name="services[]" {{ old('services') == 'Lấy cao răng' ? 'checked' : ''  }} value="Lấy cao răng">
                                     <label for="service-7">Lấy cao răng</label><br>
-                                    <input type="checkbox" id="service-8" name="services[]" value="Mặt dán răng sứ Veneers">
+                                    <input type="checkbox" id="service-8" name="services[]" {{ old('services') == 'Mặt dán răng sứ Veneers' ? 'checked' : ''  }} value="Mặt dán răng sứ Veneers">
                                     <label for="service-8">Mặt dán răng sứ Veneers</label><br>
-                                    <input type="checkbox" id="service-9" name="services[]" value="Bọc răng sứ Emax">
+                                    <input type="checkbox" id="service-9" name="services[]" {{ old('services') == 'Bọc răng sứ Emax' ? 'checked' : ''  }} value="Bọc răng sứ Emax">
                                     <label for="service-9">Bọc răng sứ Emax</label>
                                 </div>
                                 </div>
@@ -157,7 +157,7 @@
                             <div class="form-group">
                                 <label for="form-field-message" class="form-label">Nếu bạn cần hỏi điều gì hoặc muốn gửi các thông tin về mối quan tâm
                                 của bạn vui lòng điền vào khung bên dưới.</label>
-                                <textarea name="more_info" id="form-field-message" cols="100%" rows="5" placeholder="Nội dung" class="form-control"></textarea>
+                                <textarea name="more_info" id="form-field-message" cols="100%" rows="5" placeholder="Nội dung" class="form-control">{{ old('more_info') }}</textarea>
                             </div>
                             
                             {{-- loading submit --}}

@@ -40,4 +40,26 @@
   today = yyyy+'-'+mm+'-'+dd;
   document.getElementById("formDate").setAttribute("min", today);
   // End set min input date
+
+  // Check duplicate time 
+
+  $('.form-group #formDate').on('change', function() {
+      let value = $('.form-group #formDate').val();
+      $.ajax({
+          url: '/loadTimeList',
+          type: 'GET',
+          data: {
+              value
+          }, success: function(result) {
+              if(result.error){
+                $('.form-group #formTimes').html(result.message)
+              }
+              if (result.error) {
+                $('.form-group #formTimes').html(result.message)
+              }
+          }
+      })
+  })
+
+  // End check for duplicate time
 </script>

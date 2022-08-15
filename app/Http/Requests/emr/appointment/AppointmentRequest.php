@@ -31,7 +31,8 @@ class AppointmentRequest extends FormRequest
             'time' => ['required'],
             'address' => ['required'],
             'gender' => ['required'],
-            'services' => ['required']
+            'services' => ['required'],
+            'more_info' => ['nullable', 'max:255']
         ];
     }
 }

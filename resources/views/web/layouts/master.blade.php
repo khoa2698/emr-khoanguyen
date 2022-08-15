@@ -91,7 +91,7 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <label for="phone-number" class="form-label">Điện thoại di động<span class="mandatory"> *</span></label>
-                  <input id="phone-number" name="phone" type="tel" placeholder="Số điện thoại" class="form-control">
+                  <input id="phone-number" name="phone" type="tel" maxlength="10" placeholder="Số điện thoại" class="form-control">
                   <span class="form-message"></span>
                 </div>
               </div>

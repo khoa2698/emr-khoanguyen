@@ -56,7 +56,11 @@ class AppointmentController extends Controller
 
     public function store(AppointmentRequest $appointmentRequest)
     {
-        // dd($appointmentRequest->all());
+        $now = strtotime('now');
+        $date_appointment = strtotime($appointmentRequest->date . $appointmentRequest->time);
+        if ($now > $date_appointment) {
+            return redirect()->route('appointmentPatient.index')->withErrors('Thời gian cuộc hẹn không hợp lệ');
+        }
         if(!empty($appointmentRequest->services)) {
             $services = implode(', ', $appointmentRequest->services);
         } else {
@@ -102,7 +106,7 @@ class AppointmentController extends Controller
     {
         $generalInfoActive = 'generalInfoActive';
         $appointmentActive = 'appointmentActive';
-        $appointment = Appointment::where('token', $token);
+        $appointment = Appointment::where('token', $token)->where('email_verified_at', null);
         if(!empty($appointment->first())){
             if($this->checkTimeOut($appointment->first()->created_at)){
                 try{

@@ -17,8 +17,10 @@ use App\Http\Controllers\emr\summaryemr;
 use App\Http\Controllers\emr\SummaryEmrController;
 use App\Http\Controllers\emr\VitalController;
 use App\Http\Controllers\LangController;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +43,78 @@ Route::get('/', function() {
     # Load ajax time List
 Route::get('/loadTimeList', function(Request $request){
     if(!empty($request->value)) {
-        return true;
+        if($request->value == date('Y-m-d')) {
+            $time_today = true;
+        } else {
+            $time_today = false;
+        }
+        $appointment_times = [];
+        $timeList = '<option value="">Thời gian</option>';
+        
+        $appointment_date = Appointment::where('date', $request->value)->get();
+        if (!empty($appointment_date)) {
+            foreach($appointment_date as $date) {
+                array_push($appointment_times, $date->time);
+            }
+        }
+
+        $timeList .= '<option'; 
+        if (in_array('08:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '08:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="08:00">08:00 Sáng</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('09:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '09:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="09:00">09:00 Sáng</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('10:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '10:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="10:00">10:00 Sáng</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('11:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '11:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="11:00">11:00 Sáng</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('13:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '13:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="13:00">13:00 Chiều</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('14:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '14:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="14:00">14:00 Chiều</option>';
+
+        $timeList .= '<option'; 
+        if (in_array('15:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '15:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="15:00">15:00 Chiều</option>';
+        
+        $timeList .= '<option'; 
+        if (in_array('16:00:00', $appointment_times) || ($time_today && (strtotime('now') > strtotime($request->value . '16:00:00')))) {
+            $timeList .= ' hidden="true"';
+        }
+        $timeList .= ' value="16:00">16:00 Chiều</option>';
+
+        return response()->json([
+            'error' => true,
+            'message' => $timeList,
+        ]);
     } else {
-        return false;
+        response()->json([
+            'error' => false,
+            'message' => '<option value="">Thời gian</option>',
+        ]);
     }
 });
 /** --------End Web ---------*/
