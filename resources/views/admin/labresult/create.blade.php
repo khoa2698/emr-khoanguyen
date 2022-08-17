@@ -103,7 +103,7 @@
                         
                         <fieldset style="padding:30px; border:1px solid #4238ca; background:#f6f8ff;">
                             <legend>Nhập kết quả xét nghiệm máu:</legend>
-                                <label for="glu">Đường trong máu (Glu):</label>
+                                <label for="glu">Đường trong máu (Glu):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="glu" name="glu" type="text" value="{{ old('glu') }}" class="form-control">
                                     <div class="input-group-append">
@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
 
-                                <label for="ure">Ure máu (Ure):</label>
+                                <label for="ure">Ure máu (Ure):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="ure" name="ure" type="text" value="{{ old('ure') }}" class="form-control">
                                     <div class="input-group-append">
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <label for="rbc">Số lượng hồng cầu (RBC):</label>
+                                <label for="rbc">Số lượng hồng cầu (RBC):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="rbc" name="rbc" type="text" value="{{ old('rbc') }}" class="form-control">
                                     <div class="input-group-append">
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="hb">Lượng huyết sắc tố (Hb):</label>
+                                <label for="hb">Lượng huyết sắc tố (Hb):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="hb" name="hb" type="text" value="{{ old('hb') }}" class="form-control">
                                     <div class="input-group-append">
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="hct">Khối hồng cầu (HCT):</label>
+                                <label for="hct">Khối hồng cầu (HCT):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="hct" name="hct" type="text" value="{{ old('hct') }}" class="form-control">
                                     <div class="input-group-append">
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="mcv">Thể tích trung bình của hồng cầu (MCV):</label>
+                                <label for="mcv">Thể tích trung bình của hồng cầu (MCV):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="mcv" name="mcv" type="text" value="{{ old('mcv') }}" class="form-control">
                                     <div class="input-group-append">
@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="mch">Lượng Hb trung bình hồng cầu (MCH):</label>
+                                <label for="mch">Lượng Hb trung bình hồng cầu (MCH):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="mch" name="mch" type="text" value="{{ old('mch') }}" class="form-control">
                                     <div class="input-group-append">
@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="wbc">Số lượng bạch cầu trong một thể tích máu (WBC):</label>
+                                <label for="wbc">Số lượng bạch cầu trong một thể tích máu (WBC):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="wbc" name="wbc" type="text" value="{{ old('wbc') }}" class="form-control">
                                     <div class="input-group-append">
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="neut">Bạch cầu trung tính (NEUT):</label>
+                                <label for="neut">Bạch cầu trung tính (NEUT):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="neut" name="neut" type="text" value="{{ old('neut') }}" class="form-control">
                                     <div class="input-group-append">
@@ -175,7 +175,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="lym">Bạch cầu Lympho (LYM):</label>
+                                <label for="lym">Bạch cầu Lympho (LYM):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="lym" name="lym" type="text" value="{{ old('lym') }}" class="form-control">
                                     <div class="input-group-append">
@@ -183,7 +183,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="mono">Bạch cầu Mono:</label>
+                                <label for="mono">Bạch cầu Mono:<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="mono" name="mono" type="text" value="{{ old('mono') }}" class="form-control">
                                     <div class="input-group-append">
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 
-                                <label for="plt">Số lượng tiểu cầu trong một thể tích máu (PLT):</label>
+                                <label for="plt">Số lượng tiểu cầu trong một thể tích máu (PLT):<span class="mandatory"> *</span></label>
                                 <div class="input-group mb-3">
                                     <input id="plt" name="plt" type="text" value="{{ old('plt') }}" class="form-control">
                                     <div class="input-group-append">
@@ -202,7 +202,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="blood_group">Nhóm máu</label>
+                                            <label for="blood_group">Nhóm máu<span class="mandatory"> *</span></label>
                                             <select id="blood_group" name="blood_group" class="form-control">
                                                 <option value="">-- chọn nhóm máu --</option>
                                                 <option {{ old('blood_group') == 'O' ? 'selected' : '' }} value="O">O</option>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="blood_type">Loại máu</label>
+                                            <label for="blood_type">Loại máu<span class="mandatory"> *</span></label>
                                             <select id="blood_type" name="blood_type" class="form-control">
                                                 <option value="">----</option>
                                                 <option {{ old('blood_type') == 'Rh+' ? 'selected' : '' }} value="Rh+">Rh+</option>
