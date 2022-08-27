@@ -25,7 +25,7 @@ type: create database YourDatabase <br>
 (9) php artisan key:generate <br>
 (10) php artisan migrate <br>
 (11) php artisan vietnam-map:download <br>
-(12) php artisan db:seed <br>
+(12) php artisan db:seed --class=DataBaseSeeder <br>
 (13) open file icd10s.txt, copy and insert data into database <br>
 
 
