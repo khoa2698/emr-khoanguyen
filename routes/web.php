@@ -17,6 +17,8 @@ use App\Http\Controllers\emr\summaryemr;
 use App\Http\Controllers\emr\SummaryEmrController;
 use App\Http\Controllers\emr\VitalController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\TestEnrollmentController;
+use App\Http\Controllers\TestPusher;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -227,3 +229,10 @@ Route::prefix('/appointmentPatient')->group(function(){
     // Route::put('/add/{token}', [AppointmentController::class, 'emailVerified'])->name('appointmentPatient.verified.post');
     Route::post('/add', [AppointmentController::class, 'store'])->name('appointmentPatient.store');
 });
+
+# Test pusher
+Route::get('/test-pusher', [TestPusher::class, 'getFrontEnd']);
+Route::get('/sent', [TestPusher::class, 'sent']);
+
+# Test notification
+Route::get('send-testenrollment', [TestEnrollmentController::class, 'sendTestNotification']);
