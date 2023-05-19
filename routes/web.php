@@ -20,6 +20,7 @@ use App\Http\Controllers\LangController;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 
 /*
@@ -218,6 +219,7 @@ Route::prefix('/emr')->middleware(['auth'])->group(function(){
         Route::post('/add', 'store')->name('appointment.store');
         Route::post('/add/patient', 'addNewPatient')->name('addpatient.addNewPatient');
     });
+
 });
 
 # Route Appointments Patient side
