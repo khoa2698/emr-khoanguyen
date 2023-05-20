@@ -81,7 +81,7 @@
 
             <div class="form-group">
                 <div class="input-group mb-1">
-                  <input id="password" type="text" name="password" class="form-control" placeholder="Mật khẩu">
+                  <input id="password" type="password" name="password" class="form-control" placeholder="Mật khẩu">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-lock"></span>
