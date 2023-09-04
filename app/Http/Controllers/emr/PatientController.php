@@ -16,6 +16,7 @@ use App\Models\Diagnosis;
 use App\Models\GeneralClinical;
 use App\Models\HospitalHistory;
 use App\Models\Vital;
+use App\Repository\src\Eloquent\PatientRepository;
 use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isNull;
@@ -24,16 +25,22 @@ class PatientController extends Controller
 {
     public $menuActive = 'patientMenu';
     public $childMenuActive = 'childPatientMenu';
+    private $patientRepository;
+
+    public function __construct(PatientRepository $patientRepository)
+    {
+        $this->patientRepository = $patientRepository;
+    }
     public function index(Request $request)
     {
         $menuActive = $this->menuActive;
         $childMenuActive = $this->childMenuActive;
+        $all_patients = $this->patientRepository->paginate(20);
+
+        // $all_patients = Patient::orderByDesc('id')->paginate(20)->withQueryString();
         if(!empty($request->patient_id)){
             $all_patients = Patient::where('patient_id', $request->patient_id)->paginate(20)->withQueryString();
-            return view('admin.patients.index', compact('all_patients', 'menuActive', 'childMenuActive'));
-            
         }
-        $all_patients = Patient::orderByDesc('id')->paginate(20)->withQueryString();
         return view('admin.patients.index', compact('all_patients', 'menuActive', 'childMenuActive'));
     }
 

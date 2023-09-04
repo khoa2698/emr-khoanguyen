@@ -22,7 +22,6 @@ class AuthController extends Controller
      */
     public function authenticate(AuthRequest $request)
     {
-        // dd($request->all());
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
