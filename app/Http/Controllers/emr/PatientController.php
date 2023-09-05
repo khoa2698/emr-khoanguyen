@@ -16,6 +16,7 @@ use App\Models\Diagnosis;
 use App\Models\GeneralClinical;
 use App\Models\HospitalHistory;
 use App\Models\Vital;
+use App\Repository\Criteria\Patients\PatientByPatientId;
 use App\Repository\src\Eloquent\PatientRepository;
 use Illuminate\Support\Facades\Session;
 
@@ -37,9 +38,9 @@ class PatientController extends Controller
         $childMenuActive = $this->childMenuActive;
         $all_patients = $this->patientRepository->paginate(20);
 
-        // $all_patients = Patient::orderByDesc('id')->paginate(20)->withQueryString();
         if(!empty($request->patient_id)){
-            $all_patients = Patient::where('patient_id', $request->patient_id)->paginate(20)->withQueryString();
+            $this->patientRepository->pushCriteria(new PatientByPatientId($request->patient_id));
+            $all_patients = $this->patientRepository->paginate(20)->withQueryString();
         }
         return view('admin.patients.index', compact('all_patients', 'menuActive', 'childMenuActive'));
     }
